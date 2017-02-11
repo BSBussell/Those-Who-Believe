@@ -1,2 +1,2 @@
-#!/bin/bash
-exec /Applications/love.app/Contents/MacOS/love /Users/BenBusBoy/Documents/Project Z
+
+/Applications/love.app/Contents/MacOS/love ~/Documents/ProjectZ

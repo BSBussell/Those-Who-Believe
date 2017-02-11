@@ -16,7 +16,7 @@ world = require "Maps/maphandler"
 
 function love.load()
  	love.window.setMode(1000, 600)
-    love.window.setTitle( "Project Z v0.1 Beta" )
+    love.window.setTitle( "Project Z v0.01 Beta" )
     
     inventory.load()
 	map:resize (10400, 6230)
