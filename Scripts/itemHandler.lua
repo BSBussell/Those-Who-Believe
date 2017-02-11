@@ -6,7 +6,7 @@ require "Scripts/inventory"
 
 function swingSword()
     multiplier = 1
-    timer = 12
+    timer = 8
 		--swordActive = true
 		
 		if player.xvel == 0 and player.yvel == 0 then
