@@ -212,22 +212,27 @@ function player.DRAW()
 end 
 
 function love.keyreleased(key)
-	if key == "j" and inventory.Sword ~= nil then
-		swingSword()
-	end
-    if key == "k" and inventory.Boomerang ~= nil then
-        throwBoomerang()
+	if inventoryOpen == false then
+        if key == "j" and inventory.Sword ~= nil then
+		  if inventory.Hotbar.jItem == "Sword" then swingSword() end
+	   end
+        if key == "k" and inventory.Boomerang ~= nil then
+            throwBoomerang()
+        end
+        if key == "w" or key == "up" then
+            player.animation = charani.NulUp
+        end
+        if key == "s" or key == "down" then
+            player.animation = charani.NulDown
+        end
+        if key == "a" or key == "left" then
+            player.animation = charani.NulLeft
+        end
+        if key == "d" or key == "right" then
+            player.animation = charani.NulRight
+        end
     end
-    if key == "w" or key == "up" then
-        player.animation = charani.NulUp
-    end
-    if key == "s" or key == "down" then
-        player.animation = charani.NulDown
-    end
-    if key == "a" or key == "left" then
-        player.animation = charani.NulLeft
-    end
-    if key == "d" or key == "right" then
-        player.animation = charani.NulRight
+    if key == "e" then
+            inventoryOpen = flipBool(inventoryOpen)
     end
 end

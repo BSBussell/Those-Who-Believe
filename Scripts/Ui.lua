@@ -24,8 +24,8 @@ function Ui.draw()
     love.graphics.rectangle("fill",225,10,50,75)
     love.graphics.setColor(255,255,255,255)
     love.graphics.draw(swordUI,310,15,0,4,4)
-    if inventory.Boomerang~= nil then
-        love.graphics.draw(inventory.Boomerang.image,235,15,0,3,4)
+    if inventory.Boomerang ~= nil then
+        love.graphics.draw(inventory.Boomerang.image,230,15,0,3,4)
     end
     love.graphics.setFont( lFont )
     love.graphics.print( "J", 320,10 )
@@ -43,4 +43,17 @@ function Ui.draw()
     
     
     love.graphics.setColor(255,255,255,255)
+end
+
+function inventory.Draw()
+    love.graphics.setColor(255,255,255,155)
+    love.graphics.rectangle("fill",20,120,960,400)
+    love.graphics.setColor(255,255,255,55)
+    love.graphics.setColor(255,255,255,255)
+    if inventory.Sword ~= nil then
+        love.graphics.draw(swordUI,25,140,0,4,4)
+    end
+    if inventory.Boomerang ~= nil then
+        love.graphics.draw(inventory.Boomerang.image,75,140,0,3,4)
+    end
 end
