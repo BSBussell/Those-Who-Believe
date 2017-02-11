@@ -42,7 +42,7 @@ function enemy.update(dt)
         
         if enemy[i].hp <= 0 and result == true or enemy[i] == nil then 
             world:remove("Enemy "..enemy[i].id.." "..i)
-            world:add("Enemy "..enemy[i].id.." "..i,-200,-200,16,16)
+            world:add("Enemy "..enemy[i].id.." "..i,-20,-20,16,16)
             enemy[i].x = -200
             enemy[i].y = -200
             adder = adder+1
@@ -55,6 +55,7 @@ function enemy.update(dt)
                     goalX = enemy[i].x+enemy[i].speed*dt
                     if enemy[i].id == 1 then enemy1CrntAni = enemy1RightAnimation end
                 end
+        
                 if player.y < enemy[i].y then
                     goalY = enemy[i].y-enemy[i].speed*dt
                     if enemy[i].id == 1 then enemy1CrntAni = enemy1UpAnimation end
@@ -116,7 +117,6 @@ function enemy.newEnemy(id,x,y)
         newEnemy.stunned = false
         newEnemy.stunTimer = 0
         newEnemy.speed = 16
-        newEnemy.damage = .5
         newEnemy.range = 180
         table.insert(enemy,newEnemy)
         world:add("Enemy 0 "..enemyNum+1,x,y,16,16)
@@ -130,7 +130,6 @@ function enemy.newEnemy(id,x,y)
         newEnemy.stunTimer = 0
         newEnemy.speed = 16
         newEnemy.range = 200
-        newEnemy.damage = 1.5
         table.insert(enemy,newEnemy)
         world:add("Enemy 1 "..enemyNum+1,x,y,30,32)
     end

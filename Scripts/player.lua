@@ -59,8 +59,8 @@ function player.load()
     
 	world:add("player", 1200,1296,30,22)
 
-    player.hp = 800
-    player.maxHp = 800
+    player.hp = 1800
+    player.maxHp = 1800
     local x,y = map:convertTileToPixel(77,77)
 	player.x = x
 	player.y = y
@@ -104,7 +104,7 @@ function player.physics(dt)
             
         local playerFilter = function(item,other)
             for i,v in ipairs(enemy) do
-                if other == "Enemy "..enemy[i].id.." "..i then return "bounce"  end
+                if other == "Enemy 0 "..i then return "bounce"  end
             end
             if other == "Sword" then
                 return nil
@@ -127,8 +127,8 @@ function player.physics(dt)
        for i = 1, len do
             local object = cols[i].other
             for i,v in ipairs(enemy) do
-                if object == "Enemy "..enemy[i].id.." "..i  then
-                    player.hp = player.hp - enemy[i].damage
+                if object == "Enemy 0 "..i  then
+                    player.hp = player.hp - .5
                     if player.hp<=0 then
                         error("\n\n\nYou Died\n")
                     end
@@ -149,7 +149,7 @@ function player.move(dt)
     if ((love.keyboard.isDown("d") or love.keyboard.isDown("right")) and 
 		player.xvel < player.speed) and swordActive == false then 
 		player.xvel = player.xvel + player.speed * dt
-		SwordCord = {player.x+16,player.y+5,20,6}
+		SwordCord = {player.x+16,player.y+5,16,6}
 		sword = Sword_Right
         player.animation = charani.Right
     end
@@ -157,14 +157,14 @@ function player.move(dt)
 	if ((love.keyboard.isDown("a") or love.keyboard.isDown("left")) and 
 		player.xvel > -player.speed) and swordActive == false then 
 		player.xvel = player.xvel - player.speed * dt
-		SwordCord = {player.x-4,player.y+4,20,6}
+		SwordCord = {player.x-4,player.y+4,16,6}
 		sword = Sword_Left
         player.animation = charani.Left
     end
 
 	if ((love.keyboard.isDown("s") or love.keyboard.isDown("down")) and 
 		player.yvel < player.speed) and swordActive == false then     
-		SwordCord = {player.x+(player.width*.25),player.y+8,6,20}
+		SwordCord = {player.x+(player.width*.25),player.y+8,6,16}
 		sword = Sword_Down
 		player.yvel = player.yvel + player.speed * dt 
 		
@@ -172,7 +172,7 @@ function player.move(dt)
     end
 	if ((love.keyboard.isDown("w") or love.keyboard.isDown("up")) and 
 		player.yvel > -player.speed) and swordActive == false then 
-		SwordCord = {player.x+(player.width*.25),player.y-player.height,6,20}
+		SwordCord = {player.x+(player.width*.25),player.y-player.height,6,16}
 		sword = Sword_Up
 		player.yvel = player.yvel - player.speed * dt 
 		player.animation = charani.Down
