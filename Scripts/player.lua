@@ -6,7 +6,7 @@ require "Scripts/Ui"
 require "Scripts/inventory"
 require "Scripts/itemHandler"
 
-require "Maps/Overworld"
+require "Maps/Protyping"
 
 local anim8 = require 'Scripts/anim8'
 
@@ -180,17 +180,17 @@ function player.move(dt)
     end
     
      player.animation:update(dt)
-	if player.x >= 1025 and player.x <= 1045 and player.y >=1263 and player.y<=1298 and love.keyboard.isDown("space") and inventory.Boomerang ==nil then
-        inventory["Boomerang"] = {
-            name = "Boomerang",
-            damage = 500,
-            stunTime = 12,
-            range = 198,
-            speed = 10,
-            image = love.graphics.newImage("Images/Boomerang.png")
-        }
-        alert("\tYou Found a Boomerang!\nOpen up your inventory with E to equip it\nClick to close")
+    for k, object in pairs(map.objects) do
+        if object.name == "ChestSpace" then
+            if player.x >= object.x and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height and love.keyboard.isDown("space") and inventory.Boomerang ==nil then
+                loadstring(object.properties.item)()
+                inventory[item.name] = item
+                    
+                alert("\tYou Found a "..item.name.."\nOpen up your inventory with E to equip it\nClick to close")
+            end
+        end
     end
+	
     
 	
     cam:setPosition(player.x,player.y)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="649" height="390" tilewidth="16" tileheight="16" nextobjectid="2344">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="649" height="390" tilewidth="16" tileheight="16" nextobjectid="2349">
  <tileset firstgid="1" name="SpriteSheet(WIP)" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="42" columns="6">
   <image source="SpriteSheet(WIP).png" trans="ff00ff" width="108" height="126"/>
   <terraintypes>
@@ -1023,6 +1023,7 @@
   <object id="58" x="1450.25" y="1140" width="27" height="3.25"/>
   <object id="59" x="1477.25" y="1135" width="1.25" height="28.25"/>
  </objectgroup>
+ <objectgroup name="Message"/>
  <objectgroup name="Player" visible="0">
   <object id="31" name="Player" x="1445" y="1081"/>
  </objectgroup>
@@ -1161,10 +1162,18 @@
   <object id="2341" name="0" x="200" y="3704"/>
   <object id="2343" name="0" x="144" y="3536"/>
  </objectgroup>
- <objectgroup name="Treasure Chest" visible="0">
+ <objectgroup name="Treasure Chest">
+  <properties>
+   <property name="Item" value=""/>
+  </properties>
   <object id="45" x="1233" y="1456.95" width="13.8182" height="14.8636">
    <properties>
     <property name="item" value="boomerang = {range = 9,speed = 24,stunTime = 9}"/>
+   </properties>
+  </object>
+  <object id="2347" name="ChestSpace" x="1036" y="1248" width="24" height="28">
+   <properties>
+    <property name="item" value="item = { name = &quot;Boomerang&quot;, damage = 500, stunTime = 12, range = 198, speed = 10, image = love.graphics.newImage(&quot;Images/Boomerang.png&quot;)}"/>
    </properties>
   </object>
  </objectgroup>

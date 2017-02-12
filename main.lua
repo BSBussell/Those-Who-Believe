@@ -8,7 +8,7 @@ love.graphics.setDefaultFilter( 'nearest', 'nearest' )
 local bump = require 'Scripts/bump'
 local anim8 = require 'Scripts/anim8'
 
-require "Maps/Overworld"
+require "Maps/Protyping"
 local sti = require "sti"
 world = require "Maps/maphandler"
 print "Test"

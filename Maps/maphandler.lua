@@ -1,7 +1,7 @@
-local map = require 'Maps/Overworld'
+local map = require 'Maps/Protyping'
 local bump = require 'Scripts/bump'
 local sti = require 'sti'
-map = sti("Maps/Overworld.lua", {"bump"})
+map = sti("Maps/Protyping.lua", {"bump"})
 world = bump.newWorld()
 
 map:bump_init(world)
@@ -16,6 +16,15 @@ function loadEnemies()
         end
     end     
 end
+
+function loadChestSpace()
+    for k, object in pairs(map.objects) do
+        if object.name == "ChestSpace" then
+            return object.x, object.y
+        end
+    end     
+end
+    
 
 function replace_tile(map, layer, tilex, tiley, newTileGid) layer = map.layers[layer] for i, instance in ipairs(map.tileInstances[layer.data[tiley][tilex].gid]) do if instance.layer == layer and instance.x/map.tilewidth+1 == tilex and instance.y/map.tileheight+1 == tiley then instance.batch:set(instance.id, map.tiles[newTileGid].quad, instance.x, instance.y) break end end end
 

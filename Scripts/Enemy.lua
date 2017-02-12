@@ -1,5 +1,5 @@
 local sti = require "sti"
-map = sti("Maps/Overworld.lua", {"bump"})
+map = sti("Maps/Protyping.lua", {"bump"})
 world = require "Maps/maphandler"
 local anim8 = require "Scripts/anim8"
 require "Scripts/inventory"
