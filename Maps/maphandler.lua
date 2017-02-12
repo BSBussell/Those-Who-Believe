@@ -1,7 +1,7 @@
-local map = require 'Maps/Protyping02'
+local map = require 'Maps/Overworld'
 local bump = require 'Scripts/bump'
 local sti = require 'sti'
-map = sti("Maps/Protyping02.lua", {"bump"})
+map = sti("Maps/Overworld.lua", {"bump"})
 world = bump.newWorld()
 
 map:bump_init(world)

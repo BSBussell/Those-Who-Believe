@@ -6,7 +6,7 @@ require "Scripts/Ui"
 require "Scripts/inventory"
 require "Scripts/itemHandler"
 
-require "Maps/Protyping02"
+require "Maps/Overworld"
 
 local anim8 = require 'Scripts/anim8'
 
