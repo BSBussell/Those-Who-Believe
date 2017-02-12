@@ -1,2 +1,3 @@
-#!/bin/bash
-exec /Applications/love.app/Contents/MacOS/love /Users/BenBusBoy/Documents/Project Z
+
+alias love="/Applications/love.app/Contents/MacOS/love"
+/Applications/love.app/Contents/MacOS/love ~/Documents/ProjectZ 

@@ -2,7 +2,7 @@ local bump = require 'Scripts/bump'
 local sti  = require 'sti'
 player = {} 
 world = require "Maps/maphandler"
-
+require "Scripts/Ui"
 require "Scripts/inventory"
 require "Scripts/itemHandler"
 
@@ -59,8 +59,8 @@ function player.load()
     
 	world:add("player", 1200,1296,30,22)
 
-    player.hp = 1800
-    player.maxHp = 1800
+    player.hp = 800
+    player.maxHp = 800
     local x,y = map:convertTileToPixel(77,77)
 	player.x = x
 	player.y = y
@@ -104,7 +104,7 @@ function player.physics(dt)
             
         local playerFilter = function(item,other)
             for i,v in ipairs(enemy) do
-                if other == "Enemy 0 "..i then return "bounce"  end
+                if other == "Enemy "..enemy[i].id.." "..i then return "bounce"  end
             end
             if other == "Sword" then
                 return nil
@@ -127,8 +127,8 @@ function player.physics(dt)
        for i = 1, len do
             local object = cols[i].other
             for i,v in ipairs(enemy) do
-                if object == "Enemy 0 "..i  then
-                    player.hp = player.hp - .5
+                if object == "Enemy "..enemy[i].id.." "..i  then
+                    player.hp = player.hp - enemy[i].damage
                     if player.hp<=0 then
                         error("\n\n\nYou Died\n")
                     end
@@ -149,7 +149,7 @@ function player.move(dt)
     if ((love.keyboard.isDown("d") or love.keyboard.isDown("right")) and 
 		player.xvel < player.speed) and swordActive == false then 
 		player.xvel = player.xvel + player.speed * dt
-		SwordCord = {player.x+16,player.y+5,16,6}
+		SwordCord = {player.x+16,player.y+5,20,6}
 		sword = Sword_Right
         player.animation = charani.Right
     end
@@ -157,14 +157,14 @@ function player.move(dt)
 	if ((love.keyboard.isDown("a") or love.keyboard.isDown("left")) and 
 		player.xvel > -player.speed) and swordActive == false then 
 		player.xvel = player.xvel - player.speed * dt
-		SwordCord = {player.x-4,player.y+4,16,6}
+		SwordCord = {player.x-4,player.y+4,20,6}
 		sword = Sword_Left
         player.animation = charani.Left
     end
 
 	if ((love.keyboard.isDown("s") or love.keyboard.isDown("down")) and 
 		player.yvel < player.speed) and swordActive == false then     
-		SwordCord = {player.x+(player.width*.25),player.y+8,6,16}
+		SwordCord = {player.x+(player.width*.25),player.y+8,6,20}
 		sword = Sword_Down
 		player.yvel = player.yvel + player.speed * dt 
 		
@@ -172,21 +172,23 @@ function player.move(dt)
     end
 	if ((love.keyboard.isDown("w") or love.keyboard.isDown("up")) and 
 		player.yvel > -player.speed) and swordActive == false then 
-		SwordCord = {player.x+(player.width*.25),player.y-player.height,6,16}
+		SwordCord = {player.x+(player.width*.25),player.y-player.height,6,20}
 		sword = Sword_Up
 		player.yvel = player.yvel - player.speed * dt 
 		player.animation = charani.Down
     end
     
      player.animation:update(dt)
-	if player.x >= 1025 and player.x <= 1045 and player.y >=1263 and player.y<=1298 and love.keyboard.isDown("space") then
+	if player.x >= 1025 and player.x <= 1045 and player.y >=1263 and player.y<=1298 and love.keyboard.isDown("space") and inventory.Boomerang ==nil then
         inventory["Boomerang"] = {
+            name = "Boomerang",
             damage = 500,
             stunTime = 12,
             range = 198,
             speed = 10,
             image = love.graphics.newImage("Images/Boomerang.png")
         }
+        alert("\tYou Found a Boomerang!\nOpen up your inventory with E to equip it\nClick to close")
     end
     
 	
@@ -212,22 +214,29 @@ function player.DRAW()
 end 
 
 function love.keyreleased(key)
-	if key == "j" and inventory.Sword ~= nil then
-		swingSword()
-	end
-    if key == "k" and inventory.Boomerang ~= nil then
-        throwBoomerang()
+	if inventoryOpen == false and gamePause == false then
+        if key == "j" and inventory.Sword ~= nil then
+		  if inventory.Hotbar.jItem == "Sword" then swingSword() end
+          if inventory.Hotbar.jItem == "Boomerang" then throwBoomerang() end
+	    end
+        if key == "k" and inventory.Boomerang ~= nil then
+          if inventory.Hotbar.kItem == "Sword" then swingSword() end
+          if inventory.Hotbar.kItem == "Boomerang" then throwBoomerang() end
+        end
+        if key == "w" or key == "up" then
+            player.animation = charani.NulUp
+        end
+        if key == "s" or key == "down" then
+            player.animation = charani.NulDown
+        end
+        if key == "a" or key == "left" then
+            player.animation = charani.NulLeft
+        end
+        if key == "d" or key == "right" then
+            player.animation = charani.NulRight
+        end
     end
-    if key == "w" or key == "up" then
-        player.animation = charani.NulUp
-    end
-    if key == "s" or key == "down" then
-        player.animation = charani.NulDown
-    end
-    if key == "a" or key == "left" then
-        player.animation = charani.NulLeft
-    end
-    if key == "d" or key == "right" then
-        player.animation = charani.NulRight
+    if key == "e" then
+            inventoryOpen = flipBool(inventoryOpen)
     end
 end
