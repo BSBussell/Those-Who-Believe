@@ -19,6 +19,7 @@ function love.load()
  	love.window.setMode(1000, 600)
     love.window.setTitle( "Project Z v0.01 Beta" )
     
+    
     inventory.load()
 	map:resize (10400, 6230)
     loadEnemies()
@@ -29,7 +30,7 @@ function love.load()
     
     --enemy.newEnemy(0,40,89)
     --enemy.newEnemy(0,85,74)
-    
+    gamePause = false
     inventoryOpen = false
  	cam = gamera.new(0,0,1000,500)
     cam:setWindow(0,0,1000,600)
@@ -41,8 +42,9 @@ function love.load()
 end
  
 function love.update(dt)
- 	if inventoryOpen ==  false then
+ 	if inventoryOpen ==  false and gamePause == false then
  	  map:update(dt)
+      love.mouse.setVisible(false) 
  	
  	
  	  player.physics(dt)
@@ -63,7 +65,7 @@ function love.draw()
         
     end)
     Ui.draw()
-    if inventoryOpen == true then inventory.Draw() end
+    if inventoryOpen == true then inventoryUIDraw() end
     
 end
 

@@ -2,6 +2,7 @@ inventory = {}
 
 function inventory.load() 
     inventory["Sword"] = {
+        name = "Sword",
         damage = 10,
         image = "Swords.png"
         
@@ -9,7 +10,7 @@ function inventory.load()
     inventory["Hotbar"] = {
         --J = swingSword(),
         jItem = "Sword",
-        K = "Empty",
+        --K = "Empty",
         kItem = "Empty",
     }
     --inventory["Boomerang"] = {

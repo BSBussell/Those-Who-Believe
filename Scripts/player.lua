@@ -2,7 +2,7 @@ local bump = require 'Scripts/bump'
 local sti  = require 'sti'
 player = {} 
 world = require "Maps/maphandler"
-
+require "Scripts/Ui"
 require "Scripts/inventory"
 require "Scripts/itemHandler"
 
@@ -179,14 +179,16 @@ function player.move(dt)
     end
     
      player.animation:update(dt)
-	if player.x >= 1025 and player.x <= 1045 and player.y >=1263 and player.y<=1298 and love.keyboard.isDown("space") then
+	if player.x >= 1025 and player.x <= 1045 and player.y >=1263 and player.y<=1298 and love.keyboard.isDown("space") and inventory.Boomerang ==nil then
         inventory["Boomerang"] = {
+            name = "Boomerang",
             damage = 500,
             stunTime = 12,
             range = 198,
             speed = 10,
             image = love.graphics.newImage("Images/Boomerang.png")
         }
+        alert("\tYou Found a Boomerang!\nOpen up your inventory with E to equip it\nClick to close")
     end
     
 	
@@ -212,12 +214,14 @@ function player.DRAW()
 end 
 
 function love.keyreleased(key)
-	if inventoryOpen == false then
+	if inventoryOpen == false and gamePause == false then
         if key == "j" and inventory.Sword ~= nil then
 		  if inventory.Hotbar.jItem == "Sword" then swingSword() end
-	   end
+          if inventory.Hotbar.jItem == "Boomerang" then throwBoomerang() end
+	    end
         if key == "k" and inventory.Boomerang ~= nil then
-            throwBoomerang()
+          if inventory.Hotbar.kItem == "Sword" then swingSword() end
+          if inventory.Hotbar.kItem == "Boomerang" then throwBoomerang() end
         end
         if key == "w" or key == "up" then
             player.animation = charani.NulUp
