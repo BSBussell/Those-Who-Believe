@@ -81,8 +81,8 @@ function enemy.update(dt)
                 end
                 if object == "Boomerang" then
                     enemy0Animation:pause()
-                    enemy[i].stunned = true
-                    enemy[i].stunTimer = inventory.Boomerang.stunTime
+                    --enemy[i].stunned = true
+                    --enemy[i].stunTimer = inventory.Boomerang.stunTime
                     enemy[i].hp = enemy[i].hp - inventory.Boomerang.damage
                 end
                     

@@ -57,11 +57,12 @@ function player.load()
 	fr = true
 
     
-	world:add("player", 1200,1296,30,22)
+	
 
     player.hp = 800
     player.maxHp = 800
-    local x,y = map:convertTileToPixel(77,77)
+    local x,y = map:convertTileToPixel(13,51)
+    world:add("player", x,y,30,22)
 	player.x = x
 	player.y = y
 	player.width = 14 

@@ -52,45 +52,53 @@ function throwBoomerang()
         boomerangActive = true
         rotation = 0
         boomerangReturn = false
+        boomerangTimer = 130
     end
 end
 
 function boomerangUpdate(dt)
-    local boomerangFilter = function(item,other)
-        --for i,v in ipairs(enemy) do
-        --        if other == "Enemy 0 "..i then return ""  end
-        --end
-        if other == "player" then return "slide" end
-        return "bounce"
-    end
-    rotation = rotation +.2
-    --baseX = baseX+increase
-    --baseY = baseY+increase
-    boomerangGoalX = boomerangX+(increaseX/6)
-    boomerangGoalY = boomerangY+(increaseY/6)
-    if distanceFrom(player.x,player.y,boomerangX,boomerangY) >= inventory.Boomerang.range or boomerangReturn == true then
-        if player.x < boomerangX then
-            boomerangGoalX = boomerangX-2.5
-        else
-            boomerangGoalX = boomerangX+2.5
+    if boomerangActive == true then
+        local boomerangFilter = function(item,other)
+            --for i,v in ipairs(enemy) do
+            --        if other == "Enemy 0 "..i then return ""  end
+            --end
+            if other == "player" then return "slide" end
+            return "bounce"
         end
-        if player.y < boomerangGoalY then
-            boomerangGoalY = boomerangY-2.5
-        else
-            boomerangGoalY = boomerangY+2.5
+        rotation = rotation +.2
+        --baseX = baseX+increase
+        --baseY = baseY+increase
+        boomerangGoalX = boomerangX+(increaseX/6)
+        boomerangGoalY = boomerangY+(increaseY/6)
+        if distanceFrom(player.x,player.y,boomerangX,boomerangY) >= inventory.Boomerang.range or boomerangReturn == true then
+            if player.x < boomerangX then
+                boomerangGoalX = boomerangX-2.5
+            else
+                boomerangGoalX = boomerangX+2.5
+            end
+            if player.y < boomerangGoalY then
+                boomerangGoalY = boomerangY-2.5
+            else
+                boomerangGoalY = boomerangY+2.5
+            end
+            boomerangReturn = true
         end
-        boomerangReturn = true
-    end
-    local actualX, actualY, col, len = world:move("Boomerang",boomerangGoalX,boomerangGoalY,boomerangFilter)
-    boomerangX = actualX
-    boomerangY = actualY
-    for i = 1, len do 
-        local obj = col[i].other
-        if obj == "player" then
-            boomerangActive = false
-            world:remove("Boomerang")
-        else boomerangReturn = true end
+        local actualX, actualY, col, len = world:move("Boomerang",boomerangGoalX,boomerangGoalY,boomerangFilter)
+        boomerangX = actualX
+        boomerangY = actualY
+        for i = 1, len do 
+            local obj = col[i].other
+            if obj == "player" then
+                boomerangActive = false
+                world:remove("Boomerang")
+            else boomerangReturn = true end
         
+        end
+        --boomerangTimer = boomerangTimer - 1
+        --if boomerangTimer <= 0 then
+            --bomerangActive = false
+            --world:remove("Boomerang")
+        --end
     end
 end
 
