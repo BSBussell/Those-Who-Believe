@@ -85,7 +85,11 @@ function player.draw()
         
     end
 	if boomerangActive == true then
-        love.graphics.draw(inventory.Boomerang.image,boomerangX,boomerangY,rotation,.65,.65)
+        if inventory.Hotbar.kItem ~= "EnchantedBoomerang" then
+            love.graphics.draw(inventory.Boomerang.image,boomerangX,boomerangY,rotation,.65,.65)
+        else
+            love.graphics.draw(inventory.EnchantedBoomerang.image,boomerangX,boomerangY,rotation,.65,.65)
+        end
     end
 	if timer == 0  then 
 		multiplier = 0
@@ -182,7 +186,7 @@ function player.move(dt)
      player.animation:update(dt)
     for k, object in pairs(map.objects) do
         if object.name == "ChestSpace" then
-            if player.x >= object.x and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height and love.keyboard.isDown("space") and inventory.Boomerang ==nil then
+            if player.x >= object.x and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height+20 and love.keyboard.isDown("space") and inventory.Boomerang ==nil then
                 loadstring(object.properties.item)()
                 inventory[item.name] = item
                     
@@ -218,11 +222,11 @@ function love.keyreleased(key)
 	if inventoryOpen == false and gamePause == false then
         if key == "j" and inventory.Sword ~= nil then
 		  if inventory.Hotbar.jItem == "Sword" then swingSword() end
-          if inventory.Hotbar.jItem == "Boomerang" then throwBoomerang() end
+          if inventory.Hotbar.jItem == "Boomerang" or inventory.Hotbar.jItem == "EnchantedBoomerang" then throwBoomerang() end
 	    end
         if key == "k" and inventory.Boomerang ~= nil then
           if inventory.Hotbar.kItem == "Sword" then swingSword() end
-          if inventory.Hotbar.kItem == "Boomerang" then throwBoomerang() end
+          if inventory.Hotbar.kItem == "Boomerang" or inventory.Hotbar.kItem == "EnchantedBoomerang" then throwBoomerang() end
         end
         if key == "w" or key == "up" then
             player.animation = charani.NulUp

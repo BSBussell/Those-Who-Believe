@@ -74,6 +74,9 @@ function inventoryUIDraw()
     if inventory.Boomerang ~= nil then
         love.graphics.draw(inventory.Boomerang.image,75,140,0,3,4)
     end
+    if inventory.EnchantedBoomerang ~= nil then
+        love.graphics.draw(inventory.EnchantedBoomerang.image,125,140,0,3,4)
+    end
     
     love.graphics.print("X: "..x,80,25)
     love.graphics.print("Y: "..y,80,40)
@@ -92,6 +95,13 @@ function inventoryUIDraw()
         love.graphics.print( inventory.Boomerang.name, 820,150 )
         love.graphics.setFont( lFont )
         love.graphics.print( "Damage: "..inventory.Boomerang.damage, 840,180 )
+    elseif x>125 and x <173 and y>140 and y<204 and inventory.EnchantedBoomerang ~= nil then
+        love.graphics.setFont( BFont )
+        love.graphics.setColor(0,0,0,255)
+        if down then inventory.Hotbar.kItem = "EnchantedBoomerang" end
+        love.graphics.print( inventory.EnchantedBoomerang.name, 820,150 )
+        love.graphics.setFont( lFont )
+        love.graphics.print( "Damage: "..inventory.EnchantedBoomerang.damage, 840,180 )
     elseif x>225 and x<275 and y>10 and y <85 then
         if down then inventory.Hotbar.kItem = "Empty" end
         if inventory.Hotbar.kItem ~= "Empty" then
