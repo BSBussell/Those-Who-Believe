@@ -1173,12 +1173,15 @@
   </object>
   <object id="2347" name="ChestSpace" x="1036" y="1247" width="24" height="42">
    <properties>
-    <property name="item" value="item = { name = &quot;Boomerang&quot;, damage = 500, stunTime = 12, range = 198, speed = 10, image = love.graphics.newImage(&quot;Images/Boomerang.png&quot;)}"/>
+    <property name="item" value="item = { name = &quot;EnchantedBoomerang&quot;, damage = 750, stunTime = 12, range = 398, speed = 17, image = love.graphics.newImage(&quot;Images/EnchantedBoomerang.png&quot;)}"/>
+    <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
   <object id="2350" name="ChestSpace" x="1084" y="1246" width="24" height="42">
    <properties>
-    <property name="item" value="item = { name = &quot;EnchantedBoomerang&quot;, damage = 750, stunTime = 12, range = 398, speed = 17, image = love.graphics.newImage(&quot;Images/EnchantedBoomerang.png&quot;)}"/>
+    <property name="item">item = { name = &quot;Boomerang&quot;, damage = 500, stunTime = 12, range = 198, speed = 10, image = love.graphics.newImage(&quot;Images/Boomerang.png&quot;)}
+</property>
+    <property name="opened" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>

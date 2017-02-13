@@ -13,6 +13,7 @@ function inventory.load()
         --K = "Empty",
         kItem = "Empty",
     }
+    --[[
     inventory["EnchantedBoomerang"] = {
         name = "EnchantedBoomerang",
         damage = 0,
@@ -20,4 +21,5 @@ function inventory.load()
         range = 24,
         image = love.graphics.newImage("Images/EnchantedBoomerang.png")
     }
+    ]]--
 end

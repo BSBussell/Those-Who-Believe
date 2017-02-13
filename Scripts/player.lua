@@ -186,10 +186,10 @@ function player.move(dt)
      player.animation:update(dt)
     for k, object in pairs(map.objects) do
         if object.name == "ChestSpace" then
-            if player.x >= object.x and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height+20 and love.keyboard.isDown("space") and inventory.Boomerang ==nil then
+            if player.x >= object.x and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height+20 and love.keyboard.isDown("space") and object.properties.opened ==false then
                 loadstring(object.properties.item)()
                 inventory[item.name] = item
-                    
+                object.properties.opened = true
                 alert("\tYou Found a "..item.name.."\nOpen up your inventory with E to equip it\nClick to close")
             end
         end

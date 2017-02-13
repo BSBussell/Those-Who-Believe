@@ -3284,7 +3284,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["item"] = "item = { name = \"Boomerang\", damage = 500, stunTime = 12, range = 198, speed = 10, image = love.graphics.newImage(\"Images/Boomerang.png\")}"
+            ["item"] = "item = { name = \"EnchantedBoomerang\", damage = 750, stunTime = 12, range = 398, speed = 17, image = love.graphics.newImage(\"Images/EnchantedBoomerang.png\")}",
+            ["opened"] = false
           }
         },
         {
@@ -3299,7 +3300,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["item"] = "item = { name = \"EnchantedBoomerang\", damage = 750, stunTime = 12, range = 398, speed = 17, image = love.graphics.newImage(\"Images/EnchantedBoomerang.png\")}"
+            ["item"] = "item = { name = \"Boomerang\", damage = 500, stunTime = 12, range = 198, speed = 10, image = love.graphics.newImage(\"Images/Boomerang.png\")}\n",
+            ["opened"] = false
           }
         }
       }
