@@ -56,17 +56,17 @@ local function adjustPosition(self)
   local w,h = getVisibleArea(self)
   local w2,h2 = w*0.5, h*0.5
 
-  local left, right  = wl + w2, wl + ww - w2
-  local top,  bottom = wt + h2, wt + wh - h2
+  local left, right = wl + w2, wl + ww - w2
+  local top, bottom = wt + h2, wt + wh - h2
 
   self.x, self.y = clamp(self.x, left, right), clamp(self.y, top, bottom)
 end
 
 local function adjustScale(self)
   local w,h,ww,wh = self.w, self.h, self.ww, self.wh
-  local rw,rh     = getVisibleArea(self, 1)      -- rotated frame: area around the window, rotated without scaling
-  local sx,sy     = rw/ww, rh/wh                 -- vert/horiz scale: minimun scales that the window needs to occupy the world
-  local rscale    = max(sx,sy)
+  local rw,rh = getVisibleArea(self, 1) -- rotated frame: area around the window, rotated without scaling
+  local sx,sy = rw/ww, rh/wh -- vert/horiz scale: minimun scales that the window needs to occupy the world
+  local rscale = max(sx,sy)
 
   self.scale = max(self.scale, rscale)
 end
@@ -78,11 +78,11 @@ function gamera.new(l,t,w,h)
   local sw,sh = love.graphics.getWidth(), love.graphics.getHeight()
 
   local cam = setmetatable({
-    x=0, y=0,
-    scale=1,
-    angle=0, sin=math.sin(0), cos=math.cos(0),
-    l=0, t=0, w=sw, h=sh, w2=sw*0.5, h2=sh*0.5
-  }, gameraMt)
+      x=0, y=0,
+      scale=1,
+      angle=0, sin=math.sin(0), cos=math.cos(0),
+      l=0, t=0, w=sw, h=sh, w2=sw*0.5, h2=sh*0.5
+    }, gameraMt)
 
   cam:setWorld(l,t,w,h)
 
@@ -173,14 +173,14 @@ function gamera:draw(f)
   love.graphics.setScissor(self:getWindow())
 
   love.graphics.push()
-    local scale = self.scale
-    love.graphics.scale(scale)
+  local scale = self.scale
+  love.graphics.scale(scale)
 
-    love.graphics.translate((self.w2 + self.l) / scale, (self.h2+self.t) / scale)
-    love.graphics.rotate(-self.angle)
-    love.graphics.translate(-self.x, -self.y)
+  love.graphics.translate((self.w2 + self.l) / scale, (self.h2+self.t) / scale)
+  love.graphics.rotate(-self.angle)
+  love.graphics.translate(-self.x, -self.y)
 
-    f(self:getVisible())
+  f(self:getVisible())
 
   love.graphics.pop()
 
@@ -202,9 +202,8 @@ function gamera:toScreen(x,y)
 end
 
 function gamera:move(dx, dy)
-	self.x = self.x + (dx or 0)
-	self.y = self.y + (dy or 0)
+  self.x = self.x + (dx or 0)
+  self.y = self.y + (dy or 0)
 end
 
 return gamera
-

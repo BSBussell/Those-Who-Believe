@@ -1,30 +1,30 @@
 local bump = {
-  _VERSION     = 'bump v3.1.6',
-  _URL         = 'https://github.com/kikito/bump.lua',
+  _VERSION = 'bump v3.1.6',
+  _URL = 'https://github.com/kikito/bump.lua',
   _DESCRIPTION = 'A collision detection library for Lua',
-  _LICENSE     = [[
-    MIT LICENSE
+  _LICENSE = [[
+  MIT LICENSE
 
-    Copyright (c) 2014 Enrique García Cota
+  Copyright (c) 2014 Enrique García Cota
 
-    Permission is hereby granted, free of charge, to any person obtaining a
-    copy of this software and associated documentation files (the
-    "Software"), to deal in the Software without restriction, including
-    without limitation the rights to use, copy, modify, merge, publish,
-    distribute, sublicense, and/or sell copies of the Software, and to
-    permit persons to whom the Software is furnished to do so, subject to
-    the following conditions:
+  Permission is hereby granted, free of charge, to any person obtaining a
+  copy of this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction, including
+  without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to
+  permit persons to whom the Software is furnished to do so, subject to
+  the following conditions:
 
-    The above copyright notice and this permission notice shall be included
-    in all copies or substantial portions of the Software.
+  The above copyright notice and this permission notice shall be included
+  in all copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   ]]
 }
 
@@ -88,10 +88,10 @@ local function rect_getSegmentIntersectionIndices(x,y,w,h, x1,y1,x2,y2, ti1,ti2)
   local p, q, r
 
   for side = 1,4 do
-    if     side == 1 then nx,ny,p,q = -1,  0, -dx, x1 - x     -- left
-    elseif side == 2 then nx,ny,p,q =  1,  0,  dx, x + w - x1 -- right
-    elseif side == 3 then nx,ny,p,q =  0, -1, -dy, y1 - y     -- top
-    else                  nx,ny,p,q =  0,  1,  dy, y + h - y1 -- bottom
+    if side == 1 then nx,ny,p,q = -1, 0, -dx, x1 - x -- left
+    elseif side == 2 then nx,ny,p,q = 1, 0, dx, x + w - x1 -- right
+    elseif side == 3 then nx,ny,p,q = 0, -1, -dy, y1 - y -- top
+    else nx,ny,p,q = 0, 1, dy, y + h - y1 -- bottom
     end
 
     if p == 0 then
@@ -99,11 +99,11 @@ local function rect_getSegmentIntersectionIndices(x,y,w,h, x1,y1,x2,y2, ti1,ti2)
     else
       r = q / p
       if p < 0 then
-        if     r > ti2 then return nil
+        if r > ti2 then return nil
         elseif r > ti1 then ti1,nx1,ny1 = r,nx,ny
         end
       else -- p > 0
-        if     r < ti1 then return nil
+        if r < ti1 then return nil
         elseif r < ti2 then ti2,nx2,ny2 = r,nx,ny
         end
       end
@@ -116,19 +116,19 @@ end
 -- Calculates the minkowsky difference between 2 rects, which is another rect
 local function rect_getDiff(x1,y1,w1,h1, x2,y2,w2,h2)
   return x2 - x1 - w1,
-         y2 - y1 - h1,
-         w1 + w2,
-         h1 + h2
+  y2 - y1 - h1,
+  w1 + w2,
+  h1 + h2
 end
 
 local function rect_containsPoint(x,y,w,h, px,py)
-  return px - x > DELTA      and py - y > DELTA and
-         x + w - px > DELTA  and y + h - py > DELTA
+  return px - x > DELTA and py - y > DELTA and
+  x + w - px > DELTA and y + h - py > DELTA
 end
 
 local function rect_isIntersecting(x1,y1,w1,h1, x2,y2,w2,h2)
   return x1 < x2+w2 and x2 < x1+w1 and
-         y1 < y2+h2 and y2 < y1+h1
+  y1 < y2+h2 and y2 < y1+h1
 end
 
 local function rect_getSquareDistance(x1,y1,w1,h1, x2,y2,w2,h2)
@@ -141,15 +141,15 @@ local function rect_detectCollision(x1,y1,w1,h1, x2,y2,w2,h2, goalX, goalY)
   goalX = goalX or x1
   goalY = goalY or y1
 
-  local dx, dy      = goalX - x1, goalY - y1
-  local x,y,w,h     = rect_getDiff(x1,y1,w1,h1, x2,y2,w2,h2)
+  local dx, dy = goalX - x1, goalY - y1
+  local x,y,w,h = rect_getDiff(x1,y1,w1,h1, x2,y2,w2,h2)
 
   local overlaps, ti, nx, ny
 
   if rect_containsPoint(x,y,w,h, 0,0) then -- item was intersecting other
-    local px, py    = rect_getNearestCorner(x,y,w,h, 0, 0)
-    local wi, hi    = min(w1, abs(px)), min(h1, abs(py)) -- area of intersection
-    ti              = -wi * hi -- ti is the negative area of intersection
+    local px, py = rect_getNearestCorner(x,y,w,h, 0, 0)
+    local wi, hi = min(w1, abs(px)), min(h1, abs(py)) -- area of intersection
+    ti = -wi * hi -- ti is the negative area of intersection
     overlaps = true
   else
     local ti1,ti2,nx1,ny1 = rect_getSegmentIntersectionIndices(x,y,w,h, 0,0,dx,dy, -math.huge, math.huge)
@@ -157,7 +157,7 @@ local function rect_detectCollision(x1,y1,w1,h1, x2,y2,w2,h2, goalX, goalY)
     -- item tunnels into other
     if ti1 and ti1 < 1 and (0 < ti1 + DELTA or 0 == ti1 and ti2 > 0) then
       ti, nx, ny = ti1, nx1, ny1
-      overlaps   = false
+      overlaps = false
     end
   end
 
@@ -184,12 +184,12 @@ local function rect_detectCollision(x1,y1,w1,h1, x2,y2,w2,h2, goalX, goalY)
   end
 
   return {
-    overlaps  = overlaps,
-    ti        = ti,
-    move      = {x = dx, y = dy},
-    normal    = {x = nx, y = ny},
-    touch     = {x = tx, y = ty},
-    itemRect  = {x = x1, y = y1, w = w1, h = h1},
+    overlaps = overlaps,
+    ti = ti,
+    move = {x = dx, y = dy},
+    normal = {x = nx, y = ny},
+    touch = {x = tx, y = ty},
+    itemRect = {x = x1, y = y1, w = w1, h = h1},
     otherRect = {x = x2, y = y2, w = w2, h = h2}
   }
 end
@@ -213,8 +213,8 @@ end
 
 local function grid_traverse_initStep(cellSize, ct, t1, t2)
   local v = t2 - t1
-  if     v > 0 then
-    return  1,  cellSize / v, ((ct + v) * cellSize - t1) / v
+  if v > 0 then
+    return 1, cellSize / v, ((ct + v) * cellSize - t1) / v
   elseif v < 0 then
     return -1, -cellSize / v, ((ct + v - 1) * cellSize - t1) / v
   else
@@ -223,11 +223,11 @@ local function grid_traverse_initStep(cellSize, ct, t1, t2)
 end
 
 local function grid_traverse(cellSize, x1,y1,x2,y2, f)
-  local cx1,cy1        = grid_toCell(cellSize, x1,y1)
-  local cx2,cy2        = grid_toCell(cellSize, x2,y2)
-  local stepX, dx, tx  = grid_traverse_initStep(cellSize, cx1, x1, x2)
-  local stepY, dy, ty  = grid_traverse_initStep(cellSize, cy1, y1, y2)
-  local cx,cy          = cx1,cy1
+  local cx1,cy1 = grid_toCell(cellSize, x1,y1)
+  local cx2,cy2 = grid_toCell(cellSize, x2,y2)
+  local stepX, dx, tx = grid_traverse_initStep(cellSize, cx1, x1, x2)
+  local stepY, dy, ty = grid_traverse_initStep(cellSize, cy1, y1, y2)
+  local cx,cy = cx1,cy1
 
   f(cx, cy)
 
@@ -274,8 +274,8 @@ local slide = function(world, col, x,y,w,h, goalX, goalY, filter)
   goalX = goalX or x
   goalY = goalY or y
 
-  local tch, move  = col.touch, col.move
-  local sx, sy     = tch.x, tch.y
+  local tch, move = col.touch, col.move
+  local sx, sy = tch.x, tch.y
   if move.x ~= 0 or move.y ~= 0 then
     if col.normal.x == 0 then
       sx = goalX
@@ -286,9 +286,9 @@ local slide = function(world, col, x,y,w,h, goalX, goalY, filter)
 
   col.slide = {x = sx, y = sy}
 
-  x,y          = tch.x, tch.y
+  x,y = tch.x, tch.y
   goalX, goalY = sx, sy
-  local cols, len  = world:project(col.item, x,y,w,h, goalX, goalY, filter)
+  local cols, len = world:project(col.item, x,y,w,h, goalX, goalY, filter)
   return goalX, goalY, cols, len
 end
 
@@ -307,11 +307,11 @@ local bounce = function(world, col, x,y,w,h, goalX, goalY, filter)
     bx, by = tx + bnx, ty + bny
   end
 
-  col.bounce   = {x = bx,  y = by}
-  x,y          = tch.x, tch.y
+  col.bounce = {x = bx, y = by}
+  x,y = tch.x, tch.y
   goalX, goalY = bx, by
 
-  local cols, len    = world:project(col.item, x,y,w,h, goalX, goalY, filter)
+  local cols, len = world:project(col.item, x,y,w,h, goalX, goalY, filter)
   return goalX, goalY, cols, len
 end
 
@@ -385,15 +385,15 @@ local function getCellsTouchedBySegment(self, x1,y1,x2,y2)
   local cells, cellsLen, visited = {}, 0, {}
 
   grid_traverse(self.cellSize, x1,y1,x2,y2, function(cx, cy)
-    local row  = self.rows[cy]
-    if not row then return end
-    local cell = row[cx]
-    if not cell or visited[cell] then return end
+      local row = self.rows[cy]
+      if not row then return end
+      local cell = row[cx]
+      if not cell or visited[cell] then return end
 
-    visited[cell] = true
-    cellsLen = cellsLen + 1
-    cells[cellsLen] = cell
-  end)
+      visited[cell] = true
+      cellsLen = cellsLen + 1
+      cells[cellsLen] = cell
+    end)
 
   return cells, cellsLen
 end
@@ -406,16 +406,16 @@ local function getInfoAboutItemsTouchedBySegment(self, x1,y1, x2,y2, filter)
     cell = cells[i]
     for item in pairs(cell.items) do
       if not visited[item] then
-        visited[item]  = true
+        visited[item] = true
         if (not filter or filter(item)) then
-          rect           = self.rects[item]
-          l,t,w,h        = rect.x,rect.y,rect.w,rect.h
+          rect = self.rects[item]
+          l,t,w,h = rect.x,rect.y,rect.w,rect.h
 
           ti1,ti2 = rect_getSegmentIntersectionIndices(l,t,w,h, x1,y1, x2,y2, 0, 1)
           if ti1 and ((0 < ti1 and ti1 < 1) or (0 < ti2 and ti2 < 1)) then
             -- the sorting is according to the t of an infinite line, not the segment
-            tii0,tii1    = rect_getSegmentIntersectionIndices(l,t,w,h, x1,y1, x2,y2, -math.huge, math.huge)
-            itemInfoLen  = itemInfoLen + 1
+            tii0,tii1 = rect_getSegmentIntersectionIndices(l,t,w,h, x1,y1, x2,y2, -math.huge, math.huge)
+            itemInfoLen = itemInfoLen + 1
             itemInfo[itemInfoLen] = {item = item, ti1 = ti1, ti2 = ti2, weight = min(tii0,tii1)}
           end
         end
@@ -434,7 +434,6 @@ local function getResponseByName(self, name)
   return response
 end
 
-
 -- Misc Public Methods
 
 function World:addResponse(name, response)
@@ -446,7 +445,7 @@ function World:project(item, x,y,w,h, goalX, goalY, filter)
 
   goalX = goalX or x
   goalY = goalY or y
-  filter  = filter  or defaultFilter
+  filter = filter or defaultFilter
 
   local collisions, len = {}, 0
 
@@ -455,7 +454,7 @@ function World:project(item, x,y,w,h, goalX, goalY, filter)
 
   -- This could probably be done with less cells using a polygon raster over the cells instead of a
   -- bounding rect of the whole movement. Conditional to building a queryPolygon method
-  local tl, tt = min(goalX, x),       min(goalY, y)
+  local tl, tt = min(goalX, x), min(goalY, y)
   local tr, tb = max(goalX + w, x+w), max(goalY + h, y+h)
   local tw, th = tr-tl, tb-tt
 
@@ -469,13 +468,13 @@ function World:project(item, x,y,w,h, goalX, goalY, filter)
 
       local responseName = filter(item, other)
       if responseName then
-        local ox,oy,ow,oh   = self:getRect(other)
-        local col           = rect_detectCollision(x,y,w,h, ox,oy,ow,oh, goalX, goalY)
+        local ox,oy,ow,oh = self:getRect(other)
+        local col = rect_detectCollision(x,y,w,h, ox,oy,ow,oh, goalX, goalY)
 
         if col then
-          col.other    = other
-          col.item     = item
-          col.type     = responseName
+          col.other = other
+          col.item = item
+          col.type = responseName
 
           len = len + 1
           collisions[len] = col
@@ -534,7 +533,6 @@ function World:toCell(x,y)
   return grid_toCell(self.cellSize, x, y)
 end
 
-
 --- Query methods
 
 function World:queryRect(x,y,w,h, filter)
@@ -591,22 +589,21 @@ end
 
 function World:querySegmentWithCoords(x1, y1, x2, y2, filter)
   local itemInfo, len = getInfoAboutItemsTouchedBySegment(self, x1, y1, x2, y2, filter)
-  local dx, dy        = x2-x1, y2-y1
+  local dx, dy = x2-x1, y2-y1
   local info, ti1, ti2
   for i=1, len do
-    info  = itemInfo[i]
-    ti1   = info.ti1
-    ti2   = info.ti2
+    info = itemInfo[i]
+    ti1 = info.ti1
+    ti2 = info.ti2
 
-    info.weight  = nil
-    info.x1      = x1 + dx * ti1
-    info.y1      = y1 + dy * ti1
-    info.x2      = x1 + dx * ti2
-    info.y2      = y1 + dy * ti2
+    info.weight = nil
+    info.x1 = x1 + dx * ti1
+    info.y1 = y1 + dy * ti1
+    info.x2 = x1 + dx * ti2
+    info.y2 = y1 + dy * ti2
   end
   return itemInfo, len
 end
-
 
 --- Main methods
 
@@ -709,7 +706,7 @@ function World:check(item, goalX, goalY, filter)
 
   while projected_len > 0 do
     local col = projected_cols[1]
-    len       = len + 1
+    len = len + 1
     cols[len] = col
 
     visited[col.other] = true
@@ -728,19 +725,18 @@ function World:check(item, goalX, goalY, filter)
   return goalX, goalY, cols, len
 end
 
-
 -- Public library functions
 
 bump.newWorld = function(cellSize)
   cellSize = cellSize or 64
   assertIsPositiveNumber(cellSize, 'cellSize')
   local world = setmetatable({
-    cellSize       = cellSize,
-    rects          = {},
-    rows           = {},
-    nonEmptyCells  = {},
-    responses = {}
-  }, World_mt)
+      cellSize = cellSize,
+      rects = {},
+      rows = {},
+      nonEmptyCells = {},
+      responses = {}
+    }, World_mt)
 
   world:addResponse('touch', touch)
   world:addResponse('cross', cross)
@@ -751,19 +747,19 @@ bump.newWorld = function(cellSize)
 end
 
 bump.rect = {
-  getNearestCorner              = rect_getNearestCorner,
+  getNearestCorner = rect_getNearestCorner,
   getSegmentIntersectionIndices = rect_getSegmentIntersectionIndices,
-  getDiff                       = rect_getDiff,
-  containsPoint                 = rect_containsPoint,
-  isIntersecting                = rect_isIntersecting,
-  getSquareDistance             = rect_getSquareDistance,
-  detectCollision               = rect_detectCollision
+  getDiff = rect_getDiff,
+  containsPoint = rect_containsPoint,
+  isIntersecting = rect_isIntersecting,
+  getSquareDistance = rect_getSquareDistance,
+  detectCollision = rect_detectCollision
 }
 
 bump.responses = {
-  touch  = touch,
-  cross  = cross,
-  slide  = slide,
+  touch = touch,
+  cross = cross,
+  slide = slide,
   bounce = bounce
 }
 

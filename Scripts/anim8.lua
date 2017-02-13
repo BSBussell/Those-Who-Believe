@@ -1,30 +1,30 @@
 local anim8 = {
-  _VERSION     = 'anim8 v2.3.0',
+  _VERSION = 'anim8 v2.3.0',
   _DESCRIPTION = 'An animation library for LÖVE',
-  _URL         = 'https://github.com/kikito/anim8',
-  _LICENSE     = [[
-    MIT LICENSE
+  _URL = 'https://github.com/kikito/anim8',
+  _LICENSE = [[
+  MIT LICENSE
 
-    Copyright (c) 2011 Enrique García Cota
+  Copyright (c) 2011 Enrique García Cota
 
-    Permission is hereby granted, free of charge, to any person obtaining a
-    copy of this software and associated documentation files (the
-    "Software"), to deal in the Software without restriction, including
-    without limitation the rights to use, copy, modify, merge, publish,
-    distribute, sublicense, and/or sell copies of the Software, and to
-    permit persons to whom the Software is furnished to do so, subject to
-    the following conditions:
+  Permission is hereby granted, free of charge, to any person obtaining a
+  copy of this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction, including
+  without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to
+  permit persons to whom the Software is furnished to do so, subject to
+  the following conditions:
 
-    The above copyright notice and this permission notice shall be included
-    in all copies or substantial portions of the Software.
+  The above copyright notice and this permission notice shall be included
+  in all copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   ]]
 }
 
@@ -42,7 +42,7 @@ local function createFrame(self, x, y)
   local fw, fh = self.frameWidth, self.frameHeight
   return love.graphics.newQuad(
     self.left + (x-1) * fw + x * self.border,
-    self.top  + (y-1) * fh + y * self.border,
+    self.top + (y-1) * fh + y * self.border,
     fw,
     fh,
     self.imageWidth,
@@ -59,8 +59,8 @@ local function getOrCreateFrame(self, x, y)
     error(("There is no frame for x=%d, y=%d"):format(x, y))
   end
   local key = self._key
-  _frames[key]       = _frames[key]       or {}
-  _frames[key][x]    = _frames[key][x]    or {}
+  _frames[key] = _frames[key] or {}
+  _frames[key][x] = _frames[key][x] or {}
   _frames[key][x][y] = _frames[key][x][y] or createFrame(self, x, y)
   return _frames[key][x][y]
 end
@@ -94,32 +94,32 @@ end
 
 local Gridmt = {
   __index = Grid,
-  __call  = Grid.getFrames
+  __call = Grid.getFrames
 }
 
 local function newGrid(frameWidth, frameHeight, imageWidth, imageHeight, left, top, border)
-  assertPositiveInteger(frameWidth,  "frameWidth")
+  assertPositiveInteger(frameWidth, "frameWidth")
   assertPositiveInteger(frameHeight, "frameHeight")
-  assertPositiveInteger(imageWidth,  "imageWidth")
+  assertPositiveInteger(imageWidth, "imageWidth")
   assertPositiveInteger(imageHeight, "imageHeight")
 
-  left   = left   or 0
-  top    = top    or 0
+  left = left or 0
+  top = top or 0
   border = border or 0
 
-  local key  = getGridKey(frameWidth, frameHeight, imageWidth, imageHeight, left, top, border)
+  local key = getGridKey(frameWidth, frameHeight, imageWidth, imageHeight, left, top, border)
 
   local grid = setmetatable(
-    { frameWidth  = frameWidth,
+    { frameWidth = frameWidth,
       frameHeight = frameHeight,
-      imageWidth  = imageWidth,
+      imageWidth = imageWidth,
       imageHeight = imageHeight,
-      left        = left,
-      top         = top,
-      border      = border,
-      width       = math.floor(imageWidth/frameWidth),
-      height      = math.floor(imageHeight/frameHeight),
-      _key        = key
+      left = left,
+      top = top,
+      border = border,
+      width = math.floor(imageWidth/frameWidth),
+      height = math.floor(imageHeight/frameHeight),
+      _key = key
     },
     Gridmt
   )
@@ -177,16 +177,16 @@ local function newAnimation(frames, durations, onLoop)
   durations = parseDurations(durations, #frames)
   local intervals, totalDuration = parseIntervals(durations)
   return setmetatable({
-      frames         = cloneArray(frames),
-      durations      = durations,
-      intervals      = intervals,
-      totalDuration  = totalDuration,
-      onLoop         = onLoop,
-      timer          = 0,
-      position       = 1,
-      status         = "playing",
-      flippedH       = false,
-      flippedV       = false
+      frames = cloneArray(frames),
+      durations = durations,
+      intervals = intervals,
+      totalDuration = totalDuration,
+      onLoop = onLoop,
+      timer = 0,
+      position = 1,
+      status = "playing",
+      flippedH = false,
+      flippedV = false
     },
     Animationmt
   )
@@ -213,8 +213,8 @@ local function seekFrameIndex(intervals, timer)
 
   while(low <= high) do
     i = math.floor((low + high) / 2)
-    if     timer >  intervals[i+1] then low  = i + 1
-    elseif timer <= intervals[i]   then high = i - 1
+    if timer > intervals[i+1] then low = i + 1
+    elseif timer <= intervals[i] then high = i - 1
     else
       return i
     end
@@ -296,7 +296,7 @@ end
 
 -----------------------------------------------------------
 
-anim8.newGrid       = newGrid
-anim8.newAnimation  = newAnimation
+anim8.newGrid = newGrid
+anim8.newAnimation = newAnimation
 
 return anim8
