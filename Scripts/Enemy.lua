@@ -82,7 +82,7 @@ function enemy.update(dt)
           enemy0Animation:pause()
           --enemy[i].stunned = true
           --enemy[i].stunTimer = inventory.Boomerang.stunTime
-          enemy[i].hp = enemy[i].hp - inventory.Boomerang.damage
+          enemy[i].hp = enemy[i].hp -inventory.Boomerang.damage
         end
 
       end

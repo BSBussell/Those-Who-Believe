@@ -17,14 +17,17 @@ function love.load()
   love.window.setTitle( "Project Z v0.01 Beta" )
 
   inventory.load()
-  map:resize (10400, 6230)
+  map:resize (10384, 6240)
   loadEnemies()
   math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
   gamePause = false
   inventoryOpen = false
+  miniCam = gamera.new(0,0,10384,6240)
+  miniCam:setWindow(600,10,200,80)
+  miniCam:setScale(1)
   cam = gamera.new(0,0,1000,500)
   cam:setWindow(0,0,1000,600)
-  cam:setWorld(0,-32,10400,6240)
+  cam:setWorld(0,-32,10384,6240)
   cam:setScale(1.8)
   enemy.load()
   player.load()
@@ -53,8 +56,11 @@ function love.draw()
       love.graphics.setColor(255, 255, 255, 255)
 
     end)
-  Ui.draw()
   if inventoryOpen == true then inventoryUIDraw() end
+  Ui.draw()
+  miniCam:draw(function()
+      map:draw()
+    end)
 
 end
 

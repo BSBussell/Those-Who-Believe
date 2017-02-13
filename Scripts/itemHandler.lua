@@ -62,7 +62,7 @@ function boomerangUpdate(dt)
       -- if other == "Enemy 0 "..i then return "" end
       --end
       if other == "player" then return "slide" end
-      return "bounce"
+      return "slide"
     end
     rotation = rotation +.2
     --baseX = baseX+increase

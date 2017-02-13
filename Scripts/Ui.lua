@@ -114,6 +114,10 @@ function inventoryUIDraw()
     end
 
   end
+  if boomerangActive == true then
+    world:remove("Boomerang")
+    boomerangActive = false
+  end
 
   love.graphics.setColor(255,255,255,255)
 end
