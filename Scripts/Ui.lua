@@ -65,7 +65,7 @@ function inventoryUIDraw()
   love.graphics.setColor(255,255,255,155)
   love.graphics.rectangle("fill",20,120,960,400)
   love.graphics.setColor(255,255,255,195)
-  love.graphics.rectangle("fill",800,130,160,380)
+  love.graphics.rectangle("fill",750,130,215,380)
   love.graphics.setColor(255,255,255,55)
   love.graphics.setColor(255,255,255,255)
   if inventory.Sword ~= nil then
@@ -85,32 +85,32 @@ function inventoryUIDraw()
     love.graphics.setFont( BFont )
     love.graphics.setColor(0,0,0,255)
     if down then love.graphics.rectangle("line",25,140,30,70) end
-    love.graphics.print( inventory.Sword.name, 820,150 )
+    love.graphics.print( inventory.Sword.name, 780,150 )
     love.graphics.setFont( lFont )
-    love.graphics.print( "Damage: "..inventory.Sword.damage, 840,180 )
+    love.graphics.print( "Damage: "..inventory.Sword.damage, 800,180 )
   elseif x > 75 and x<123 and y>140 and y <204 and inventory.Boomerang~= nil then
     love.graphics.setFont( BFont )
     love.graphics.setColor(0,0,0,255)
     if down then inventory.Hotbar.kItem = "Boomerang" end
-    love.graphics.print( inventory.Boomerang.name, 820,150 )
+    love.graphics.print( inventory.Boomerang.name, 780,150 )
     love.graphics.setFont( lFont )
-    love.graphics.print( "Damage: "..inventory.Boomerang.damage, 840,180 )
+    love.graphics.print( "Damage: "..inventory.Boomerang.damage, 800,180 )
   elseif x>125 and x <173 and y>140 and y<204 and inventory.EnchantedBoomerang ~= nil then
     love.graphics.setFont( BFont )
     love.graphics.setColor(0,0,0,255)
     if down then inventory.Hotbar.kItem = "EnchantedBoomerang" end
-    love.graphics.print( inventory.EnchantedBoomerang.name, 820,150 )
+    love.graphics.print( inventory.EnchantedBoomerang.name, 780,150 )
     love.graphics.setFont( lFont )
-    love.graphics.print( "Damage: "..inventory.EnchantedBoomerang.damage, 840,180 )
+    love.graphics.print( "Damage: "..inventory.EnchantedBoomerang.damage, 800,180 )
   elseif x>225 and x<275 and y>10 and y <85 then
     if down then inventory.Hotbar.kItem = "Empty" end
     if inventory.Hotbar.kItem ~= "Empty" then
       love.graphics.setFont( BFont )
       love.graphics.setColor(0,0,0,255)
       local item = inventory.Hotbar.kItem
-      love.graphics.print( inventory[item].name, 820,150 )
+      love.graphics.print( inventory[item].name, 780,150 )
       love.graphics.setFont( lFont )
-      love.graphics.print( "Damage: "..inventory[item].damage, 840,180 )
+      love.graphics.print( "Damage: "..inventory[item].damage, 800,180 )
     end
 
   end
