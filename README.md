@@ -5,7 +5,7 @@ This is a game which started as a hello world program and grew as I slowly learn
 <h2>How do I play?</h2>
 Well right now the game isn't even in beta. But if that doesn't scare you then who am I to stop you.
 <h4>Mac OSX</h4>
-If you are using a Mac then you can just download it [here](https://www.dropbox.com/s/xcxh6q2b8ql6wn7/Project%20Z.zip?dl=0)\n
+If you are using a Mac then you can just download it [here](https://www.dropbox.com/s/xcxh6q2b8ql6wn7/Project%20Z.zip?dl=0)
 <h4>Windows</h4>
 First off you'll need to install [Löve2D](https://love2d.org) Then you can just drag the folder onto the application and It will compile.
 <h2> Why is it so Glitchy?</h2>
