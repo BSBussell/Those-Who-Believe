@@ -3,6 +3,7 @@ map = sti("Maps/Protyping.lua", {"bump"})
 world = require "Maps/maphandler"
 local anim8 = require "Scripts/anim8"
 require "Scripts/inventory"
+require "Scripts/knockback"
 
 enemy = {}
 adder = 0
@@ -63,7 +64,7 @@ function enemy.update(dt)
         end
         local enemyFilter = function(item,other)
           if other=="Sword" then return 'bounce' end
-          if other=="player" then return 'bounce'
+          if other=="player" then return 'slide'
           else return "slide" end
         end
       else
@@ -71,21 +72,24 @@ function enemy.update(dt)
         goalX = enemy[i].x + (enemy[i].speed*math.random(-.5,.5))*dt
         goalY = enemy[i].y + (enemy[i].speed*math.random(-.5,.5)) *dt
       end
-      local actualX, actualY, cols, len = world:move("Enemy "..enemy[i].id.." "..i,goalX ,goalY,enemyFilter)
+      local actualX, actualY, cols, len = world:check("Enemy "..enemy[i].id.." "..i,goalX ,goalY,enemyFilter)
 
       for k = 1,len do
         local object = cols[k].other
         if object == "Sword" then
           enemy[i].hp = enemy[i].hp-inventory.Sword.damage
+          goalX,goalY = calKnockback(goalX,goalY,enemy[i].x,enemy[i].y,100)
         end
         if object == "Boomerang" then
           enemy0Animation:pause()
+          goalX,goalY = calKnockback(goalX,goalY,enemy[i].x,enemy[i].y,100)
           --enemy[i].stunned = true
           --enemy[i].stunTimer = inventory.Boomerang.stunTime
           enemy[i].hp = enemy[i].hp -inventory.Boomerang.damage
         end
 
       end
+      local actualX, actualY, cols, len = world:move("Enemy "..enemy[i].id.." "..i,goalX ,goalY,enemyFilter)
       if stunned ~= true then
         enemy[i].x = actualX
         enemy[i].y = actualY

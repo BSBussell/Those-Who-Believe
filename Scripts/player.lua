@@ -175,14 +175,22 @@ function player.move(dt)
     player.yvel = player.yvel - player.speed * dt
     player.animation = charani.Down
   end
+  player.friction = 3.9
+  player.speed = 390
+  if love.keyboard.isDown("k") then
+    if inventory.Hotbar.kItem ~= "dashBoots" then
+      player.speed = 1560
+      player.friction = 1
+    end
+  end
 
   player.animation:update(dt)
   for k, object in pairs(map.objects) do
     if object.name == "ChestSpace" then
-      if player.x >= object.x and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height+20 and love.keyboard.isDown("space") and object.properties.opened ==false then
+      if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height and love.keyboard.isDown("space") and object.properties.opened ==false then
         loadstring(object.properties.item)()
         inventory[item.name] = item
-        object.properties.opened = true
+        --object.properties.opened = true
         alert("\tYou Found a "..item.name.."\nOpen up your inventory with E to equip it\nClick to close")
       end
     end

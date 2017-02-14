@@ -95,6 +95,7 @@ function inventoryUIDraw()
     love.graphics.print( inventory.Boomerang.name, 780,150 )
     love.graphics.setFont( lFont )
     love.graphics.print( "Damage: "..inventory.Boomerang.damage, 800,180 )
+    love.graphics.print( "Range: "..inventory.Boomerang.range, 800,200 )
   elseif x>125 and x <173 and y>140 and y<204 and inventory.EnchantedBoomerang ~= nil then
     love.graphics.setFont( BFont )
     love.graphics.setColor(0,0,0,255)
