@@ -18,7 +18,7 @@ function love.load()
   love.window.setTitle( "Project Z v0.01 Beta" )
 
   inventory.load()
-  map:resize (10384, 6240)
+  map:resize (1000, 600)
   loadEnemies()
   math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
   gamePause = false
