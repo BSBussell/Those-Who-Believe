@@ -63,14 +63,15 @@ function Enemyupdate(dt)
           if enemy[i].id == 1 then enemy1CrntAni = enemy1DownAnimation end
         end
         local enemyFilter = function(item,other)
-          if other=="Sword" then return 'bounce' end
-          if other=="player" then return 'slide'
+          if other=="Sword" then return 'bounce'
+          elseif other=="player" then return 'slide'
+          elseif other=="Boomerang" then return 'touch'
           else return "slide" end
         end
       else
         math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
-        enemy[i].xvel = enemy[i].xvel + (enemy[i].speed*math.random(-.5,.5))*dt
-        enemy[i].yvel = enemy[i].yvel + (enemy[i].speed*math.random(-.5,.5)) *dt
+        enemy[i].xvel = enemy[i].xvel + (enemy[i].speed*math.random(-.75,.75))*dt
+        enemy[i].yvel = enemy[i].yvel + (enemy[i].speed*math.random(-.75,.75)) *dt
       end
       local goalX = enemy[i].x + enemy[i].xvel*dt
       local goalY = enemy[i].y + enemy[i].yvel*dt
@@ -93,7 +94,12 @@ function Enemyupdate(dt)
           --enemy[i].stunTimer = inventory.Boomerang.stunTime
           enemy[i].hp = enemy[i].hp -inventory.Boomerang.damage
         end
-
+        if object == "player" then
+          knckX,knckY = calKnockback(actualX,actualY, enemy[k].x,enemy[k].y,11)
+          player.xvel = knckX
+          player.yvel = knckY
+          player.hp = player.hp - enemy[i].damage
+        end
       end
       local actualX, actualY, cols, len = world:move("Enemy "..enemy[i].id.." "..i,goalX ,goalY,enemyFilter)
       if stunned ~= true then
@@ -117,7 +123,7 @@ function EnemynewEnemy(id,x,y)
     --if enemyNum == nil then enemyNum = 1 end
     local newEnemy = {}
     newEnemy.id = id
-    newEnemy.hp = 200
+    newEnemy.hp = 40
     --local x,y = map:convertTileToPixel(tx,ty)
     newEnemy.x = x
     newEnemy.y = y
@@ -126,15 +132,15 @@ function EnemynewEnemy(id,x,y)
     newEnemy.friction = 3.9
     newEnemy.stunned = false
     newEnemy.stunTimer = 0
-    newEnemy.speed = 210
-    newEnemy.damage = 50
+    newEnemy.speed = 250
+    newEnemy.damage = 5
     newEnemy.range = 180
     table.insert(enemy,newEnemy)
     world:add("Enemy 0 "..enemyNum+1,x,y,16,16)
   elseif id == 1 then
     local newEnemy = {}
     newEnemy.id = id
-    newEnemy.hp = 2500
+    newEnemy.hp = 500
     newEnemy.x = x
     newEnemy.y = y
     newEnemy.xvel = 0
@@ -142,7 +148,7 @@ function EnemynewEnemy(id,x,y)
     newEnemy.friction = 3.9
     newEnemy.stunned = false
     newEnemy.stunTimer = 0
-    newEnemy.speed = 410
+    newEnemy.speed = 490
     newEnemy.range = 200
     newEnemy.damage = 1.5
     table.insert(enemy,newEnemy)

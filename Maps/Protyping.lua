@@ -8,7 +8,7 @@ return {
   height = 390,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 2545,
+  nextobjectid = 2566,
   properties = {},
   tilesets = {
     {
@@ -1374,99 +1374,7 @@ return {
       properties = {
         ["collidable"] = true
       },
-      objects = {
-        {
-          id = 46,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1346,
-          y = 1489,
-          width = 13,
-          height = 14,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 47,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1328,
-          y = 1398,
-          width = 14.9091,
-          height = 4.36364,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 48,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1312,
-          y = 1354,
-          width = 15.4545,
-          height = 5.09091,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 49,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1344.73,
-          y = 1147.82,
-          width = 14,
-          height = 4,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 57,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1449,
-          y = 1148,
-          width = 29.5,
-          height = 4.25,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 58,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1450.25,
-          y = 1140,
-          width = 27,
-          height = 3.25,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 59,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1477.25,
-          y = 1135,
-          width = 1.25,
-          height = 28.25,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        }
-      }
+      objects = {}
     },
     {
       type = "objectgroup",
@@ -5712,13 +5620,26 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 2565,
+          name = "0",
+          type = "",
+          shape = "rectangle",
+          x = 360,
+          y = 2112,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
     {
       type = "objectgroup",
       name = "Treasure Chest",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -5727,21 +5648,6 @@ return {
         ["Item"] = ""
       },
       objects = {
-        {
-          id = 45,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1233,
-          y = 1456.95,
-          width = 13.8182,
-          height = 14.8636,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["item"] = "boomerang = {range = 9,speed = 24,stunTime = 9}"
-          }
-        },
         {
           id = 2347,
           name = "ChestSpace",
@@ -5770,7 +5676,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["item"] = "item = { name = \"Boomerang\", damage = 5, stunTime = 12, range = 168, speed = 10, image = love.graphics.newImage(\"Images/Boomerang.png\")}",
+            ["item"] = "item = { name = \"Boomerang\", damage = 5, stunTime = 12, range = 168, speed = 15, image = love.graphics.newImage(\"Images/Boomerang.png\")}",
             ["opened"] = false
           }
         }

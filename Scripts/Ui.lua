@@ -16,7 +16,7 @@ function Ui.update(dt)
   x, y = love.mouse.getPosition()
   down = love.mouse.isDown(1)
   Life = love.graphics.newText(lFont,"HP: ")
-  lifeWidth = (player.hp/player.maxHp)*100
+  lifeWidth = (player.hp/player.maxHp)*player.maxHp
   utilex,utiley = map:convertPixelToTile(math.floor(player.x),math.floor(player.y))
 end
 
@@ -30,6 +30,7 @@ function Ui.draw()
   love.graphics.rectangle("fill",225,10,50,75)
   love.graphics.setColor(255,255,255,255)
   love.graphics.draw(swordUI,310,15,0,4,4)
+  love.graphics.print(player.hp,900,50)
   if inventory.Hotbar.kItem ~= "Empty" then
     local item = inventory.Hotbar.kItem
     love.graphics.draw(inventory[item].image,230,15,0,3,4)
@@ -41,11 +42,16 @@ function Ui.draw()
 
   love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 80, 20)
   love.graphics.print("Enemy Count: "..#enemy,80,60)
-  love.graphics.rectangle("line",410,35,100,20)
+  love.graphics.rectangle("line",410,35,player.maxHp+1,20)
+
   love.graphics.setColor(255,0,0,255)
   love.graphics.rectangle("fill",410,35,lifeWidth,20)
   love.graphics.setColor(255,255,255,255)
-  love.graphics.rectangle("line",410,35,100,20)
+  love.graphics.rectangle("line",410,35,player.maxHp+1,20)
+  for i = 1,player.maxHp/50 do
+    love.graphics.line(410+(i*50),35,410+(i*50),55)
+    love.graphics.line(410+(i*50),35,410+(i*50),55)
+  end
   if newText == true then
     love.graphics.setColor(0,0,0,255)
     love.graphics.setFont( BFont )

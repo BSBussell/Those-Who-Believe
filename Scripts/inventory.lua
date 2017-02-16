@@ -3,7 +3,7 @@ inventory = {}
 function inventory.load()
   inventory["Sword"] = {
     name = "Sword",
-    damage = 10,
+    damage = 20,
     image = "Swords.png"
 
   }
