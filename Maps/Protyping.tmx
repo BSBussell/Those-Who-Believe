@@ -1769,7 +1769,7 @@
 </data>
  </layer>
  <objectgroup name="LoadZone">
-  <object id="2541" name="A" x="27" y="1722" width="39" height="531">
+  <object id="2541" name="A" x="-192" y="1712" width="39" height="531">
    <properties>
     <property name="Map" value="Overworld.lua"/>
    </properties>

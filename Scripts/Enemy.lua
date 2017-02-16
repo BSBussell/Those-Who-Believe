@@ -48,18 +48,18 @@ function Enemyupdate(dt)
       adder = adder+1
     elseif enemy[i].x>0 and enemy[i].stunned == false then
       if enemy[i].x + enemy[i].range >= player.x and enemy[i].x - enemy[i].range <= player.x and enemy[i].y + enemy[i].range >=player.y and enemy[i].y - enemy[i].range <= player.y then
-        if player.x < enemy[i].x then
-          goalX = enemy[i].x-enemy[i].speed*dt
+        if player.x < enemy[i].x and enemy[i].xvel > -enemy[i].speed then
+          enemy[i].xvel = enemy[i].xvel - enemy[i].speed *dt
           if enemy[i].id == 1 then enemy1CrntAni = enemy1LeftAnimation end
-        else
-          goalX = enemy[i].x+enemy[i].speed*dt
+        elseif enemy[i].xvel <enemy[i].speed then
+          enemy[i].xvel = enemy[i].xvel + enemy[i].speed *dt
           if enemy[i].id == 1 then enemy1CrntAni = enemy1RightAnimation end
         end
-        if player.y < enemy[i].y then
-          goalY = enemy[i].y-enemy[i].speed*dt
+        if player.y < enemy[i].y and enemy[i].yvel > -enemy[i].speed then
+          enemy[i].yvel = enemy[i].yvel - enemy[i].speed*dt
           if enemy[i].id == 1 then enemy1CrntAni = enemy1UpAnimation end
-        else
-          goalY = enemy[i].y+enemy[i].speed*dt
+        elseif enemy[i].yvel < enemy[i].speed then
+          enemy[i].yvel = enemy[i].yvel+enemy[i].speed*dt
           if enemy[i].id == 1 then enemy1CrntAni = enemy1DownAnimation end
         end
         local enemyFilter = function(item,other)
@@ -69,20 +69,26 @@ function Enemyupdate(dt)
         end
       else
         math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
-        goalX = enemy[i].x + (enemy[i].speed*math.random(-.5,.5))*dt
-        goalY = enemy[i].y + (enemy[i].speed*math.random(-.5,.5)) *dt
+        enemy[i].xvel = enemy[i].xvel + (enemy[i].speed*math.random(-.5,.5))*dt
+        enemy[i].yvel = enemy[i].yvel + (enemy[i].speed*math.random(-.5,.5)) *dt
       end
+      local goalX = enemy[i].x + enemy[i].xvel*dt
+      local goalY = enemy[i].y + enemy[i].yvel*dt
+
+      enemy[i].xvel = enemy[i].xvel * (1 - math.min(dt*enemy[i].friction, 1))
+      enemy[i].yvel = enemy[i].yvel * (1 - math.min(dt*enemy[i].friction, 1))
+
       local actualX, actualY, cols, len = world:check("Enemy "..enemy[i].id.." "..i,goalX ,goalY,enemyFilter)
 
       for k = 1,len do
         local object = cols[k].other
         if object == "Sword" then
           enemy[i].hp = enemy[i].hp-inventory.Sword.damage
-          goalX,goalY = calKnockback(enemy[i].x,enemy[i].y,player.x,player.y,1.75)
+          enemy[i].xvel,enemy[i].yvel = calKnockback(actualX,actualY,player.x,player.y,12)
         end
         if object == "Boomerang" then
           enemy0Animation:pause()
-          goalX,goalY = calKnockback(enemy[i].x,enemy[i].y,boomerangX,boomerangY,2.25)
+          enemy[i].xvel,enemy[i].yvel = calKnockback(actualX,actualY,boomerangX,boomerangY,16.25)
           --enemy[i].stunned = true
           --enemy[i].stunTimer = inventory.Boomerang.stunTime
           enemy[i].hp = enemy[i].hp -inventory.Boomerang.damage
@@ -120,7 +126,7 @@ function EnemynewEnemy(id,x,y)
     newEnemy.friction = 3.9
     newEnemy.stunned = false
     newEnemy.stunTimer = 0
-    newEnemy.speed = 370
+    newEnemy.speed = 210
     newEnemy.damage = 50
     newEnemy.range = 180
     table.insert(enemy,newEnemy)
