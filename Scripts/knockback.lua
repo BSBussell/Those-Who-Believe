@@ -6,5 +6,5 @@ function calKnockback(x,y,prevX,prevY,multiplier)
   knockbackY = reverseY*multiplier
   --print ("KnockbackX:"..x+knockbackX)
   --print ("KnockbackY:"..y+knockbackY)
-  return x+knockbackX, y+knockbackY
+  return knockbackX, knockbackY
 end

@@ -8,7 +8,7 @@ require "Scripts/knockback"
 enemy = {}
 adder = 0
 
-function enemy.load()
+function Enemyload()
   enemy0Image = love.graphics.newImage("Images/EnemyPNG.png")
   local g = anim8.newGrid(16,16,16,64)
   enemy0Frames = g(1,2,1,4)
@@ -28,7 +28,7 @@ function enemy.load()
   enemy1CrntAni = enemy1DownAnimation
 end
 
-function enemy.update(dt)
+function Enemyupdate(dt)
 
   for i=#enemy,1,-1 do
     local goalX
@@ -78,11 +78,11 @@ function enemy.update(dt)
         local object = cols[k].other
         if object == "Sword" then
           enemy[i].hp = enemy[i].hp-inventory.Sword.damage
-          goalX,goalY = calKnockback(goalX,goalY,enemy[i].x,enemy[i].y,100)
+          goalX,goalY = calKnockback(enemy[i].x,enemy[i].y,player.x,player.y,1.75)
         end
         if object == "Boomerang" then
           enemy0Animation:pause()
-          goalX,goalY = calKnockback(goalX,goalY,enemy[i].x,enemy[i].y,100)
+          goalX,goalY = calKnockback(enemy[i].x,enemy[i].y,boomerangX,boomerangY,2.25)
           --enemy[i].stunned = true
           --enemy[i].stunTimer = inventory.Boomerang.stunTime
           enemy[i].hp = enemy[i].hp -inventory.Boomerang.damage
@@ -105,7 +105,7 @@ function enemy.update(dt)
   end
 end
 
-function enemy.newEnemy(id,x,y)
+function EnemynewEnemy(id,x,y)
   enemyNum = table.getn(enemy)
   if id == 0 then
     --if enemyNum == nil then enemyNum = 1 end
@@ -115,10 +115,13 @@ function enemy.newEnemy(id,x,y)
     --local x,y = map:convertTileToPixel(tx,ty)
     newEnemy.x = x
     newEnemy.y = y
+    newEnemy.xvel = 0
+    newEnemy.yvel = 0
+    newEnemy.friction = 3.9
     newEnemy.stunned = false
     newEnemy.stunTimer = 0
-    newEnemy.speed = 16
-    newEnemy.damage = .5
+    newEnemy.speed = 370
+    newEnemy.damage = 50
     newEnemy.range = 180
     table.insert(enemy,newEnemy)
     world:add("Enemy 0 "..enemyNum+1,x,y,16,16)
@@ -128,9 +131,12 @@ function enemy.newEnemy(id,x,y)
     newEnemy.hp = 2500
     newEnemy.x = x
     newEnemy.y = y
+    newEnemy.xvel = 0
+    newEnemy.yvel = 0
+    newEnemy.friction = 3.9
     newEnemy.stunned = false
     newEnemy.stunTimer = 0
-    newEnemy.speed = 16
+    newEnemy.speed = 410
     newEnemy.range = 200
     newEnemy.damage = 1.5
     table.insert(enemy,newEnemy)
@@ -138,7 +144,7 @@ function enemy.newEnemy(id,x,y)
   end
 end
 
-function enemy.draw()
+function Enemydraw()
   for i=#enemy,1,-1 do
     if enemy[i]==nil then i=i-1 end
     local results = world:hasItem("Enemy "..enemy[i].id.." "..i)
@@ -153,7 +159,7 @@ function enemy.draw()
   love.graphics.setColor(255,255,255,255)
 end
 
-function enemy.swordCheck()
+function enemyswordCheck()
 
 end
 
