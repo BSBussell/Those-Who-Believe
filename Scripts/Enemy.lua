@@ -1,13 +1,14 @@
 local sti = require "sti"
-map = sti("Maps/Protyping.lua", {"bump"})
+
 world = require "Maps/maphandler"
 local anim8 = require "Scripts/anim8"
 require "Scripts/inventory"
+require "Scripts/knockback"
 
 enemy = {}
 adder = 0
 
-function enemy.load()
+function Enemyload()
   enemy0Image = love.graphics.newImage("Images/EnemyPNG.png")
   local g = anim8.newGrid(16,16,16,64)
   enemy0Frames = g(1,2,1,4)
@@ -27,7 +28,7 @@ function enemy.load()
   enemy1CrntAni = enemy1DownAnimation
 end
 
-function enemy.update(dt)
+function Enemyupdate(dt)
 
   for i=#enemy,1,-1 do
     local goalX
@@ -47,45 +48,54 @@ function enemy.update(dt)
       adder = adder+1
     elseif enemy[i].x>0 and enemy[i].stunned == false then
       if enemy[i].x + enemy[i].range >= player.x and enemy[i].x - enemy[i].range <= player.x and enemy[i].y + enemy[i].range >=player.y and enemy[i].y - enemy[i].range <= player.y then
-        if player.x < enemy[i].x then
-          goalX = enemy[i].x-enemy[i].speed*dt
+        if player.x < enemy[i].x and enemy[i].xvel > -enemy[i].speed then
+          enemy[i].xvel = enemy[i].xvel - enemy[i].speed *dt
           if enemy[i].id == 1 then enemy1CrntAni = enemy1LeftAnimation end
-        else
-          goalX = enemy[i].x+enemy[i].speed*dt
+        elseif enemy[i].xvel <enemy[i].speed then
+          enemy[i].xvel = enemy[i].xvel + enemy[i].speed *dt
           if enemy[i].id == 1 then enemy1CrntAni = enemy1RightAnimation end
         end
-        if player.y < enemy[i].y then
-          goalY = enemy[i].y-enemy[i].speed*dt
+        if player.y < enemy[i].y and enemy[i].yvel > -enemy[i].speed then
+          enemy[i].yvel = enemy[i].yvel - enemy[i].speed*dt
           if enemy[i].id == 1 then enemy1CrntAni = enemy1UpAnimation end
-        else
-          goalY = enemy[i].y+enemy[i].speed*dt
+        elseif enemy[i].yvel < enemy[i].speed then
+          enemy[i].yvel = enemy[i].yvel+enemy[i].speed*dt
           if enemy[i].id == 1 then enemy1CrntAni = enemy1DownAnimation end
         end
         local enemyFilter = function(item,other)
-          if other=="Sword" then return 'bounce' end
-          if other=="player" then return 'bounce'
+          if other=="Sword" then return 'bounce'
+          elseif other=="player" then return 'slide'
+          elseif other=="Boomerang" then return 'touch'
           else return "slide" end
         end
       else
         math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
-        goalX = enemy[i].x + (enemy[i].speed*math.random(-.5,.5))*dt
-        goalY = enemy[i].y + (enemy[i].speed*math.random(-.5,.5)) *dt
+        enemy[i].xvel = enemy[i].xvel + (enemy[i].speed*math.random(-.75,.75))*dt
+        enemy[i].yvel = enemy[i].yvel + (enemy[i].speed*math.random(-.75,.75)) *dt
       end
-      local actualX, actualY, cols, len = world:move("Enemy "..enemy[i].id.." "..i,goalX ,goalY,enemyFilter)
+      local goalX = enemy[i].x + enemy[i].xvel*dt
+      local goalY = enemy[i].y + enemy[i].yvel*dt
+
+      enemy[i].xvel = enemy[i].xvel * (1 - math.min(dt*enemy[i].friction, 1))
+      enemy[i].yvel = enemy[i].yvel * (1 - math.min(dt*enemy[i].friction, 1))
+
+      local actualX, actualY, cols, len = world:check("Enemy "..enemy[i].id.." "..i,goalX ,goalY,enemyFilter)
 
       for k = 1,len do
         local object = cols[k].other
         if object == "Sword" then
           enemy[i].hp = enemy[i].hp-inventory.Sword.damage
+          enemy[i].xvel,enemy[i].yvel = calKnockback(actualX,actualY,player.x,player.y,12)
         end
         if object == "Boomerang" then
           enemy0Animation:pause()
+          enemy[i].xvel,enemy[i].yvel = calKnockback(actualX,actualY,boomerangX,boomerangY,16.25)
           --enemy[i].stunned = true
           --enemy[i].stunTimer = inventory.Boomerang.stunTime
-          enemy[i].hp = enemy[i].hp - inventory.Boomerang.damage
+          enemy[i].hp = enemy[i].hp -inventory.Boomerang.damage
         end
-
       end
+      local actualX, actualY, cols, len = world:move("Enemy "..enemy[i].id.." "..i,goalX ,goalY,enemyFilter)
       if stunned ~= true then
         enemy[i].x = actualX
         enemy[i].y = actualY
@@ -101,32 +111,38 @@ function enemy.update(dt)
   end
 end
 
-function enemy.newEnemy(id,x,y)
+function EnemynewEnemy(id,x,y)
   enemyNum = table.getn(enemy)
   if id == 0 then
     --if enemyNum == nil then enemyNum = 1 end
     local newEnemy = {}
     newEnemy.id = id
-    newEnemy.hp = 200
+    newEnemy.hp = 40
     --local x,y = map:convertTileToPixel(tx,ty)
     newEnemy.x = x
     newEnemy.y = y
+    newEnemy.xvel = 0
+    newEnemy.yvel = 0
+    newEnemy.friction = 3.9
     newEnemy.stunned = false
     newEnemy.stunTimer = 0
-    newEnemy.speed = 16
-    newEnemy.damage = .5
+    newEnemy.speed = 250
+    newEnemy.damage = 5
     newEnemy.range = 180
     table.insert(enemy,newEnemy)
     world:add("Enemy 0 "..enemyNum+1,x,y,16,16)
   elseif id == 1 then
     local newEnemy = {}
     newEnemy.id = id
-    newEnemy.hp = 2500
+    newEnemy.hp = 500
     newEnemy.x = x
     newEnemy.y = y
+    newEnemy.xvel = 0
+    newEnemy.yvel = 0
+    newEnemy.friction = 3.9
     newEnemy.stunned = false
     newEnemy.stunTimer = 0
-    newEnemy.speed = 16
+    newEnemy.speed = 490
     newEnemy.range = 200
     newEnemy.damage = 1.5
     table.insert(enemy,newEnemy)
@@ -134,7 +150,7 @@ function enemy.newEnemy(id,x,y)
   end
 end
 
-function enemy.draw()
+function Enemydraw()
   for i=#enemy,1,-1 do
     if enemy[i]==nil then i=i-1 end
     local results = world:hasItem("Enemy "..enemy[i].id.." "..i)
@@ -149,7 +165,7 @@ function enemy.draw()
   love.graphics.setColor(255,255,255,255)
 end
 
-function enemy.swordCheck()
+function enemyswordCheck()
 
 end
 

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" nextobjectid="3">
+ <tileset firstgid="1" name="SpriteSheet(WIP) " tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="42" columns="6">
+  <image source="SpriteSheet(WIP) .png" trans="4b637f" width="108" height="126"/>
+  <terraintypes>
+   <terrain name="Grass" tile="-1"/>
+   <terrain name="Water" tile="-1"/>
+  </terraintypes>
+  <tile id="0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="1" terrain="0,0,0,0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="2" terrain="1,0,1,1">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="3" terrain="0,1,1,1">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="4" terrain="1,1,0,1">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="5" terrain="1,1,1,0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="6" terrain="0,0,1,0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="7" terrain="0,0,0,1">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="8" terrain="0,1,0,0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="9" terrain="1,0,0,0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="10" terrain="1,0,1,0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="11" terrain="0,0,1,1">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="12" terrain="0,1,0,1">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="13" terrain="1,1,0,0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="14" terrain="1,1,1,1">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="15" terrain="1,1,1,1">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="16" terrain="0,0,1,0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="17" terrain="0,0,0,1">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="18" terrain="0,,0,0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="19" terrain=",0,0,0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="20" terrain="0,,,">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="21" terrain=",,0,">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="22" terrain=",,,0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="23" terrain=",0,,">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="24" terrain=",,0,0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="25" terrain=",0,,0">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="26" terrain="0,0,,">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="27" terrain="0,,0,">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="collidable" type="bool" value="false"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="20" height="20">
+  <data encoding="csv">
+15,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,16,
+15,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,15,
+15,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,16,
+16,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,15,
+16,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,15,
+15,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,16,
+15,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,15,
+16,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,15,
+15,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,16,
+16,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,16,
+16,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,15,
+16,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,16,
+16,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,15,
+16,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,15,
+16,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,16,
+15,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,16,
+16,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,16,
+15,11,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,13,16,
+16,3,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,4,15,
+15,15,16,16,16,15,15,15,15,16,16,16,16,16,15,16,16,15,16,15
+</data>
+ </layer>
+ <layer name="Details" width="20" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,
+0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,
+0,0,0,0,0,0,0,0,0,12,32,32,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup name="LoadZones">
+  <object id="1" name="a" x="160" y="288" width="32" height="16">
+   <properties>
+    <property name="offsetX" type="int" value="0"/>
+    <property name="offsetY" type="int" value="-2"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

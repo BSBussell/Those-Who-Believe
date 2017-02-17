@@ -21,33 +21,48 @@ end
 
 function throwBoomerang()
   if boomerangActive == false then
-    boomerangX = player.x+player.xvel
-    boomerangY = player.y+player.yvel
+    boomerangX = player.x--+(player.xvel*1.25)
+    boomerangY = player.y--+(player.yvel*1.25)
 
     startX = boomerangX
     startY = boomerangY
     baseX = startX
     baseY = startY
+    boomerangType = inventory.Hotbar.kItem
     --if player.xvel>player.yvel then
     --if player.xvel>player.yvel
     if player.xvel<2 and player.xvel>-2 then
       endX = boomerangX
     else
-      endX = boomerangX +(inventory.Boomerang.speed*(math.abs(player.xvel)/player.xvel))
+      endX = boomerangX +(inventory[boomerangType].speed*(math.abs(player.xvel)/player.xvel))
     end
 
     if player.yvel<2 and player.yvel>-2 then
       endY = boomerangY
     else
-      endY = boomerangY +(inventory.Boomerang.speed*(math.abs(player.yvel)/(player.yvel)))
+      endY = boomerangY +(inventory[boomerangType].speed*(math.abs(player.yvel)/(player.yvel)))
     end
+    if endX == boomerangX and endY == boomerangY then
+      if player.animation == charani.charRight or player.animation == charani.NulRight then
+        endX = boomerangX +(inventory[boomerangType].speed*(math.abs(player.xvel)/player.xvel))
+      elseif player.animation == charani.charLeft or player.animation == charani.NulLeft then
+        endX = boomerangX +(inventory[boomerangType].speed*(math.abs(player.xvel)/player.xvel))
+      end
+      if player.animation == charani.charForeward or player.animation == charani.NulUp then
+        endY = boomerangY +(inventory[boomerangType].speed*(math.abs(player.yvel)/(player.yvel)))
+      elseif player.animation == charani.charBackward or player.animation == charani.NulDown then
+        endY = boomerangY +(inventory[boomerangType].speed*(math.abs(player.yvel)/(player.yvel)))
+      end
+      print("Running")
+    end
+
     --increase = slopeOf(startX,startY,endX,endY)
     increaseX = endX-startX
     increaseY = endY-startY
     boomerangvelX = player.xvel
     boomerangvelY = player.yvel
     world:add("Boomerang",boomerangX,boomerangY,16,16)
-    distance = inventory.Boomerang.range
+    distance = inventory[boomerangType].range
     boomerangActive = true
     rotation = 0
     boomerangReturn = false
@@ -58,18 +73,18 @@ end
 function boomerangUpdate(dt)
   if boomerangActive == true then
     local boomerangFilter = function(item,other)
-      --for i,v in ipairs(enemy) do
-      -- if other == "Enemy 0 "..i then return "" end
-      --end
+      for i,v in ipairs(enemy) do
+        if other == "Enemy 0 "..i then return "cross" end
+      end
       if other == "player" then return "slide" end
-      return "bounce"
+      return "slide"
     end
-    rotation = rotation +.2
+    rotation = rotation +.1
     --baseX = baseX+increase
     --baseY = baseY+increase
     boomerangGoalX = boomerangX+(increaseX/6)
     boomerangGoalY = boomerangY+(increaseY/6)
-    if distanceFrom(player.x,player.y,boomerangX,boomerangY) >= inventory.Boomerang.range or boomerangReturn == true then
+    if distanceFrom(startX,startY,boomerangX,boomerangY) >= inventory[boomerangType].range or boomerangReturn == true then
       if player.x < boomerangX then
         boomerangGoalX = boomerangX-2.5
       else
@@ -101,7 +116,7 @@ function boomerangUpdate(dt)
   end
 end
 
-function boomerangDraw()
+function dashBoots()
 
 end
 

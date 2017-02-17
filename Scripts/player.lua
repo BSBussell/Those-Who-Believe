@@ -1,7 +1,7 @@
 local bump = require 'Scripts/bump'
 local sti = require 'sti'
 player = {}
-world = require "Maps/maphandler"
+--world = require "Maps/maphandler"
 require "Scripts/Ui"
 require "Scripts/inventory"
 require "Scripts/itemHandler"
@@ -11,7 +11,7 @@ require "Maps/Protyping"
 local anim8 = require 'Scripts/anim8'
 
 --this is where we set atributes of the player
-function player.load()
+function player.load(X, Y)
 
   char = love.graphics.newImage("Images/CharDemo.png")
   local g = anim8.newGrid(64,64,char:getWidth(),char:getHeight())
@@ -53,12 +53,13 @@ function player.load()
   world:add("Sword",SwordCord[1],SwordCord[2],SwordCord[3],SwordCord[4])
   fr = true
 
-  player.hp = 800
-  player.maxHp = 800
-  local x,y = map:convertTileToPixel(13,51)
-  world:add("player", x,y,30,22)
-  player.x = x
-  player.y = y
+  player.hp = 400
+  player.maxHp = 400
+  --local x,y = map:convertTileToPixel(tileX,tileY)
+  world:add("player",X,Y,30,22)
+  player.x = X
+  player.y = Y
+  cam:setPosition(X,Y)
   player.width = 14
   player.height = 14
   player.xvel = 0
@@ -101,31 +102,28 @@ function player.physics(dt)
   if swordActive ~= true then
 
     local playerFilter = function(item,other)
-      for i,v in ipairs(enemy) do
-        if other == "Enemy "..enemy[i].id.." "..i then return "bounce" end
-      end
+      --for i,v in ipairs(enemy) do
+      --if other == "Enemy "..enemy[i].id.." "..i then return "cross" end
+      --end
       if other == "Sword" then
         return nil
       else return "slide" end
       --return "slide"
     end
-    local actualX, actualY, cols,len = world:move("player",player.x + player.xvel*dt, player.y + player.yvel*dt, playerFilter)
-    player.x, player.y = actualX, actualY
+    local goalX = player.x + player.xvel*dt
+    local goalY = player.y + player.yvel*dt
 
-    --tiley,tilex = map:convertPixelToTile(math.floor(actualX),math.floor(actualY))
-    --local currentTile = {}
-    --currentTile = map:getTileProperties ("Base", tilex,tiley)
-    --if currentTile.isSwimable then
-    -- player.friction = 1.2
-    -- player.speed = 30
-    --else
-    -- player.friction = 4.9
-    -- player.speed = 390
-    --end
-    for i = 1, len do
-      local object = cols[i].other
-      for i,v in ipairs(enemy) do
-        if object == "Enemy "..enemy[i].id.." "..i then
+    player.xvel = player.xvel * (1 - math.min(dt*player.friction, 1))
+    player.yvel = player.yvel * (1 - math.min(dt*player.friction, 1))
+
+    local actualX, actualY, cols,len = world:check("player",goalX, goalY, playerFilter)
+
+    for i = 1,len do
+      for k,v in ipairs(enemy) do
+        if cols[i].other == "Enemy "..enemy[k].id.." "..k then
+          knckX,knckY = calKnockback(actualX,actualY, enemy[k].x,enemy[k].y,11)
+          player.xvel = knckX
+          player.yvel = knckY
           player.hp = player.hp - enemy[i].damage
           if player.hp<=0 then
             error("\n\n\nYou Died\n")
@@ -133,9 +131,33 @@ function player.physics(dt)
         end
       end
     end
+    local actualX, actualY, cols,len = world:move("player",goalX, goalY, playerFilter)
+    player.x, player.y = actualX, actualY
 
-    player.xvel = player.xvel * (1 - math.min(dt*player.friction, 1))
-    player.yvel = player.yvel * (1 - math.min(dt*player.friction, 1))
+    --[[
+    tiley,tilex = map:convertPixelToTile(math.floor(actualX),math.floor(actualY))
+    local currentTile = {}
+    currentTile = map:getTileProperties ("Base", tilex,tiley)
+    if currentTile.isSwimable then
+      player.friction = 1.2
+      player.speed = 30
+    else
+      player.friction = 4.9
+      player.speed = 390
+    end
+
+    for i = 1, len do
+      local object = cols[i].other
+      for i,v in ipairs(enemy) do
+        if object == "Enemy "..enemy[i].id.." "..i then
+
+        end
+      end
+    end
+    ]]
+
+    --player.xvel = player.xvel * (1 - math.min(dt*player.friction, 1))
+    --player.yvel = player.yvel * (1 - math.min(dt*player.friction, 1))
 
   end
 
@@ -175,26 +197,44 @@ function player.move(dt)
     player.yvel = player.yvel - player.speed * dt
     player.animation = charani.Down
   end
+  player.friction = 3.9
+  player.speed = 390
+  if love.keyboard.isDown("i") then
+    if inventory.Hotbar.kItem ~= "dashBoots" then
+      player.speed = 1560
+      player.friction = 1
+    end
+  end
 
   player.animation:update(dt)
+
   for k, object in pairs(map.objects) do
     if object.name == "ChestSpace" then
-      if player.x >= object.x and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height+20 and love.keyboard.isDown("space") and object.properties.opened ==false then
+      if player.x >= object.x-10 and player.x <= object.x+object.width-10 and player.y >=object.y and player.y<=object.y+object.height and love.keyboard.isDown("space") and object.properties.opened ==false then
         loadstring(object.properties.item)()
         inventory[item.name] = item
         object.properties.opened = true
         alert("\tYou Found a "..item.name.."\nOpen up your inventory with E to equip it\nClick to close")
       end
+    elseif object.name == "A" then
+      if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height then
+        mapHandlers("betaMap2",object.name)
+        --elseif player.x >= object.x-10 and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height then
+        --alert("Press Space Enter")
+      end
+    elseif object.name == "a" then
+      if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height then
+        mapHandlers("betaOverworld",object.name)
+      elseif player.x >= object.x-10 and player.x <= object.x+object.width-10 and player.y >=object.y and player.y<=object.y+object.height then
+        alert("Press Space Enter")
+      end
     end
   end
 
   cam:setPosition(player.x,player.y)
-  cam:setPosition(cam.x+(player.xvel*.35),cam.y+(player.yvel*.35))
-  map:setDrawRange(player.x-500,player.y-300,player.x+500,player.y+300)
-
+  --cam:setPosition(cam.x+(player.xvel*.55),cam.y+(player.yvel*.55))
 end
 
---functions are put here to be easily managaed in the main file
 function player.LOAD()
   player.load()
 end
