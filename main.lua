@@ -7,31 +7,32 @@ love.graphics.setDefaultFilter( 'nearest', 'nearest' )
 local bump = require 'Scripts/bump'
 local anim8 = require 'Scripts/anim8'
 worldinit = false
-require "Maps/Protyping"
 local sti = require "sti"
 require "Maps/maphandler"
 --print "Test"
 
-mapHandlers("betaOverworld")
+--mapHandlers("betaOverworld")
 function love.load()
   love.window.setMode(1000, 600)
   love.window.setTitle( "Project Z v0.01 Beta" )
 
   inventory.load()
+  cam = gamera.new(0,0,1000,500)
+  map,world = mapHandlers("betaOverworld","a")
+
   map:resize (1000, 600)
   loadEnemies()
   math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
   gamePause = false
   inventoryOpen = false
+  cam:setWindow(0,0,1000,600)
+  cam:setWorld(0,0,10384,6240)
+  cam:setScale(1.8)
+  --player.load()
   --miniCam = gamera.new(0,0,10384,6240)
   --miniCam:setWindow(600,10,200,80)
   --miniCam:setScale(1)
-  cam = gamera.new(0,0,1000,500)
-  cam:setWindow(0,0,1000,600)
-  cam:setWorld(0,-32,10384,6240)
-  cam:setScale(1.8)
   Enemyload()
-  player.load()
   Ui.load()
 end
 
@@ -51,7 +52,7 @@ function love.draw()
 
   cam:draw(function()
       map:draw()
-      player.draw(link)
+      player.draw()
       --map:bump_draw(world)
 
       Enemydraw()

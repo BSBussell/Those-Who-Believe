@@ -30,7 +30,9 @@ function Ui.draw()
   love.graphics.rectangle("fill",225,10,50,75)
   love.graphics.setColor(255,255,255,255)
   love.graphics.draw(swordUI,310,15,0,4,4)
-  love.graphics.print(player.hp,900,50)
+  love.graphics.print(player.hp,900,10)
+  love.graphics.print(player.x,900,20)
+  love.graphics.print(player.y,900,30)
   if inventory.Hotbar.kItem ~= "Empty" then
     local item = inventory.Hotbar.kItem
     love.graphics.draw(inventory[item].image,230,15,0,3,4)

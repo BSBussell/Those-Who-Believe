@@ -1,36 +1,56 @@
-local map = require 'Maps/Protyping'
 local bump = require 'Scripts/bump'
 local sti = require 'sti'
+
 overworldMaps = {}
---betaOverworld = sti("Maps/Protyping.lua", {"bump"})
---betaMap2 = sti('Maps/Overworld.lua',{"bump"})
---map = betaOverworld
---world = bump.newWorld()
 
---map:bump_init(world)
+function mapHandlers(crntMap,name)
 
-function mapHandlers(crntMap)
-  if map ~= false then
-    for i,v in pairs(map.layers) do
-      --bump_removeLayer (v, world)
-    end
-    sti:flush()
-  end
+  sti:flush()
+
   if crntMap == "betaOverworld" then
     map = sti("Maps/Protyping.lua", {"bump"})
+    world = bump.newWorld()
+    map:bump_init(world)
+    for k, object in pairs(map.objects) do
+      if object.name == string.upper(name) then
+        local objectX, objectY = map:convertPixelToTile(object.x,object.y)
+        fooX = objectX+object.properties.offsetX
+        fooY = objectY+object.properties.offsetY
+        print("Success")
+      end
+    end
+    print(fooX.."22")
+    X,Y = map:convertTileToPixel(fooX,fooY)
+    --local tileX = x
+    --local tileY = y
   elseif crntMap == "betaMap2" then
-    map = sti('Maps/Overworld.lua',{"bump"})
-    worldinit = true
+    map = sti('Maps/LoadZoneTest.lua',{"bump"})
+    world = bump.newWorld()
+    map:bump_init(world)
+    for k, object in pairs(map.objects) do
+      if object.name == string.lower(name) then
+        local objectX, objectY = map:convertPixelToTile(object.x,object.y)
+        fooX = objectX+object.properties.offsetX
+        fooY = objectY+object.properties.offsetY
+        print("Success")
+      end
+    end
+    print(fooX.."22")
+    X,Y = map:convertTileToPixel(fooX,fooY)
+
+    --local tileX = x
+    --local tileY = y
     --cam:setWorld(-200,-200,1200,1200)
+
   end
   enemy = {}
   adder = 0
 
-  if worldinit == false then world = bump.newWorld() end
-  worldinit = true
+  player.load(X,Y)
 
-  map:bump_init(world)
-  --loadEnemies()
+  loadEnemies()
+  return map,world
+
 end
 
 function loadEnemies()

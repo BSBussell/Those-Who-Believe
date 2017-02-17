@@ -1,7 +1,7 @@
 local bump = require 'Scripts/bump'
 local sti = require 'sti'
 player = {}
-world = require "Maps/maphandler"
+--world = require "Maps/maphandler"
 require "Scripts/Ui"
 require "Scripts/inventory"
 require "Scripts/itemHandler"
@@ -11,7 +11,7 @@ require "Maps/Protyping"
 local anim8 = require 'Scripts/anim8'
 
 --this is where we set atributes of the player
-function player.load()
+function player.load(X, Y)
 
   char = love.graphics.newImage("Images/CharDemo.png")
   local g = anim8.newGrid(64,64,char:getWidth(),char:getHeight())
@@ -55,11 +55,11 @@ function player.load()
 
   player.hp = 400
   player.maxHp = 400
-  local x,y = map:convertTileToPixel(22,103)
-  world:add("player", x,y,30,22)
-  player.x = x
-  player.y = y
-  cam:setPosition(x,y)
+  --local x,y = map:convertTileToPixel(tileX,tileY)
+  world:add("player",X,Y,30,22)
+  player.x = X
+  player.y = Y
+  cam:setPosition(X,Y)
   player.width = 14
   player.height = 14
   player.xvel = 0
@@ -121,7 +121,10 @@ function player.physics(dt)
     for i = 1,len do
       for k,v in ipairs(enemy) do
         if cols[i].other == "Enemy "..enemy[k].id.." "..k then
-          --player.hp = player.hp - enemy[i].damage
+          knckX,knckY = calKnockback(actualX,actualY, enemy[k].x,enemy[k].y,11)
+          player.xvel = knckX
+          player.yvel = knckY
+          player.hp = player.hp - enemy[i].damage
           if player.hp<=0 then
             error("\n\n\nYou Died\n")
           end
@@ -215,7 +218,15 @@ function player.move(dt)
       end
     elseif object.name == "A" then
       if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height then
-        mapHandlers("betaMap2")
+        mapHandlers("betaMap2",object.name)
+        --elseif player.x >= object.x-10 and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height then
+        --alert("Press Space Enter")
+      end
+    elseif object.name == "a" then
+      if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height then
+        mapHandlers("betaOverworld",object.name)
+      elseif player.x >= object.x-10 and player.x <= object.x+object.width-10 and player.y >=object.y and player.y<=object.y+object.height then
+        alert("Press Space Enter")
       end
     end
   end

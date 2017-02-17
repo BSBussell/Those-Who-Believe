@@ -1,5 +1,5 @@
 local sti = require "sti"
-map = sti("Maps/Protyping.lua", {"bump"})
+
 world = require "Maps/maphandler"
 local anim8 = require "Scripts/anim8"
 require "Scripts/inventory"
@@ -93,12 +93,6 @@ function Enemyupdate(dt)
           --enemy[i].stunned = true
           --enemy[i].stunTimer = inventory.Boomerang.stunTime
           enemy[i].hp = enemy[i].hp -inventory.Boomerang.damage
-        end
-        if object == "player" then
-          knckX,knckY = calKnockback(actualX,actualY, enemy[k].x,enemy[k].y,11)
-          player.xvel = knckX
-          player.yvel = knckY
-          player.hp = player.hp - enemy[i].damage
         end
       end
       local actualX, actualY, cols, len = world:move("Enemy "..enemy[i].id.." "..i,goalX ,goalY,enemyFilter)
