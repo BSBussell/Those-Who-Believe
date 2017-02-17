@@ -6,6 +6,7 @@ function Ui.load()
   swordUI:setFilter("nearest")
   lFont = love.graphics.newFont( "Fonts/coders_crux.ttf", 20 )
   BFont = love.graphics.newFont( "Fonts/coders_crux.ttf", 40 )
+  aFont = love.graphics.newFont( "Fonts/Courier.dfont",25)
   newText = false
   message = "Hey! You should see this, \nif you did then its a glitch please report"
 end
@@ -14,7 +15,8 @@ function Ui.update(dt)
   dimen = cam:getWindow()
 
   x, y = love.mouse.getPosition()
-  down = love.mouse.isDown(1)
+  down = love.mouse.isDown(1) or love.keyboard.isDown()
+
   Life = love.graphics.newText(lFont,"HP: ")
   lifeWidth = (player.hp/player.maxHp)*player.maxHp
   utilex,utiley = map:convertPixelToTile(math.floor(player.x),math.floor(player.y))
@@ -56,10 +58,10 @@ function Ui.draw()
   end
   if newText == true then
     love.graphics.setColor(0,0,0,255)
-    love.graphics.setFont( BFont )
+    love.graphics.setFont( aFont )
     love.graphics.print(message,200,500)
     gamePause = true
-    if down then
+    if down or inventoryOpen then
       newText = false
       gamePause = false
     end

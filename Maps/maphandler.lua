@@ -32,10 +32,8 @@ function mapHandlers(crntMap,name)
         local objectX, objectY = map:convertPixelToTile(object.x,object.y)
         fooX = objectX+object.properties.offsetX
         fooY = objectY+object.properties.offsetY
-        print("Success")
       end
     end
-    print(fooX.."22")
     X,Y = map:convertTileToPixel(fooX,fooY)
 
     --local tileX = x

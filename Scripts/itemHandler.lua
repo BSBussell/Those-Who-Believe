@@ -42,19 +42,19 @@ function throwBoomerang()
     else
       endY = boomerangY +(inventory[boomerangType].speed*(math.abs(player.yvel)/(player.yvel)))
     end
-    if endX == boomerangX and endY == boomerangY then
-      if player.animation == charani.charRight or player.animation == charani.NulRight then
-        endX = boomerangX +(inventory[boomerangType].speed*(math.abs(player.xvel)/player.xvel))
-      elseif player.animation == charani.charLeft or player.animation == charani.NulLeft then
-        endX = boomerangX +(inventory[boomerangType].speed*(math.abs(player.xvel)/player.xvel))
-      end
-      if player.animation == charani.charForeward or player.animation == charani.NulUp then
-        endY = boomerangY +(inventory[boomerangType].speed*(math.abs(player.yvel)/(player.yvel)))
-      elseif player.animation == charani.charBackward or player.animation == charani.NulDown then
-        endY = boomerangY +(inventory[boomerangType].speed*(math.abs(player.yvel)/(player.yvel)))
-      end
-      print("Running")
+    --if endX == boomerangX and endY == boomerangY then
+    if player.animation == charani.charRight or player.animation == charani.NulRight then
+      endX = boomerangX +(inventory[boomerangType].speed*(math.abs(player.xvel)/player.xvel))
+    elseif player.animation == charani.charLeft or player.animation == charani.NulLeft then
+      endX = boomerangX +(inventory[boomerangType].speed*(math.abs(player.xvel)/player.xvel))
     end
+    if player.animation == charani.charForeward or player.animation == charani.NulUp then
+      endY = boomerangY +(inventory[boomerangType].speed*(math.abs(player.yvel)/(player.yvel)))
+    elseif player.animation == charani.charBackward or player.animation == charani.NulDown then
+      endY = boomerangY +(inventory[boomerangType].speed*(math.abs(player.yvel)/(player.yvel)))
+    end
+    --print("Running")
+    --end
 
     --increase = slopeOf(startX,startY,endX,endY)
     increaseX = endX-startX
