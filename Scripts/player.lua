@@ -214,19 +214,15 @@ function player.move(dt)
         loadstring(object.properties.item)()
         inventory[item.name] = item
         object.properties.opened = true
-        alert("\tYou Found a "..item.name.."\nOpen up your inventory with E to equip it\nClick to close")
+        alert("\t\tYou Found a "..item.name.."\nOpen up your inventory with E to equip it\nClick to close")
       end
-    elseif object.name == "A" then
-      if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height then
+    elseif object.name == "A" or object.name == "B" then
+      if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >= object.y-object.height and player.y <= object.y+object.height then
         mapHandlers("betaMap2",object.name)
-        --elseif player.x >= object.x-10 and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height then
-        --alert("Press Space Enter")
       end
-    elseif object.name == "a" then
-      if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >=object.y and player.y<=object.y+object.height then
+    elseif object.name == "a" or object.name == "b" then
+      if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >=object.y-object.height and player.y<=object.y+object.height then
         mapHandlers("betaOverworld",object.name)
-      elseif player.x >= object.x-10 and player.x <= object.x+object.width-10 and player.y >=object.y and player.y<=object.y+object.height then
-        alert("Press Space Enter")
       end
     end
   end
