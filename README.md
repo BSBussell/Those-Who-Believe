@@ -3,7 +3,7 @@ This is ProjectZ. The name is not official and every file you see is currently i
 <h2>What this is? </h2>
 This is a game which started as a hello world program and grew as I slowly learned how to use Löve2D and I've made it into a little RPG game.
 <h2>How do I play?</h2>
-Well right now the game isn't even in beta. But if that doesn't scare you then who am I to stop you.
+Well right now the game isn't even in beta. But if that doesn't scare you then here is the info
 <h4>Mac OSX</h4>
 If you are using a Mac then you can download an older version [here](https://www.dropbox.com/s/xcxh6q2b8ql6wn7/Project%20Z.zip?dl=0)
 <h4>Windows</h4>
