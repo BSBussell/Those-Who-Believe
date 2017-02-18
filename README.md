@@ -9,7 +9,7 @@ If you are using a Mac then you can download an older version [here](https://www
 <h4>Windows</h4>
 If you are on Windows the you download an older version [here](https://www.dropbox.com/s/a9lsqsqfpu9tpuo/ProjectZ.exe.zip?dl=0)
 <h4>Newest Version</h4>
-If you want to try out the most up to date version then you will need the framework [Löve2D](love2d.org), then you'll need to compile the project using Löve2D
+If you want to try out the most up to date version then you will need to compile the project using the framework [Löve2D](love2d.org)
 <h2> Why is it so Glitchy?</h2>
 Well the game is still very early in development. In fact if your actually reading this then It's probably because your either a close friend or know me.
 <h3>Will it get better?</h3>
