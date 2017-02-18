@@ -21,8 +21,8 @@ end
 
 function throwBoomerang()
   if boomerangActive == false then
-    boomerangX = player.x--+(player.xvel*1.25)
-    boomerangY = player.y--+(player.yvel*1.25)
+    boomerangX = player.x+(player.xvel*.75)
+    boomerangY = player.y+(player.yvel*.75)
 
     startX = boomerangX
     startY = boomerangY

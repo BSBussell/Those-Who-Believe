@@ -12,17 +12,19 @@ function mapHandlers(crntMap,name)
     world = bump.newWorld()
     map:bump_init(world)
     for k, object in pairs(map.objects) do
-      if object.name == string.upper(name) then
+      if object.name == string.upper(name) and object.name ~= "Spawn" then
         local objectX, objectY = map:convertPixelToTile(object.x,object.y)
         fooX = objectX+object.properties.offsetX
         fooY = objectY+object.properties.offsetY
-        print("Success")
+        --print(fooX.."22")
+      elseif object.name == "Spawn" and name == "Spawn" then
+        local objectX, objectY = map:convertPixelToTile(object.x,object.y)
+        fooX = objectX+object.properties.offsetX
+        fooY = objectY+object.properties.offsetY
       end
     end
-    print(fooX.."22")
+
     X,Y = map:convertTileToPixel(fooX,fooY)
-    --local tileX = x
-    --local tileY = y
   elseif crntMap == "betaMap2" then
     map = sti('Maps/LoadZoneTest.lua',{"bump"})
     world = bump.newWorld()
@@ -32,14 +34,13 @@ function mapHandlers(crntMap,name)
         local objectX, objectY = map:convertPixelToTile(object.x,object.y)
         fooX = objectX+object.properties.offsetX
         fooY = objectY+object.properties.offsetY
+      elseif object.name == "Spawn" and name == "Spawn" then
+        local objectX, objectY = map:convertPixelToTile(object.x,object.y)
+        fooX = objectX+object.properties.offsetX
+        fooY = objectY+object.properties.offsetY
       end
     end
     X,Y = map:convertTileToPixel(fooX,fooY)
-
-    --local tileX = x
-    --local tileY = y
-    --cam:setWorld(-200,-200,1200,1200)
-
   end
   enemy = {}
   adder = 0

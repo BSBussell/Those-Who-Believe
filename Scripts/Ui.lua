@@ -7,6 +7,7 @@ function Ui.load()
   lFont = love.graphics.newFont( "Fonts/coders_crux.ttf", 20 )
   BFont = love.graphics.newFont( "Fonts/coders_crux.ttf", 40 )
   aFont = love.graphics.newFont( "Fonts/Courier.dfont",25)
+  aSmallFont = love.graphics.newFont( "Fonts/Courier.dfont",15)
   newText = false
   message = "Hey! You should see this, \nif you did then its a glitch please report"
 end
@@ -32,9 +33,9 @@ function Ui.draw()
   love.graphics.rectangle("fill",225,10,50,75)
   love.graphics.setColor(255,255,255,255)
   love.graphics.draw(swordUI,310,15,0,4,4)
-  love.graphics.print(player.hp,900,10)
-  love.graphics.print(player.x,900,20)
-  love.graphics.print(player.y,900,30)
+  love.graphics.print("HP: "..player.hp,900,10)
+  love.graphics.print("X :"..player.x,900,20)
+  love.graphics.print("Y :"..player.y,900,30)
   if inventory.Hotbar.kItem ~= "Empty" then
     local item = inventory.Hotbar.kItem
     love.graphics.draw(inventory[item].image,230,15,0,3,4)
@@ -67,7 +68,26 @@ function Ui.draw()
     end
   end
 
+  if player.hp <= 0 then
+    love.graphics.setColor(0,0,0,255)
+    love.graphics.rectangle("fill", 0, 0, 1000, 600)
+    love.graphics.setColor(255,122,122,255)
+    love.graphics.setFont( aFont )
+    love.graphics.print("Game Over",500,250)
+    love.graphics.setFont(aSmallFont)
+    love.graphics.setColor(255,255,255,255)
+    love.graphics.print("Click to Restart",500,300)
+    gamePause = true
+    if down then
+      --love.load()
+      player.hp = player.maxHp
+      map,world = mapHandlers("betaOverworld","Spawn")
+      gamePause = false
+    end
+  end
+
   love.graphics.setColor(255,255,255,255)
+
 end
 
 function inventoryUIDraw()

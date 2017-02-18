@@ -27,7 +27,7 @@ function love.load()
   cam:setWorld(0,0,10384,6240)
   cam:setScale(1.8)
   -- Create Map
-  map,world = mapHandlers("betaOverworld","a")
+  map,world = mapHandlers("betaOverworld","Spawn")
   map:resize (1000, 600)
   -- Give the game true random
   math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )

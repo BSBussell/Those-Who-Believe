@@ -125,9 +125,9 @@ function player.physics(dt)
           player.xvel = knckX
           player.yvel = knckY
           player.hp = player.hp - enemy[i].damage
-          if player.hp<=0 then
-            error("\n\n\nYou Died\n")
-          end
+          --if player.hp<=0 then
+          -- error("\n\n\nYou Died\n")
+          --end
         end
       end
     end
@@ -216,11 +216,11 @@ function player.move(dt)
         object.properties.opened = true
         alert("\t\tYou Found a "..item.name.."\nOpen up your inventory with E to equip it\nClick to close")
       end
-    elseif object.name == "A" or object.name == "B" then
+    elseif object.properties.LoadZones == true and object.name == string.upper(object.name) then
       if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >= object.y-object.height and player.y <= object.y+object.height then
         mapHandlers("betaMap2",object.name)
       end
-    elseif object.name == "a" or object.name == "b" then
+    elseif object.properties.LoadZones == true and object.name == string.lower(object.name) then
       if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >=object.y-object.height and player.y<=object.y+object.height then
         mapHandlers("betaOverworld",object.name)
       end
