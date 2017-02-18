@@ -1,19 +1,19 @@
-local bump = require 'Scripts/bump'
-local sti = require 'sti'
+local bump = require 'states/Game/Scripts/bump'
+local sti = require 'states/Game/sti'
 player = {}
 --world = require "Maps/maphandler"
-require "Scripts/Ui"
-require "Scripts/inventory"
-require "Scripts/itemHandler"
+require "states/Game/Scripts/Ui"
+require "states/Game/Scripts/inventory"
+require "states/Game/Scripts/itemHandler"
 
-require "Maps/Protyping"
+require "states/Game/Maps/Protyping"
 
-local anim8 = require 'Scripts/anim8'
+local anim8 = require 'states/Game/Scripts/anim8'
 
 --this is where we set atributes of the player
 function player.load(X, Y)
 
-  char = love.graphics.newImage("Images/CharDemo.png")
+  char = love.graphics.newImage("states/Game/Images/CharDemo.png")
   local g = anim8.newGrid(64,64,char:getWidth(),char:getHeight())
   local charBackward = g('2-9',1)
   local charLeft = g('2-9',2)
@@ -36,10 +36,10 @@ function player.load(X, Y)
 
   player.animation = charani.NulUp
 
-  Sword_Up = love.graphics.newImage("Images/Sword_Up.png")
-  Sword_Down = love.graphics.newImage("Images/Sword_Down.png")
-  Sword_Left = love.graphics.newImage("Images/Sword_Left.png")
-  Sword_Right = love.graphics.newImage("Images/Sword_Right.png")
+  Sword_Up = love.graphics.newImage("states/Game/Images/Sword_Up.png")
+  Sword_Down = love.graphics.newImage("states/Game/Images/Sword_Down.png")
+  Sword_Left = love.graphics.newImage("states/Game/Images/Sword_Left.png")
+  Sword_Right = love.graphics.newImage("states/Game/Images/Sword_Right.png")
   Sword_Down:setFilter("nearest")
   Sword_Left:setFilter("nearest")
   Sword_Right:setFilter("nearest")
@@ -73,7 +73,9 @@ end
 
 --this is player is drawn from
 function player.draw()
-  player.animation:draw(char,player.x,player.y-12,0,.45)
+  drawx = player.x
+  drawy = player.y
+  player.animation:draw(char,drawx,drawy-12,0,.45)
 
   if timer > 0 then
     love.graphics.draw(sword, SwordCord[1], SwordCord[2])

@@ -1,13 +1,13 @@
-gamera = require "Scripts/gamera"
+gamera = require "states/Game/Scripts/gamera"
 Ui = {}
 
 function Ui.load()
-  swordUI = love.graphics.newImage("Images/Sword_Up.png")
+  swordUI = love.graphics.newImage("states/Game/Images/Sword_Up.png")
   swordUI:setFilter("nearest")
-  lFont = love.graphics.newFont( "Fonts/coders_crux.ttf", 20 )
-  BFont = love.graphics.newFont( "Fonts/coders_crux.ttf", 40 )
-  aFont = love.graphics.newFont( "Fonts/Courier.dfont",25)
-  aSmallFont = love.graphics.newFont( "Fonts/Courier.dfont",15)
+  lFont = love.graphics.newFont( "states/Game/Fonts/coders_crux.ttf", 20 )
+  BFont = love.graphics.newFont( "states/Game/Fonts/coders_crux.ttf", 40 )
+  aFont = love.graphics.newFont( "states/Game/Fonts/Courier.dfont",25)
+  aSmallFont = love.graphics.newFont( "states/Game/Fonts/Courier.dfont",15)
   newText = false
   message = "Hey! You should see this, \nif you did then its a glitch please report"
 end

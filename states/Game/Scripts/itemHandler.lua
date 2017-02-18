@@ -1,7 +1,7 @@
-local bump = require 'Scripts/bump'
-local sti = require 'sti'
-world = require "Maps/maphandler"
-require "Scripts/inventory"
+local bump = require 'states/Game/Scripts/bump'
+local sti = require 'states/Game/sti'
+world = require "states/Game/Maps/maphandler"
+require "states/Game/Scripts/inventory"
 
 function swingSword()
   multiplier = 1

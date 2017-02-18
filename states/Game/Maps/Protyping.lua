@@ -5614,7 +5614,7 @@ return {
     {
       type = "objectgroup",
       name = "Treasure Chest",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -5628,14 +5628,14 @@ return {
           name = "ChestSpace",
           type = "",
           shape = "rectangle",
-          x = 9948,
-          y = 2462,
-          width = 24,
-          height = 42,
+          x = 9952,
+          y = 2464,
+          width = 16,
+          height = 32,
           rotation = 0,
           visible = true,
           properties = {
-            ["item"] = "item = { name = \"EnchantedBoomerang\", damage = 15, stunTime = 12, range = 398, speed = 17, image = love.graphics.newImage(\"Images/EnchantedBoomerang.png\")}",
+            ["item"] = "item = { name = \"EnchantedBoomerang\", damage = 15, stunTime = 12, range = 398, speed = 17, image = love.graphics.newImage(\"states/Game/Images/EnchantedBoomerang.png\")}",
             ["opened"] = false
           }
         },
@@ -5651,7 +5651,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["item"] = "item = { name = \"Boomerang\", damage = 5, stunTime = 12, range = 168, speed = 15, image = love.graphics.newImage(\"Images/Boomerang.png\")}",
+            ["item"] = "item = { name = \"Boomerang\", damage = 5, stunTime = 12, range = 168, speed = 15, image = love.graphics.newImage(\"states/Game/Images/Boomerang.png\")}",
             ["opened"] = false
           }
         }
