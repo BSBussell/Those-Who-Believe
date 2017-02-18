@@ -1,20 +1,20 @@
-local sti = require "sti"
+local sti = require "states/Game/sti"
 
-world = require "Maps/maphandler"
-local anim8 = require "Scripts/anim8"
-require "Scripts/inventory"
-require "Scripts/knockback"
+world = require "states/Game/Maps/maphandler"
+local anim8 = require "states/Game/Scripts/anim8"
+require "states/Game/Scripts/inventory"
+require "states/Game/Scripts/knockback"
 
 enemy = {}
 adder = 0
 
 function Enemyload()
-  enemy0Image = love.graphics.newImage("Images/EnemyPNG.png")
+  enemy0Image = love.graphics.newImage("states/Game/Images/EnemyPNG.png")
   local g = anim8.newGrid(16,16,16,64)
   enemy0Frames = g(1,2,1,4)
   enemy0Animation = anim8.newAnimation(enemy0Frames, 4)
 
-  enemy1Image = love.graphics.newImage("Images/Enemy1.png")
+  enemy1Image = love.graphics.newImage("states/Game/Images/Enemy1.png")
   local g1 = anim8.newGrid(64,64,832,1344)
   enemy1DownFrames = g1('2-9',11)
   enemy1UpFrames = g1('2-9',9)
