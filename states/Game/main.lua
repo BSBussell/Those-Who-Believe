@@ -75,6 +75,8 @@ end
 -- A Function which can be used to flip a Boolean
 -- From True to False or vise-versa
 function flipBool(bool)
+  --local foo4 = not bool
+  --return foo4
   if bool == true then return false
   else return true end
 end

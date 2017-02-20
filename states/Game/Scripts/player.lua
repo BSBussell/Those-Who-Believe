@@ -36,14 +36,20 @@ function player.load(X, Y)
 
   player.animation = charani.NulUp
 
-  Sword_Up = love.graphics.newImage("states/Game/Images/Sword_Up.png")
+  swd = love.graphics.newImage("states/Game/Images/Sword(slash).png")
+  local ge = anim8.newGrid(16,16,swd:getWidth(),swd:getHeight())
+  Sword_Right = anim8.newAnimation(ge('1-5',1), .09)
+  Sword_Left = anim8.newAnimation(ge('1-5',2), .09)
+  Sword_Down = anim8.newAnimation(ge('1-5',3), .09)
+  Sword_Up = anim8.newAnimation(ge('1-5',4), .09)
+  --[[Sword_Up = love.graphics.newIm age("states/Game/Images/Sword_Up.png")
   Sword_Down = love.graphics.newImage("states/Game/Images/Sword_Down.png")
   Sword_Left = love.graphics.newImage("states/Game/Images/Sword_Left.png")
   Sword_Right = love.graphics.newImage("states/Game/Images/Sword_Right.png")
   Sword_Down:setFilter("nearest")
   Sword_Left:setFilter("nearest")
   Sword_Right:setFilter("nearest")
-  Sword_Up:setFilter("nearest")
+  Sword_Up:setFilter("nearest")]]
   local sword = Sword_Down
   timer = 0
   SwordCord = {420,420,2,2}
@@ -75,12 +81,14 @@ end
 function player.draw()
   drawx = player.x
   drawy = player.y
-  player.animation:draw(char,drawx,drawy-12,0,.45)
-
-  if timer > 0 then
-    love.graphics.draw(sword, SwordCord[1], SwordCord[2])
-
+  if timer > 0 and sword == Sword_Up then
+    sword:draw(swd, SwordCord[1], SwordCord[2],0,1.15)
   end
+  player.animation:draw(char,drawx,drawy-12,0,.45)
+  if timer > 0 and sword ~= Sword_Up then
+    sword:draw(swd, SwordCord[1], SwordCord[2],0,1.15)
+  end
+
   if boomerangActive == true then
     if inventory.Hotbar.kItem ~= "EnchantedBoomerang" then
       love.graphics.draw(inventory.Boomerang.image,boomerangX,boomerangY,rotation,.65,.65)
@@ -203,16 +211,19 @@ function player.move(dt)
   player.speed = 390
   if love.keyboard.isDown("i") then
     if inventory.Hotbar.kItem ~= "dashBoots" then
-      player.speed = 1560
-      player.friction = 1
+      --player.speed = 960
+      player.friction = 0
     end
   end
 
   player.animation:update(dt)
+  if swordActive == true then
+    sword:update(dt)
+  end
 
   for k, object in pairs(map.objects) do
     if object.name == "ChestSpace" then
-      if player.x >= object.x-10 and player.x <= object.x+object.width-10 and player.y >=object.y and player.y<=object.y+object.height and love.keyboard.isDown("space") and object.properties.opened ==false then
+      if player.x >= object.x-10 and player.x <= object.x+object.width-10 and player.y >=object.y and player.y<=object.y+object.height and love.keyboard.isDown(";") and object.properties.opened ==false then
         loadstring(object.properties.item)()
         inventory[item.name] = item
         object.properties.opened = true

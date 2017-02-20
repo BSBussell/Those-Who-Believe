@@ -5,7 +5,7 @@ require "states/Game/Scripts/inventory"
 
 function swingSword()
   multiplier = 1
-  timer = 8
+  timer = 9
   --swordActive = true
 
   if player.xvel == 0 and player.yvel == 0 then
@@ -16,6 +16,7 @@ function swingSword()
     world:add("Sword",SwordCord[1], SwordCord[2], SwordCord[3], SwordCord[4])
     swordActive = true
   end
+  sword:resume()
   fr = false
 end
 
