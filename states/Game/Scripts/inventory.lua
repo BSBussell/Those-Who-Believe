@@ -2,16 +2,18 @@ inventory = {}
 
 function inventory.load()
   inventory["Sword"] = {
-    name = "Sword",
+    name = "The Old Sword",
     damage = 20,
-    image = "Swords.png"
-
+    image = love.graphics.newImage("states/Game/Images/SwordICN.png")
   }
   inventory["Hotbar"] = {
     --J = swingSword(),
     jItem = "Sword",
     --K = "Empty",
     kItem = "Empty",
+  }
+  inventory["Space"] = {
+    "Sword"
   }
   --[[
   inventory["EnchantedBoomerang"] = {

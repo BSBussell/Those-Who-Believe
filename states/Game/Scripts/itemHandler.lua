@@ -5,7 +5,7 @@ require "states/Game/Scripts/inventory"
 
 function swingSword()
   multiplier = 1
-  timer = 9
+  timer = 20
   --swordActive = true
 
   if player.xvel == 0 and player.yvel == 0 then

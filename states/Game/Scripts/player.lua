@@ -25,13 +25,13 @@ function player.load(X, Y)
   local charNillRight = g(1,4)
   charani = {
     NulUp = anim8.newAnimation(charNillUp, .12),
-    NulRight = anim8.newAnimation(charNillRight, .06),
-    NulDown = anim8.newAnimation(charNillDown, .06),
-    NulLeft = anim8.newAnimation(charNillLeft, .06),
-    Right = anim8.newAnimation(charRight, .06),
-    Up = anim8.newAnimation(charForeward, .06),
-    Down = anim8.newAnimation(charBackward, .06),
-    Left = anim8.newAnimation(charLeft, .06),
+    NulRight = anim8.newAnimation(charNillRight, .09),
+    NulDown = anim8.newAnimation(charNillDown, .09),
+    NulLeft = anim8.newAnimation(charNillLeft, .09),
+    Right = anim8.newAnimation(charRight, .09),
+    Up = anim8.newAnimation(charForeward, .09),
+    Down = anim8.newAnimation(charBackward, .09),
+    Left = anim8.newAnimation(charLeft, .09),
   }
 
   player.animation = charani.NulUp
@@ -143,32 +143,16 @@ function player.physics(dt)
     end
     local actualX, actualY, cols,len = world:move("player",goalX, goalY, playerFilter)
     player.x, player.y = actualX, actualY
-
-    --[[
-    tiley,tilex = map:convertPixelToTile(math.floor(actualX),math.floor(actualY))
-    local currentTile = {}
-    currentTile = map:getTileProperties ("Base", tilex,tiley)
-    if currentTile.isSwimable then
-      player.friction = 1.2
-      player.speed = 30
-    else
-      player.friction = 4.9
-      player.speed = 390
+  else
+    if sword == Sword_Right then
+      SwordCord = {player.x+16,player.y-4,20,6}
+    elseif sword == Sword_Left then
+      SwordCord = {player.x-4,player.y-4,20,6}
+    elseif sword == Sword_Up then
+      SwordCord = {player.x+(player.width*.25),player.y-player.height,6,20}
+    elseif sword == Sword_Down then
+      SwordCord = {player.x+(player.width*.25),player.y+8,6,20}
     end
-
-    for i = 1, len do
-      local object = cols[i].other
-      for i,v in ipairs(enemy) do
-        if object == "Enemy "..enemy[i].id.." "..i then
-
-        end
-      end
-    end
-    ]]
-
-    --player.xvel = player.xvel * (1 - math.min(dt*player.friction, 1))
-    --player.yvel = player.yvel * (1 - math.min(dt*player.friction, 1))
-
   end
 
 end
@@ -176,7 +160,7 @@ end
 --this is where the movement is handled
 function player.move(dt)
   if boomerangActive == true then boomerangUpdate(dt) end
-  if ((love.keyboard.isDown("d") or love.keyboard.isDown("right")) and
+  if ((love.keyboard.isDown("d","right")) and
     player.xvel < player.speed) and swordActive == false then
     player.xvel = player.xvel + player.speed * dt
     SwordCord = {player.x+16,player.y+5,20,6}
@@ -184,7 +168,7 @@ function player.move(dt)
     player.animation = charani.Right
   end
 
-  if ((love.keyboard.isDown("a") or love.keyboard.isDown("left")) and
+  if ((love.keyboard.isDown("a","left"))  and
     player.xvel > -player.speed) and swordActive == false then
     player.xvel = player.xvel - player.speed * dt
     SwordCord = {player.x-4,player.y+4,20,6}
@@ -192,7 +176,7 @@ function player.move(dt)
     player.animation = charani.Left
   end
 
-  if ((love.keyboard.isDown("s") or love.keyboard.isDown("down")) and
+  if ((love.keyboard.isDown("s","down")) and
     player.yvel < player.speed) and swordActive == false then
     SwordCord = {player.x+(player.width*.25),player.y+8,6,20}
     sword = Sword_Down
@@ -200,7 +184,7 @@ function player.move(dt)
 
     player.animation = charani.Up
   end
-  if ((love.keyboard.isDown("w") or love.keyboard.isDown("up")) and
+  if ((love.keyboard.isDown("w","up")) and
     player.yvel > -player.speed) and swordActive == false then
     SwordCord = {player.x+(player.width*.25),player.y-player.height,6,20}
     sword = Sword_Up
@@ -223,9 +207,10 @@ function player.move(dt)
 
   for k, object in pairs(map.objects) do
     if object.name == "ChestSpace" then
-      if player.x >= object.x-10 and player.x <= object.x+object.width-10 and player.y >=object.y and player.y<=object.y+object.height and love.keyboard.isDown(";") and object.properties.opened ==false then
+      if player.x >= object.x-10 and player.x <= object.x+object.width-10 and player.y >=object.y and player.y<=object.y+object.height and love.keyboard.isDown("space") and object.properties.opened ==false then
         loadstring(object.properties.item)()
         inventory[item.name] = item
+        table.insert(inventory.Space,item.name)
         object.properties.opened = true
         alert("\t\tYou Found a "..item.name.."\nOpen up your inventory with E to equip it\nClick to close")
       end

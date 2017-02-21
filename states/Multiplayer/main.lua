@@ -18,8 +18,8 @@ end
 
 function love.draw()
 
-  drawButton("Single Player",(width/2)-100,(height/2-60),200,60,{0,122,255,255})
-  drawButton("Multiplayer",(width/2)-100,(height/2)+20,200,60,{92,122,195,255})
+  drawButton("Host",(width/2)-100,(height/2-60),200,60,{0,122,255,255})
+  drawButton("Join",(width/2)-100,(height/2)+20,200,60,{92,122,195,255})
   if x>=(width/2)-100 and x<=(width/2)+100 and y>=(height/2)-60 and y<=(height/2) then
     love.graphics.rectangle("line", (width/2)-99, (height/2)-59, 200, 60)
   end
@@ -30,10 +30,10 @@ end
 
 function love.mousepressed( x, y, button, istouch )
   if x>=(width/2)-100 and x<=(width/2)+100 and y>=(height/2)-60 and y<=(height/2) then
-    loadState("Game")
+    loadState("Multiplayer/states/Host")
   end
   if x>=(width/2)-100 and x<=(width/2)+100 and y>=(height/2)+20 and y<=(height/2)+80 then
-    loadState("Multiplayer")
+    loadState("Multiplayer/states/Join")
   end
 end
 
