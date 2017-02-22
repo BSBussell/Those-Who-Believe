@@ -28,11 +28,11 @@ function Ui.update(dt)
 end
 
 function Ui.draw()
-  love.graphics.setColor(0,0,0,255)
+  love.graphics.setColor(122,122,122,155)
   love.graphics.rectangle("fill",0,0,1000,100)
   love.graphics.setColor(255,255,255,255)
   love.graphics.rectangle("line",1,1,998,99)
-  love.graphics.setColor(0,0,255,255)
+  love.graphics.setColor(165,165,165,255)
   love.graphics.rectangle("fill",300,10,50,75)
   love.graphics.rectangle("fill",225,10,50,75)
   love.graphics.setColor(255,255,255,255)
