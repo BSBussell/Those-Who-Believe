@@ -42,14 +42,7 @@ function player.load(X, Y)
   Sword_Left = anim8.newAnimation(ge('1-5',2), .09)
   Sword_Down = anim8.newAnimation(ge('1-5',3), .09)
   Sword_Up = anim8.newAnimation(ge('1-5',4), .09)
-  --[[Sword_Up = love.graphics.newIm age("states/Game/Images/Sword_Up.png")
-  Sword_Down = love.graphics.newImage("states/Game/Images/Sword_Down.png")
-  Sword_Left = love.graphics.newImage("states/Game/Images/Sword_Left.png")
-  Sword_Right = love.graphics.newImage("states/Game/Images/Sword_Right.png")
-  Sword_Down:setFilter("nearest")
-  Sword_Left:setFilter("nearest")
-  Sword_Right:setFilter("nearest")
-  Sword_Up:setFilter("nearest")]]
+
   local sword = Sword_Down
   timer = 0
   SwordCord = {420,420,2,2}
@@ -118,7 +111,7 @@ function player.physics(dt)
       if other == "Sword" then
         return nil
       else return "slide" end
-      --return "slide"
+
     end
     local goalX = player.x + player.xvel*dt
     local goalY = player.y + player.yvel*dt
@@ -195,7 +188,7 @@ function player.move(dt)
   player.speed = 390
   if love.keyboard.isDown("i") then
     if inventory.Hotbar.kItem ~= "dashBoots" then
-      --player.speed = 960
+      player.speed = 960
       player.friction = 0
     end
   end
@@ -216,11 +209,11 @@ function player.move(dt)
       end
     elseif object.properties.LoadZones == true and object.name == string.upper(object.name) then
       if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >= object.y-object.height and player.y <= object.y+object.height then
-        mapHandlers("betaMap2",object.name)
+        mapHandlers(object.properties.map,object.name)
       end
     elseif object.properties.LoadZones == true and object.name == string.lower(object.name) then
       if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >=object.y-object.height and player.y<=object.y+object.height then
-        mapHandlers("betaOverworld",object.name)
+        mapHandlers(object.properties.map,object.name)
       end
     end
   end
@@ -244,13 +237,13 @@ end
 
 function love.keyreleased(key)
   if inventoryOpen == false and gamePause == false then
-    if key == "j" and inventory.Sword ~= nil then
+    if key == "j"  then
       if inventory.Hotbar.jItem == "Sword" then swingSword() end
-      if inventory.Hotbar.jItem == "Boomerang" or inventory.Hotbar.jItem == "EnchantedBoomerang" then throwBoomerang() end
+      if inventory.Hotbar.jItem == "Boomerang" or inventory.Hotbar.jItem == "EnchantedBoomerang" then throwBoomerang("j") end
     end
-    if key == "k" and inventory.Boomerang ~= nil then
+    if key == "k" then
       if inventory.Hotbar.kItem == "Sword" then swingSword() end
-      if inventory.Hotbar.kItem == "Boomerang" or inventory.Hotbar.kItem == "EnchantedBoomerang" then throwBoomerang() end
+      if inventory.Hotbar.kItem == "Boomerang" or   inventory.Hotbar.kItem == "EnchantedBoomerang" then throwBoomerang("k") end
     end
     if key == "w" or key == "up" then
       player.animation = charani.NulUp

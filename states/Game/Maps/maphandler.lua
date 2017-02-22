@@ -6,7 +6,7 @@ overworldMaps = {}
 function mapHandlers(crntMap,name)
 
   sti:flush()
-
+  print(crntMap)
   if crntMap == "betaOverworld" then
     map = sti("states/Game/Maps/Protyping.lua", {"bump"})
     world = bump.newWorld()
@@ -27,6 +27,23 @@ function mapHandlers(crntMap,name)
     X,Y = map:convertTileToPixel(fooX,fooY)
   elseif crntMap == "betaMap2" then
     map = sti('states/Game/Maps/LoadZoneTest.lua',{"bump"})
+    world = bump.newWorld()
+    map:bump_init(world)
+    for k, object in pairs(map.objects) do
+      if object.name == string.lower(name) then
+        local objectX, objectY = map:convertPixelToTile(object.x,object.y)
+        fooX = objectX+object.properties.offsetX
+        fooY = objectY+object.properties.offsetY
+      elseif object.name == "Spawn" and name == "Spawn" then
+        local objectX, objectY = map:convertPixelToTile(object.x,object.y)
+        fooX = objectX+object.properties.offsetX
+        fooY = objectY+object.properties.offsetY
+      end
+    end
+    X,Y = map:convertTileToPixel(fooX,fooY)
+  
+  elseif crntMap == "water" then
+    map = sti('states/Game/Maps/UnderWater.lua',{"bump"})
     world = bump.newWorld()
     map:bump_init(world)
     for k, object in pairs(map.objects) do

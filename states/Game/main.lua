@@ -1,16 +1,19 @@
--- Benjamin S. Bussell
--- January 26, 2017
+--[[ 
+    Benjamin S. Bussell
+    January 26, 2017
+--]]
 
---Set Depenndiencies
-gamera = require "states/Game/Scripts/gamera"
-require "states/Game/Scripts/player"
-require "states/Game/Scripts/Enemy"
-require "states/Game/Scripts/Ui"
-require "states/Game/Scripts/inventory"
-require "states/Game/Maps/maphandler"
-local bump = require 'states/Game/Scripts/bump'
-local anim8 = require 'states/Game/Scripts/anim8'
-local sti = require "states/Game/sti"
+
+local bump = require 'states/Game/Scripts/bump'      -- Bump
+local anim8 = require 'states/Game/Scripts/anim8'    -- anim8
+local sti = require "states/Game/sti"                -- STI
+local gamera = require "states/Game/Scripts/gamera"  -- Gamera
+
+require "states/Game/Scripts/player"                 -- Player
+require "states/Game/Scripts/Enemy"                  -- Enemy
+require "states/Game/Scripts/Ui"                     -- UI
+require "states/Game/Scripts/inventory"              -- Inventory
+require "states/Game/Maps/maphandler"                -- Maphandler
 
 -- Set Everything to be HD by default
 love.graphics.setDefaultFilter( 'nearest', 'nearest' )

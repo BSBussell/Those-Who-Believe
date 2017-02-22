@@ -20,7 +20,7 @@ function swingSword()
   fr = false
 end
 
-function throwBoomerang()
+function throwBoomerang(btn)
   if boomerangActive == false then
     boomerangX = player.x+(player.xvel*.75)
     boomerangY = player.y+(player.yvel*.75)
@@ -29,7 +29,8 @@ function throwBoomerang()
     startY = boomerangY
     baseX = startX
     baseY = startY
-    boomerangType = inventory.Hotbar.kItem
+    local stuff = btn.."Item"
+    boomerangType = inventory.Hotbar[stuff]
     --if player.xvel>player.yvel then
     --if player.xvel>player.yvel
     if player.xvel<2 and player.xvel>-2 then

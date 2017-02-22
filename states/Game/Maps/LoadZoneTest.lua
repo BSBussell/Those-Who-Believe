@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 6,
+  nextobjectid = 14,
   properties = {},
   tilesets = {
     {
@@ -572,7 +572,7 @@ return {
     {
       type = "objectgroup",
       name = "LoadZones",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -594,6 +594,7 @@ return {
           visible = true,
           properties = {
             ["LoadZones"] = true,
+            ["map"] = "betaOverworld",
             ["offsetX"] = 0,
             ["offsetY"] = -2
           }
@@ -611,6 +612,7 @@ return {
           visible = true,
           properties = {
             ["LoadZones"] = true,
+            ["map"] = "betaOverworld",
             ["offsetX"] = 0,
             ["offsetY"] = 2
           }
@@ -628,6 +630,7 @@ return {
           visible = true,
           properties = {
             ["LoadZones"] = true,
+            ["map"] = "betaOverworld",
             ["offsetX"] = 0,
             ["offsetY"] = 2
           }
@@ -647,6 +650,110 @@ return {
             ["offsetX"] = 0,
             ["offsetY"] = 0
           }
+        },
+        {
+          id = 6,
+          name = "0",
+          type = "",
+          shape = "rectangle",
+          x = 304,
+          y = 576,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 7,
+          name = "0",
+          type = "",
+          shape = "rectangle",
+          x = 992,
+          y = 576,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 8,
+          name = "0",
+          type = "",
+          shape = "rectangle",
+          x = 784,
+          y = 1408,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 9,
+          name = "0",
+          type = "",
+          shape = "rectangle",
+          x = 1136,
+          y = 1376,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 10,
+          name = "0",
+          type = "",
+          shape = "rectangle",
+          x = 1312,
+          y = 1296,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 11,
+          name = "0",
+          type = "",
+          shape = "rectangle",
+          x = 1520,
+          y = 1024,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 12,
+          name = "0",
+          type = "",
+          shape = "rectangle",
+          x = 832,
+          y = 1024,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 13,
+          name = "0",
+          type = "",
+          shape = "rectangle",
+          x = 1248,
+          y = 368,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     }
