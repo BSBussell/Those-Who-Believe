@@ -32,7 +32,7 @@ function load()
   -- Create Map
   map,world = mapHandlers("betaOverworld","Spawn")
   map:resize (1000, 600)
-  -- Give the game true random
+  -- Give the game true random-ish
   math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
   -- init pausing variables
   gamePause = false
@@ -78,8 +78,8 @@ end
 -- A Function which can be used to flip a Boolean
 -- From True to False or vise-versa
 function flipBool(bool)
-  --local foo4 = not bool
-  --return foo4
-  if bool == true then return false
-  else return true end
+  local foo4 = not bool
+  return foo4
+  --if bool == true then return false
+  --else return true end
 end

@@ -6225,8 +6225,8 @@ return {
           properties = {
             ["LoadZones"] = true,
             ["map"] = "water",
-            ["offsetX"] = 0,
-            ["offsetY"] = 2
+            ["offsetX"] = 1,
+            ["offsetY"] = 1
           }
         },
         {
@@ -6261,8 +6261,8 @@ return {
           properties = {
             ["LoadZones"] = true,
             ["map"] = "water",
-            ["offsetX"] = 0,
-            ["offsetY"] = 2
+            ["offsetX"] = -1,
+            ["offsetY"] = -1
           }
         },
         {

@@ -1820,8 +1820,8 @@
    <properties>
     <property name="LoadZones" type="bool" value="true"/>
     <property name="map" value="water"/>
-    <property name="offsetX" type="int" value="0"/>
-    <property name="offsetY" type="int" value="2"/>
+    <property name="offsetX" type="int" value="1"/>
+    <property name="offsetY" type="int" value="1"/>
    </properties>
   </object>
   <object id="2577" name="G" x="8608" y="2752" width="16" height="16">
@@ -1836,8 +1836,8 @@
    <properties>
     <property name="LoadZones" type="bool" value="true"/>
     <property name="map" value="water"/>
-    <property name="offsetX" type="int" value="0"/>
-    <property name="offsetY" type="int" value="2"/>
+    <property name="offsetX" type="int" value="-1"/>
+    <property name="offsetY" type="int" value="-1"/>
    </properties>
   </object>
   <object id="2579" name="I" x="6672" y="208" width="16" height="16">
