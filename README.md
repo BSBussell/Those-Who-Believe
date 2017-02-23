@@ -1,5 +1,5 @@
-<h1>Project Z</h1>
-This is ProjectZ. The name is not official and every file you see is currently in beta, so between now and whenever I finish this everything could change. 
+<h1>Those Who Believe</h1>
+Those Who Believe is a top down 2d role-playing game. The name is not official and every file you see is currently in beta, so between now and whenever I finish this everything could change. 
 <h2>What this is? </h2>
 This is a game which started as a hello world program and grew as I slowly learned how to use Löve2D and I've made it into a little RPG game.
 <h2>How do I play?</h2>
