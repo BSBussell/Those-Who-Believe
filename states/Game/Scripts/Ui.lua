@@ -129,7 +129,7 @@ function inventoryUIDraw()
 
   if store ~= nil and x>225 and x<225+50 and y>10 and y<85 and down and store ~= inventory.Hotbar.kItem then
      inventory.Hotbar.kItem = store
-     if inventory.Hotbar.kItem == inventory.Hotbar.jItem then
+     if inventory.Hotbar.kItem == inventory.Hotbar.jItem or (string.find(inventory)) then
             inventory.Hotbar.jItem = "Empty"
      end
   end

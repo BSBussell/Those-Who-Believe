@@ -238,11 +238,11 @@ end
 function love.keyreleased(key)
   if inventoryOpen == false and gamePause == false then
     if key == "j"  then
-      if inventory.Hotbar.jItem == "Sword" then swingSword() end
+      if inventory.Hotbar.jItem == "Sword" or inventory.Hotbar.jItem == "SharpSword" then swingSword() end
       if inventory.Hotbar.jItem == "Boomerang" or inventory.Hotbar.jItem == "EnchantedBoomerang" then throwBoomerang("j") end
     end
     if key == "k" then
-      if inventory.Hotbar.kItem == "Sword" then swingSword() end
+      if inventory.Hotbar.kItem == "Sword" or inventory.Hotbar.kItem == "SharpSword" then swingSword() end
       if inventory.Hotbar.kItem == "Boomerang" or   inventory.Hotbar.kItem == "EnchantedBoomerang" then throwBoomerang("k") end
     end
     if key == "w" or key == "up" then

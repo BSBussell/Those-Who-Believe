@@ -81,10 +81,21 @@ function Enemyupdate(dt)
 
       local actualX, actualY, cols, len = world:check("Enemy "..enemy[i].id.." "..i,goalX ,goalY,enemyFilter)
 
+      local lefty = inventory["Hotbar"].jItem
+      local righty = inventory["Hotbar"].kItem
+
       for k = 1,len do
         local object = cols[k].other
         if object == "Sword" then
-          enemy[i].hp = enemy[i].hp-inventory.Sword.damage
+          if string.find(lefty,"Sword") then
+            damageAmt = inventory["Hotbar"].jItem
+            print(damageAmt)
+          else
+            damageAmt = inventory["Hotbar"].kItem
+            print(damageAmt)
+          end
+          print(damageAmt)
+          enemy[i].hp = enemy[i].hp-inventory[damageAmt].damage
           enemy[i].xvel,enemy[i].yvel = calKnockback(actualX,actualY,player.x,player.y,12)
         end
         if object == "Boomerang" then
