@@ -1392,7 +1392,7 @@ return {
     {
       type = "objectgroup",
       name = "Enemys",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -1400,38 +1400,12 @@ return {
       properties = {},
       objects = {
         {
-          id = 68,
-          name = "0",
-          type = "",
-          shape = "rectangle",
-          x = 633,
-          y = 1383,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 69,
           name = "0",
           type = "",
           shape = "rectangle",
           x = 795,
           y = 1279,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 72,
-          name = "0",
-          type = "",
-          shape = "rectangle",
-          x = 912,
-          y = 1584,
           width = 0,
           height = 0,
           rotation = 0,
@@ -1614,19 +1588,6 @@ return {
           shape = "rectangle",
           x = 712,
           y = 2016,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 1068,
-          name = "0",
-          type = "",
-          shape = "rectangle",
-          x = 720,
-          y = 1728,
           width = 0,
           height = 0,
           rotation = 0,
@@ -5678,7 +5639,7 @@ return {
     {
       type = "objectgroup",
       name = "NPC",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -5697,8 +5658,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["name"] = "Benjamin",
-            ["sprite"] = "Images/Ben.png"
+            ["image"] = "/Users/BenBusBoy/Documents/ThoseWhoBelieve/states/Game/Images/Ben.png",
+            ["name"] = "Benjamin"
           }
         }
       }
@@ -6180,8 +6141,8 @@ return {
           name = "Spawn",
           type = "",
           shape = "rectangle",
-          x = 32,
-          y = 1744,
+          x = 880,
+          y = 1568,
           width = 16,
           height = 16,
           rotation = 0,

@@ -6,6 +6,9 @@ overworldMaps = {}
 function mapHandlers(crntMap,name)
 
   sti:flush()
+  for k,v in ipairs(objects) do
+    world:remove(objects[k].id)
+  end
   print(crntMap)
   if crntMap == "betaOverworld" then
     map = sti("states/Game/Maps/Protyping.lua", {"bump"})
@@ -23,7 +26,7 @@ function mapHandlers(crntMap,name)
         fooY = objectY+object.properties.offsetY
       end
     end
-
+    cam:setWorld(0,0,10384,6240)
     X,Y = map:convertTileToPixel(fooX,fooY)
   elseif crntMap == "betaMap2" then
     map = sti('states/Game/Maps/LoadZoneTest.lua',{"bump"})
@@ -41,7 +44,7 @@ function mapHandlers(crntMap,name)
       end
     end
     X,Y = map:convertTileToPixel(fooX,fooY)
-  
+    cam:setWorld(0,0,1600,1600)
   elseif crntMap == "water" then
     map = sti('states/Game/Maps/UnderWater.lua',{"bump"})
     world = bump.newWorld()
@@ -57,6 +60,7 @@ function mapHandlers(crntMap,name)
         fooY = objectY+object.properties.offsetY
       end
     end
+    cam:setWorld(0,0,1600,1600)
     X,Y = map:convertTileToPixel(fooX,fooY)
   end
   enemy = {}
@@ -65,6 +69,7 @@ function mapHandlers(crntMap,name)
   player.load(X,Y)
 
   loadEnemies()
+  loadDynObjects()
   return map,world
 
 end
@@ -75,6 +80,16 @@ function loadEnemies()
       EnemynewEnemy(0,object.x,object.y)
     elseif object.name == "1" then
       EnemynewEnemy(1,object.x,object.y)
+    end
+  end
+end
+
+function loadDynObjects()
+  for k, object in pairs(map.objects) do
+    if object.name == "heart" then
+      addObject("heart",180,1770)
+    --elseif object.name == "1" then
+    --  EnemynewEnemy(1,object.x,object.y)
     end
   end
 end

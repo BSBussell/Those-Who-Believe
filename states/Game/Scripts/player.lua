@@ -52,8 +52,8 @@ function player.load(X, Y)
   world:add("Sword",SwordCord[1],SwordCord[2],SwordCord[3],SwordCord[4])
   fr = true
 
-  player.hp = 400
-  player.maxHp = 400
+  player.hp = 60
+  player.maxHp = 60
   --local x,y = map:convertTileToPixel(tileX,tileY)
   world:add("player",X,Y,30,22)
   player.x = X
@@ -105,11 +105,13 @@ function player.physics(dt)
   if swordActive ~= true then
 
     local playerFilter = function(item,other)
-      --for i,v in ipairs(enemy) do
-      --if other == "Enemy "..enemy[i].id.." "..i then return "cross" end
-      --end
+      for i,v in ipairs(objects) do
+        if other == objects[i].id then return "cross" end
+      end
       if other == "Sword" then
         return nil
+      elseif other == "heart 0" then
+        return "cross"
       else return "slide" end
 
     end
@@ -123,7 +125,7 @@ function player.physics(dt)
 
     for i = 1,len do
       for k,v in ipairs(enemy) do
-        if cols[i].other == "Enemy "..enemy[k].id.." "..k then
+        if cols[i].other == enemy[k].colId then
           knckX,knckY = calKnockback(actualX,actualY, enemy[k].x,enemy[k].y,11)
           player.xvel = knckX
           player.yvel = knckY
@@ -205,7 +207,7 @@ function player.move(dt)
         inventory[item.name] = item
         table.insert(inventory.Space,item.name)
         object.properties.opened = true
-        alert("\t\tYou Found a "..item.name.."\nOpen up your inventory with E to equip it\nClick to close")
+        alert("You Found a "..item.name.."!!\nOpen up your inventory with E to equip it")
       end
     elseif object.properties.LoadZones == true and object.name == string.upper(object.name) then
       if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >= object.y-object.height and player.y <= object.y+object.height then

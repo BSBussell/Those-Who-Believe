@@ -10,7 +10,7 @@ function load()
 end
 
 function love.update(dt)
-  mdown = love.mouse.isDown(1)
+  --mdown = love.mouse.isDown(1)
   x = love.mouse.getX()
   y = love.mouse.getY()
 

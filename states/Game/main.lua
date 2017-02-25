@@ -1,4 +1,4 @@
---[[ 
+--[[
     Benjamin S. Bussell
     January 26, 2017
 --]]
@@ -14,14 +14,25 @@ require "states/Game/Scripts/Enemy"                  -- Enemy
 require "states/Game/Scripts/Ui"                     -- UI
 require "states/Game/Scripts/inventory"              -- Inventory
 require "states/Game/Maps/maphandler"                -- Maphandler
+require "states/Game/Scripts/dynamicObjects"
 
 -- Set Everything to be HD by default
 love.graphics.setDefaultFilter( 'nearest', 'nearest' )
 
 function load()
   -- Setup the Window
-  love.window.setMode(1000, 600)
-  love.window.setTitle( "Project Z v0.01 Beta" )
+  flags = {
+    resizable=false,
+    vsync=false,
+    minwidth=400,
+    minheight=300
+  }
+  love.window.setMode(1000, 600,flags)
+  love.window.setTitle( "Project Z v0.1.5 Beta" )
+
+  min_dt = 1/60
+  next_time = love.timer.getTime()
+
   -- Create inventory table
   inventory.load()
   -- Create Camera
@@ -41,9 +52,14 @@ function load()
   Enemyload()
   -- Load Ui
   Ui.load()
+
+  --addObject("heart",180,1770)
+  --addObject("heart",190,1770)
 end
 
 function love.update(dt)
+  next_time = next_time + min_dt
+
   -- Check if game is pause
   if inventoryOpen == false and gamePause == false then
     -- Update map and plater and enemies
@@ -53,6 +69,7 @@ function love.update(dt)
     player.physics(dt)
     player.move(dt)
     Enemyupdate(dt)
+    updateObject()
   end
   -- Always Update UI
   Ui.update(dt)
@@ -64,6 +81,7 @@ function love.draw()
   cam:draw(function()
       -- Drawing the map, player and enemies then resetting the color
       map:draw()
+      drawObject()
       player.draw()
       Enemydraw()
       love.graphics.setColor(255, 255, 255, 255)
@@ -73,6 +91,12 @@ function love.draw()
 
   Ui.draw()
 
+  local cur_time = love.timer.getTime()
+   if next_time <= cur_time then
+      next_time = cur_time
+      return
+   end
+   love.timer.sleep(next_time - cur_time)
 end
 
 -- A Function which can be used to flip a Boolean

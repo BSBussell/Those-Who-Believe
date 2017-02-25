@@ -35,17 +35,21 @@ function Enemyupdate(dt)
     local goalY
     while enemy[i] == nil do i = i-1 end
 
-    local result = world:hasItem("Enemy "..enemy[i].id.." "..i)
+    local result = world:hasItem(enemy[i].colId)
 
     enemy0Animation:update(dt)
     enemy1CrntAni:update(dt)
 
     if enemy[i].hp <= 0 and result == true or enemy[i] == nil then
-      world:remove("Enemy "..enemy[i].id.." "..i)
-      world:add("Enemy "..enemy[i].id.." "..i,-200,-200,16,16)
-      enemy[i].x = -200
-      enemy[i].y = -200
+      if math.random(1,5) == 1 and enemy[i].x >0 then
+        addObject("heart",enemy[i].x,enemy[i].y)
+      end
+      world:remove(enemy[i].colId)
+      --world:add(enemy[i].colId,-200,-200,16,16)
+      --enemy[i].x = -200
+      --enemy[i].y = -200
       adder = adder+1
+      table.remove(enemy,i)
     elseif enemy[i].x>0 and enemy[i].stunned == false then
       if enemy[i].x + enemy[i].range >= player.x and enemy[i].x - enemy[i].range <= player.x and enemy[i].y + enemy[i].range >=player.y and enemy[i].y - enemy[i].range <= player.y then
         if player.x < enemy[i].x and enemy[i].xvel > -enemy[i].speed then
@@ -69,7 +73,7 @@ function Enemyupdate(dt)
           else return "slide" end
         end
       else
-        math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
+        math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) +((enemy[i].id+1)*math.random(-.5,.5)) )
         enemy[i].xvel = enemy[i].xvel + (enemy[i].speed*math.random(-.75,.75))*dt
         enemy[i].yvel = enemy[i].yvel + (enemy[i].speed*math.random(-.75,.75)) *dt
       end
@@ -79,7 +83,7 @@ function Enemyupdate(dt)
       enemy[i].xvel = enemy[i].xvel * (1 - math.min(dt*enemy[i].friction, 1))
       enemy[i].yvel = enemy[i].yvel * (1 - math.min(dt*enemy[i].friction, 1))
 
-      local actualX, actualY, cols, len = world:check("Enemy "..enemy[i].id.." "..i,goalX ,goalY,enemyFilter)
+      local actualX, actualY, cols, len = world:check(enemy[i].colId,goalX ,goalY,enemyFilter)
 
       local lefty = inventory["Hotbar"].jItem
       local righty = inventory["Hotbar"].kItem
@@ -89,12 +93,12 @@ function Enemyupdate(dt)
         if object == "Sword" then
           if string.find(lefty,"Sword") then
             damageAmt = inventory["Hotbar"].jItem
-            print(damageAmt)
+            --print(damageAmt)
           else
             damageAmt = inventory["Hotbar"].kItem
-            print(damageAmt)
+            --print(damageAmt)
           end
-          print(damageAmt)
+          --print(damageAmt)
           enemy[i].hp = enemy[i].hp-inventory[damageAmt].damage
           enemy[i].xvel,enemy[i].yvel = calKnockback(actualX,actualY,player.x,player.y,12)
         end
@@ -106,7 +110,7 @@ function Enemyupdate(dt)
           enemy[i].hp = enemy[i].hp -inventory.Boomerang.damage
         end
       end
-      local actualX, actualY, cols, len = world:move("Enemy "..enemy[i].id.." "..i,goalX ,goalY,enemyFilter)
+      local actualX, actualY, cols, len = world:move(enemy[i].colId,goalX ,goalY,enemyFilter)
       if stunned ~= true then
         enemy[i].x = actualX
         enemy[i].y = actualY
@@ -139,7 +143,8 @@ function EnemynewEnemy(id,x,y)
     newEnemy.stunTimer = 0
     newEnemy.speed = 250
     newEnemy.damage = 5
-    newEnemy.range = 180
+    newEnemy.range = 190
+    newEnemy.colId = "Enemy 0 "..enemyNum+1
     table.insert(enemy,newEnemy)
     world:add("Enemy 0 "..enemyNum+1,x,y,16,16)
   elseif id == 1 then
@@ -147,17 +152,18 @@ function EnemynewEnemy(id,x,y)
     newEnemy.id = id
     newEnemy.hp = 500
     newEnemy.x = x
-    newEnemy.y = y
+    newEnemy.y = y+16
     newEnemy.xvel = 0
     newEnemy.yvel = 0
     newEnemy.friction = 3.9
     newEnemy.stunned = false
     newEnemy.stunTimer = 0
     newEnemy.speed = 490
-    newEnemy.range = 200
+    newEnemy.range = 300
     newEnemy.damage = 1.5
+    newEnemy.colId = "Enemy 1 "..enemyNum+1
     table.insert(enemy,newEnemy)
-    world:add("Enemy 1 "..enemyNum+1,x,y,30,32)
+    world:add("Enemy 1 "..enemyNum+1,x,y+16,20,40)
   end
 end
 
@@ -169,7 +175,7 @@ function Enemydraw()
       if enemy[i].id == 0 then
         enemy0Animation:draw(enemy0Image, enemy[i].x,enemy[i].y)
       elseif enemy[i].id == 1 then
-        enemy1CrntAni:draw(enemy1Image, enemy[i].x,enemy[i].y,0,.45)
+        enemy1CrntAni:draw(enemy1Image, enemy[i].x,enemy[i].y,0,.5)
       end
     end
   end
