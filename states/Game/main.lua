@@ -24,13 +24,13 @@ function load()
   flags = {
     resizable=true,
     vsync=true,
-    minwidth=400,
-    minheight=300
+    minwidth=1000,
+    minheight=600
   }
-
+  love.window.setMode(100, 600,flags)
   width, height = love.graphics.getDimensions( )
   love.window.setMode(width, height,flags)
-  love.window.setTitle( "Project Z v0.1.5 Beta" )
+  love.window.setTitle( "Project Z v0.2.0 Beta" )
 
   min_dt = 1/60
   next_time = love.timer.getTime()

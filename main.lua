@@ -1,5 +1,5 @@
 --love.window.setMode(1000, 600)
-love.window.setTitle( "Project Z v0.01 Beta" )
+love.window.setTitle( "Project Z v0.2.0 Beta" )
 
 function clearLoveCallbacks()
   love.draw = nil

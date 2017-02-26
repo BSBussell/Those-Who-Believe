@@ -67,7 +67,7 @@ function Enemyupdate(dt)
           if enemy[i].id == 1 then enemy1CrntAni = enemy1DownAnimation end
         end
         local enemyFilter = function(item,other)
-          if other=="Sword" then return 'bounce'
+          if other=="Sword" then return 'slide'
           elseif other=="player" then return 'slide'
           elseif other=="Boomerang" then return 'touch'
           else return "slide" end

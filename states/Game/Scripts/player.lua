@@ -94,7 +94,7 @@ function player.draw()
     else
       love.graphics.draw(inventory.EnchantedBoomerang.image,boomerangX,boomerangY,rotation,.65,.65)
     end
-    love.graphics.rectangle("line", boomerangX, boomerangY, 10.4, 10.4)
+    --love.graphics.rectangle("line", boomerangX, boomerangY, 10.4, 10.4)
   end
   if timer == 0 then
     multiplier = 0
@@ -109,7 +109,7 @@ end
 
 --this is physics start
 function player.physics(dt)
-  --if swordActive ~= true then
+  if swordActive == true then player.xvel,player.yvel = 0,0 end
 
   local playerFilter = function(item,other)
     for i,v in ipairs(objects) do

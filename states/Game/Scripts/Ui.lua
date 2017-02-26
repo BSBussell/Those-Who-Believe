@@ -138,6 +138,7 @@ function Ui.draw()
       player.hp = player.maxHp
       map,world = mapHandlers("betaOverworld","Spawn")
       gamePause = false
+      objects = {}
     end
   end
 
