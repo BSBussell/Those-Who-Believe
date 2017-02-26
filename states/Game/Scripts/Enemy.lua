@@ -52,14 +52,14 @@ function Enemyupdate(dt)
       table.remove(enemy,i)
     elseif enemy[i].x>0 and enemy[i].stunned == false then
       if enemy[i].x + enemy[i].range >= player.x and enemy[i].x - enemy[i].range <= player.x and enemy[i].y + enemy[i].range >=player.y and enemy[i].y - enemy[i].range <= player.y then
-        if player.x < enemy[i].x and enemy[i].xvel > -enemy[i].speed then
+        if player.x+(player.width/2) < enemy[i].x and enemy[i].xvel > -enemy[i].speed then
           enemy[i].xvel = enemy[i].xvel - enemy[i].speed *dt
           if enemy[i].id == 1 then enemy1CrntAni = enemy1LeftAnimation end
         elseif enemy[i].xvel <enemy[i].speed then
           enemy[i].xvel = enemy[i].xvel + enemy[i].speed *dt
           if enemy[i].id == 1 then enemy1CrntAni = enemy1RightAnimation end
         end
-        if player.y < enemy[i].y and enemy[i].yvel > -enemy[i].speed then
+        if player.y+(player.height/2) < enemy[i].y and enemy[i].yvel > -enemy[i].speed then
           enemy[i].yvel = enemy[i].yvel - enemy[i].speed*dt
           if enemy[i].id == 1 then enemy1CrntAni = enemy1UpAnimation end
         elseif enemy[i].yvel < enemy[i].speed then
@@ -94,7 +94,7 @@ function Enemyupdate(dt)
           if string.find(lefty,"Sword") then
             damageAmt = inventory["Hotbar"].jItem
             --print(damageAmt)
-          else
+          elseif string.find(righty,"Sword") then
             damageAmt = inventory["Hotbar"].kItem
             --print(damageAmt)
           end
@@ -108,6 +108,12 @@ function Enemyupdate(dt)
           --enemy[i].stunned = true
           --enemy[i].stunTimer = inventory.Boomerang.stunTime
           enemy[i].hp = enemy[i].hp -inventory.Boomerang.damage
+        end
+        if object == "player" then
+          local knckX,knckY = calKnockback(thX,thY, enemy[i].x,enemy[i].y,11)
+          player.xvel = knckX
+          player.yvel = knckY
+          player.hp = player.hp - enemy[i].damage
         end
       end
       local actualX, actualY, cols, len = world:move(enemy[i].colId,goalX ,goalY,enemyFilter)
@@ -159,7 +165,7 @@ function EnemynewEnemy(id,x,y)
     newEnemy.stunned = false
     newEnemy.stunTimer = 0
     newEnemy.speed = 490
-    newEnemy.range = 300
+    newEnemy.range = 20
     newEnemy.damage = 1.5
     newEnemy.colId = "Enemy 1 "..enemyNum+1
     table.insert(enemy,newEnemy)

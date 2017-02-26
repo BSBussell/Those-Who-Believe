@@ -37,7 +37,10 @@ function Ui.update(dt)
     mouseDown = true
   elseif love.mouse.isDown(1) == false then
     mouseDown = false
-    start = nil
+    if start == true then
+      start = nil
+      mouseDown = true
+    end
   end
   --print(love.mouse.isDown(1))
 
@@ -48,9 +51,9 @@ end
 function Ui.draw()
 
   love.graphics.setColor(122,122,122,155)
-  love.graphics.rectangle("fill",0,0,1000,100)
+  love.graphics.rectangle("fill",0,0,width,height-(height/1.2))
   love.graphics.setColor(255,255,255,255)
-  love.graphics.rectangle("line",1,1,998,99)
+  love.graphics.rectangle("line",1,1,width-2,height-((height/1.2)-1))
   love.graphics.setColor(165,165,165,255)
   love.graphics.rectangle("fill",300,10,50,75)
   love.graphics.rectangle("fill",225,10,50,75)
@@ -82,11 +85,11 @@ function Ui.draw()
   x = 2
   heartY = 15
   for i = 1,player.maxHp/20 do
-    if player.hp-(20*(i-1)) >=15 then
+    if player.hp-(20*(i-1)) >15 then
       fullHeart:draw(heartSheet,410+(x*20),heartY,0,1,1)
-    elseif player.hp-(20*(i-1)) >=10 then
+    elseif player.hp-(20*(i-1)) >10 then
       threeQuarterHeart:draw(heartSheet,410+(x*20),heartY,0,1,1)
-    elseif player.hp-(20*(i-1)) >=5 then
+    elseif player.hp-(20*(i-1)) >5 then
       halfHeart:draw(heartSheet,410+(x*20),heartY,0,1,1)
     elseif player.hp-(20*(i-1)) >0 then
       quarterHeart:draw(heartSheet,410+(x*20),heartY,0,1,1)
@@ -122,13 +125,13 @@ function Ui.draw()
 
   if player.hp <= 0 then
     love.graphics.setColor(0,0,0,255)
-    love.graphics.rectangle("fill", 0, 0, 1000, 600)
+    love.graphics.rectangle("fill", 0, 0, width, height)
     love.graphics.setColor(255,122,122,255)
     love.graphics.setFont( aFont )
-    love.graphics.print("Game Over",500,250)
+    love.graphics.print("Game Over",425,250)
     love.graphics.setFont(aSmallFont)
     love.graphics.setColor(255,255,255,255)
-    love.graphics.print("Click to Restart",500,300)
+    love.graphics.print("Click to Restart",420,300)
     gamePause = true
     if mouseDown then
       --love.load()

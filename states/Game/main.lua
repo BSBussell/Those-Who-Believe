@@ -22,12 +22,14 @@ love.graphics.setDefaultFilter( 'nearest', 'nearest' )
 function load()
   -- Setup the Window
   flags = {
-    resizable=false,
-    vsync=false,
+    resizable=true,
+    vsync=true,
     minwidth=400,
     minheight=300
   }
-  love.window.setMode(1000, 600,flags)
+
+  width, height = love.graphics.getDimensions( )
+  love.window.setMode(width, height,flags)
   love.window.setTitle( "Project Z v0.1.5 Beta" )
 
   min_dt = 1/60
@@ -36,13 +38,13 @@ function load()
   -- Create inventory table
   inventory.load()
   -- Create Camera
-  cam = gamera.new(0,0,1000,500)
-  cam:setWindow(0,0,1000,600)
+  cam = gamera.new(0,0,width,height/1.2)
+  cam:setWindow(0,0,width,height)
   cam:setWorld(0,0,10384,6240)
   cam:setScale(1.8)
   -- Create Map
   map,world = mapHandlers("betaOverworld","Spawn")
-  map:resize (1000, 600)
+  map:resize (width, height)
   -- Give the game true random-ish
   math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
   -- init pausing variables
@@ -97,6 +99,12 @@ function love.draw()
       return
    end
    love.timer.sleep(next_time - cur_time)
+end
+
+function love.resize()
+    width, height = love.graphics.getDimensions( )
+  cam:setWindow(0,0,width,height)
+  map:resize (width, height)
 end
 
 -- A Function which can be used to flip a Boolean

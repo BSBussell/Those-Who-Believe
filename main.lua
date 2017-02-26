@@ -1,4 +1,4 @@
-love.window.setMode(1000, 600)
+--love.window.setMode(1000, 600)
 love.window.setTitle( "Project Z v0.01 Beta" )
 
 function clearLoveCallbacks()
@@ -8,6 +8,7 @@ function clearLoveCallbacks()
   love.keypressed = nil
   love.keyreleased = nil
   --love.load = nil
+  love.touch = nil
   love.mousepressed = nil
   love.mousereleased = nil
   love.update = nil
