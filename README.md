@@ -4,12 +4,10 @@ Those Who Believe is a top down 2d role-playing game. The name is not official a
 This is a game which started as a hello world program and grew as I slowly learned how to use Löve2D and I've made it into a little RPG game.
 <h2>How do I play?</h2>
 Well right now the game isn't even in beta. But if that doesn't scare you then here is the info
-<h4>Mac OSX</h4>
-If you are using a Mac then you can download an older version [here](https://www.dropbox.com/s/xcxh6q2b8ql6wn7/Project%20Z.zip?dl=0)
-<h4>Windows</h4>
-If you are on Windows the you download an older version [here](https://www.dropbox.com/s/a9lsqsqfpu9tpuo/ProjectZ.exe.zip?dl=0)
+<h4>Mac & Windows</h4>
+Check out the [Release](https://github.com/BSBussell/Those-Who-Believe/releases) page to find downloads for your respective OS
 <h4>Newest Version</h4>
-If you want to try out the most up to date version then you will need to compile the project using the framework [Löve2D](love2d.org)
+If you want to try out the most up-to-date(buggy) version then you will need to compile the project using the framework [Löve2D](love2d.org)
 <h2> Why is it so Glitchy?</h2>
 Well the game is still very early in development. In fact if your actually reading this then It's probably because your either a close friend or know me.
 <h3>Will it get better?</h3>
