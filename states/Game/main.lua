@@ -32,7 +32,7 @@ function load()
   love.window.setMode(width, height,flags)
   love.window.setTitle( "Project Z v0.2.0 Beta" )
 
-  min_dt = 1/60
+  min_dt = 1/MaxFps
   next_time = love.timer.getTime()
 
   -- Create inventory table

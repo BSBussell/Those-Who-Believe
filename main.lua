@@ -27,6 +27,7 @@ function load()
 end
 
 function love.load()
+  MaxFps = 60
   loadState("Menu")
 end
 

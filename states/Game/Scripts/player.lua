@@ -76,12 +76,12 @@ function player.draw()
   drawy = player.y
   if timer > 0 and sword == Sword_Up then
     sword:draw(swd, SwordCord[1], SwordCord[2],0,1.15)
-    love.graphics.rectangle("line", SwordCord[1], SwordCord[2], SwordCord[3], SwordCord[4])
+    --love.graphics.rectangle("line", SwordCord[1], SwordCord[2], SwordCord[3], SwordCord[4])
   end
   player.animation:draw(char,drawx,drawy-12,0,.45)
   if timer > 0 and sword ~= Sword_Up then
     sword:draw(swd, SwordCord[1], SwordCord[2],0,1.15)
-    love.graphics.rectangle("line", SwordCord[1], SwordCord[2], SwordCord[3], SwordCord[4])
+    --love.graphics.rectangle("line", SwordCord[1], SwordCord[2], SwordCord[3], SwordCord[4])
   end
   if timer > 0 then
     world:remove("Sword")
@@ -109,7 +109,7 @@ end
 
 --this is physics start
 function player.physics(dt)
-  if swordActive == true then player.xvel,player.yvel = 0,0 end
+  --if swordActive == true then player.xvel,player.yvel = 0,0 end
 
   local playerFilter = function(item,other)
     for i,v in ipairs(objects) do
@@ -141,10 +141,9 @@ function player.physics(dt)
   player.x, player.y = actualX, actualY
 --else
   if sword == Sword_Right then
-    SwordCord = {player.x+16,player.y+2,20,8}
-
+    SwordCord = {player.x+16,player.y-4,20,12}
   elseif sword == Sword_Left then
-    SwordCord = {player.x-4,player.y-4,14,20}
+    SwordCord = {player.x-4,player.y-4,20,12}
   elseif sword == Sword_Up then
     SwordCord = {player.x+(player.width*.25),player.y-player.height,6,20}
   elseif sword == Sword_Down then

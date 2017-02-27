@@ -6,6 +6,7 @@ function load()
   height = love.graphics.getHeight()
   love.graphics.setDefaultFilter( 'nearest', 'nearest' )
   courier = love.graphics.newFont("/states/Game/Fonts/Courier.dfont",25)
+  MaxFps = 60
   --courier:setFilter('nearest','nearest')
 end
 
@@ -38,6 +39,10 @@ function love.mousepressed( x, y, button, istouch )
   end
   if x>=(width/2)-100 and x<=(width/2)+100 and y>=(height/2)+20 and y<=(height/2)+80 then
     loadState("Multiplayer")
+  end
+
+  if x>=(width/2)-100 and x<=(width/2)+100 and y>=(height/2)+100 and y<=(height/2)+160 then
+    loadState("Options")
   end
 end
 

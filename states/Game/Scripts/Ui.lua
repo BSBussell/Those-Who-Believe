@@ -128,10 +128,10 @@ function Ui.draw()
     love.graphics.rectangle("fill", 0, 0, width, height)
     love.graphics.setColor(255,122,122,255)
     love.graphics.setFont( aFont )
-    love.graphics.print("Game Over",425,250)
+    love.graphics.print("Game Over",width/2.3529411765,height/2.4)
     love.graphics.setFont(aSmallFont)
     love.graphics.setColor(255,255,255,255)
-    love.graphics.print("Click to Restart",420,300)
+    love.graphics.print("Click to Restart",width/2.380952381,height/2)
     gamePause = true
     if mouseDown then
       --love.load()

@@ -15,7 +15,9 @@ function swingSword()
   if swordActive ~= true then
     world:add("Sword",SwordCord[1], SwordCord[2], SwordCord[3], SwordCord[4])
     swordActive = true
+    player.xvel,player.yvel = player.xvel*-.05,player.yvel*.05
   end
+
   sword:resume()
   fr = false
 end
