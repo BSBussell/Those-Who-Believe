@@ -5,7 +5,7 @@ This is a game which started as a hello world program and grew as I slowly learn
 <h2>How do I play?</h2>
 Well right now the game isn't even in beta. But if that doesn't scare you then here is the info
 <h4>Mac & Windows</h4>
-Check out the [Release](https://github.com/BSBussell/Those-Who-Believe/releases) page to find downloads for your respective OS
+Check out the ~~[Release](https://github.com/BSBussell/Those-Who-Believe/releases) page to find downloads for your respective OS~~ Download [here](https://github.com/BSBussell/Those-Who-Believe/releases/download/v0.2.0/Those.Who.Believe.app.zip)
 <h4>Newest Version</h4>
 If you want to try out the most up-to-date(buggy) version then you will need to compile the project using the framework [Löve2D](love2d.org)
 <h2> Why is it so Glitchy?</h2>
