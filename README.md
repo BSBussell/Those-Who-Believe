@@ -7,7 +7,7 @@ Well right now the game isn't even in beta. But if that doesn't scare you then h
 <h4>Mac & Windows</h4>
 Check out the ~~[Release](https://github.com/BSBussell/Those-Who-Believe/releases) page to find downloads for your respective OS~~ Download [here](https://github.com/BSBussell/Those-Who-Believe/releases/download/v0.2.0/Those.Who.Believe.app.zip)
 <h4>Newest Version</h4>
-If you want to try out the most up-to-date(buggy) version then you will need to compile the project using the framework [Löve2D](love2d.org)
+If you want to try out the most up-to-date(buggy) version then you will need to compile the project using the framework [Löve2D](https://love2d.org) and then clone my project
 <h2> Why is it so Glitchy?</h2>
 Well the game is still very early in development. In fact if your actually reading this then It's probably because your either a close friend or know me.
 <h3>Will it get better?</h3>
