@@ -3,7 +3,7 @@ inventory = {}
 function inventory.load()
   inventory["Sword"] = {
     name = "Sword",
-    damage = 20,
+    damage = 200,
     image = love.graphics.newImage("states/Game/Images/SwordICN.png")
   }
   inventory["Hotbar"] = {

@@ -7,9 +7,10 @@ function Ui.load()
   local hGrid = anim8.newGrid(16,16,heartSheet:getWidth(),heartSheet:getHeight())
   fullHeart = anim8.newAnimation(hGrid(1,1), 1)
   threeQuarterHeart = anim8.newAnimation(hGrid(2,1), 1)
-  halfHeart = anim8.newAnimation(hGrid(1,2), 1)
-  quarterHeart = anim8.newAnimation(hGrid(2,2), 1)
-  emptyHeart = anim8.newAnimation(hGrid(1,3), 1)
+  halfHeart = anim8.newAnimation(hGrid(3,1), 1)
+  quarterHeart = anim8.newAnimation(hGrid(1,2), 1)
+  emptyHeart = anim8.newAnimation(hGrid(2,2), 1)
+  heartCon = anim8.newAnimation(hGrid(3,2), 1)
 
   swordUI = love.graphics.newImage("states/Game/Images/SwordICN.png")
   swordUI:setFilter("nearest")
@@ -136,6 +137,11 @@ function Ui.draw()
     if mouseDown then
       --love.load()
       player.hp = player.maxHp
+      local swordworking = world:hasItem("Sword")
+      if swordworking then
+        world:remove("Sword")
+        print("test")
+      end
       map,world = mapHandlers("betaOverworld","Spawn")
       gamePause = false
       objects = {}

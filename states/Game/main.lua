@@ -14,7 +14,8 @@ require "states/Game/Scripts/Enemy"                  -- Enemy
 require "states/Game/Scripts/Ui"                     -- UI
 require "states/Game/Scripts/inventory"              -- Inventory
 require "states/Game/Maps/maphandler"                -- Maphandler
-require "states/Game/Scripts/dynamicObjects"
+require "states/Game/Scripts/dynamicObjects"         -- ObjectHandler
+require "states/Game/Scripts/NPC"                    -- NPC Handler
 
 -- Set Everything to be HD by default
 love.graphics.setDefaultFilter( 'nearest', 'nearest' )
@@ -27,6 +28,7 @@ function load()
     minwidth=1000,
     minheight=600
   }
+  invFrames = love.timer.getTime()
   love.window.setMode(100, 600,flags)
   width, height = love.graphics.getDimensions( )
   love.window.setMode(width, height,flags)
@@ -42,6 +44,12 @@ function load()
   cam:setWindow(0,0,width,height)
   cam:setWorld(0,0,10384,6240)
   cam:setScale(1.8)
+
+  mini = gamera.new(675,11,200,75)
+  mini:setWindow(675,11,200,75)
+  mini:setWorld(0,0,10384,6240)
+  mini:setScale(.07)
+
   -- Create Map
   map,world = mapHandlers("betaOverworld","Spawn")
   map:resize (width, height)
@@ -55,8 +63,7 @@ function load()
   -- Load Ui
   Ui.load()
 
-  --addObject("heart",180,1770)
-  --addObject("heart",190,1770)
+  --addNPC("Benjamin",1,500,1700,'states/Game/Images/Ben.png','states/Game/Dialogue/Ben.lua')
 end
 
 function love.update(dt)
@@ -71,6 +78,7 @@ function love.update(dt)
     player.physics(dt)
     player.move(dt)
     Enemyupdate(dt)
+    updateNpc()
     updateObject()
   end
   -- Always Update UI
@@ -82,12 +90,24 @@ function love.draw()
   -- What is drawn within the Camera
   cam:draw(function()
       -- Drawing the map, player and enemies then resetting the color
+      drawingMini = false
       map:draw()
       drawObject()
       player.draw()
       Enemydraw()
+      drawNPC()
       love.graphics.setColor(255, 255, 255, 255)
     end)
+    mini:draw(function()
+        -- Drawing the map, player and enemies then resetting the color
+        drawingMini = true
+        map:draw()
+        --drawObject()
+        player.draw()
+        Enemydraw()
+        --drawNPC()
+        love.graphics.setColor(255, 255, 255, 255)
+      end)
   -- Check if the inventory is opened
   if inventoryOpen == true then inventoryUIDraw() end
 
@@ -102,9 +122,10 @@ function love.draw()
 end
 
 function love.resize()
-    width, height = love.graphics.getDimensions( )
+  width, height = love.graphics.getDimensions( )
   cam:setWindow(0,0,width,height)
   map:resize (width, height)
+  cam:setScale(width/555.5555555556)
 end
 
 -- A Function which can be used to flip a Boolean

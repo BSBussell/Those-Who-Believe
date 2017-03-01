@@ -12,6 +12,8 @@ local anim8 = require 'states/Game/Scripts/anim8'
 
 --this is where we set atributes of the player
 function player.load(X, Y)
+  playerTint = {255,255,255,255}
+  flashingAni = true
 
   char = love.graphics.newImage("states/Game/Images/CharDemo.png")
   local g = anim8.newGrid(64,64,char:getWidth(),char:getHeight())
@@ -65,9 +67,34 @@ function player.load(X, Y)
   player.yvel = 0
   player.friction = 3.9
   player.speed = 390
-
+  strt = true
   boomerangActive = false
 
+end
+
+function player.reLoad(X, Y)
+  local sword = Sword_Down
+  timer = 0
+  SwordCord = {420,420,2,2}
+  local multiplier = 0
+  local still = 0
+  swordActive = false
+  world:add("Sword",SwordCord[1],SwordCord[2],SwordCord[3],SwordCord[4])
+  fr = true
+
+  --local x,y = map:convertTileToPixel(tileX,tileY)
+  world:add("player",X,Y,30,22)
+  player.x = X
+  player.y = Y
+  cam:setPosition(X,Y)
+  player.width = 14
+  player.height = 14
+  player.xvel = 0
+  player.yvel = 0
+  player.friction = 3.9
+  player.speed = 390
+  strt = true
+  boomerangActive = false
 end
 
 --this is player is drawn from
@@ -78,7 +105,15 @@ function player.draw()
     sword:draw(swd, SwordCord[1], SwordCord[2],0,1.15)
     --love.graphics.rectangle("line", SwordCord[1], SwordCord[2], SwordCord[3], SwordCord[4])
   end
+  love.graphics.setColor(playerTint)
   player.animation:draw(char,drawx,drawy-12,0,.45)
+  if drawingMini then love.graphics.rectangle("line", drawx, drawy, 30, 22) end 
+  love.graphics.setColor(255, 255, 255, 255)
+  if (love.timer.getTime() - invFrames)> 1 then
+    playerTint = {255,255,255,255}
+  end
+  flashingAni = flipBool(flashingAni)
+
   if timer > 0 and sword ~= Sword_Up then
     sword:draw(swd, SwordCord[1], SwordCord[2],0,1.15)
     --love.graphics.rectangle("line", SwordCord[1], SwordCord[2], SwordCord[3], SwordCord[4])
@@ -96,19 +131,24 @@ function player.draw()
     end
     --love.graphics.rectangle("line", boomerangX, boomerangY, 10.4, 10.4)
   end
-  if timer == 0 then
+  if timer == 0 or player.hp<=0 then
     multiplier = 0
     still = 0
     swordActive = false
     world:remove("Sword")
-
+    --print("Timr")
   end
-  timer = timer-1
+  if timer <= -100 then
+    --start = false
+  end
+ timer = timer-1 --[]((love.timer.getDelta()*love.timer.getFPS( )))]]
+ --print(timer)
 
 end
 
 --this is physics start
 function player.physics(dt)
+
   --if swordActive == true then player.xvel,player.yvel = 0,0 end
 
   local playerFilter = function(item,other)
@@ -118,6 +158,9 @@ function player.physics(dt)
     for i,v in ipairs(enemy) do
       if other == enemy[i].colId then return "slide" end
     end
+    --[[for i,v in ipairs(NPC) do
+      if other == NPC[i].colId then return "cross" end
+    end]]
     if other == "Sword" then
       return nil
     elseif other == "heart 0" then
@@ -133,21 +176,46 @@ function player.physics(dt)
 
   local actualX, actualY, cols,len = world:check("player",goalX, goalY, playerFilter)
 
+  for i=1,len do
+    local object = cols[i].other
+    for k,v in ipairs(NPC) do
+
+      if object == NPC[k].colId and love.keyboard.isDown("space") then
+        if love.keyboard.isDown("space") then
+          local filePath = NPC[k].dialogueSRC
+          if love.filesystem.exists(filePath) then
+            print(filePath)
+            chunk = love.filesystem.load(filePath)
+            local textDB = chunk()
+            local say = textDB[NPC[k].crntTxt]
+
+            alert(say)
+              --NPC[k].crntTxt = NPC[k].crntTxt+1
+            if NPC[k].crntTxt < #textDB then NPC[k].crntTxt = NPC[k].crntTxt+1 end
+          end
+        end
+      end
+    end
+  end
+
   thX = actualX
   thY = actualY
-
 
   local actualX, actualY, cols,len = world:move("player",goalX, goalY, playerFilter)
   player.x, player.y = actualX, actualY
 --else
   if sword == Sword_Right then
-    SwordCord = {player.x+16,player.y-4,20,12}
+    --SwordCord = {player.x+16,player.y-4,20,12}
+    SwordCord = {player.x+16,player.y+5,20,6}
   elseif sword == Sword_Left then
-    SwordCord = {player.x-4,player.y-4,20,12}
+    --SwordCord = {player.x-4,player.y-4,20,12}
+    SwordCord = {player.x-4,player.y+4,20,6}
   elseif sword == Sword_Up then
-    SwordCord = {player.x+(player.width*.25),player.y-player.height,6,20}
+    --SwordCord = {player.x+8,player.y-player.height,10,20}
+    SwordCord = {player.x+(player.width*.25),player.y-player.height,10,20}
   elseif sword == Sword_Down then
-    SwordCord = {player.x+(player.width*.25),player.y+8,6,20}
+    --SwordCord = {player.x+8,player.y+8,10,20}
+    SwordCord = {player.x+(player.width*.25),player.y+8,10,20}
   end
 
 end
@@ -176,7 +244,7 @@ end
 
 if ((love.keyboard.isDown("s","down")) and
   player.yvel < player.speed) and swordActive == false then
-  SwordCord = {player.x+(player.width*.25),player.y+8,6,20}
+  SwordCord = {player.x+(player.width*.25),player.y+8,10,20}
   sword = Sword_Down
   player.yvel = player.yvel + player.speed * dt
 
@@ -223,7 +291,9 @@ for k, object in pairs(map.objects) do
   end
 end
 
+
 cam:setPosition(player.x,player.y)
+mini:setPosition(player.x,player.y)
 --cam:setPosition(cam.x+(player.xvel*.55),cam.y+(player.yvel*.55))
 end
 
@@ -241,7 +311,7 @@ player.draw()
 end
 
 function love.keyreleased(key)
-if inventoryOpen == false and gamePause == false then
+if inventoryOpen == false and gamePause == false and player.hp >=0  then
   if key == "j" then
     if inventory.Hotbar.jItem == "Sword" or inventory.Hotbar.jItem == "SharpSword" then swingSword() end
     if inventory.Hotbar.jItem == "Boomerang" or inventory.Hotbar.jItem == "EnchantedBoomerang" then throwBoomerang("j") end
@@ -266,4 +336,15 @@ end
 if key == "e" then
   inventoryOpen = flipBool(inventoryOpen)
 end
+end
+
+
+function fileExists(filename)
+      file = io.open(filename, "r")
+      if file == nil then
+           return false
+      else
+           file.close(file)
+           return true
+      end
 end

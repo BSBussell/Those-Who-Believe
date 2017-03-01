@@ -1392,7 +1392,7 @@ return {
     {
       type = "objectgroup",
       name = "Enemys",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -5577,7 +5577,7 @@ return {
     {
       type = "objectgroup",
       name = "Treasure Chest",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -5639,7 +5639,7 @@ return {
     {
       type = "objectgroup",
       name = "NPC",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -5648,7 +5648,7 @@ return {
       objects = {
         {
           id = 2566,
-          name = "NPC",
+          name = "Ben",
           type = "",
           shape = "rectangle",
           x = 864,
@@ -5658,7 +5658,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["image"] = "/Users/BenBusBoy/Documents/ThoseWhoBelieve/states/Game/Images/Ben.png",
+            ["IMGSRC"] = "states/Game/Images/Ben.png",
+            ["TXTSRC"] = "states/Game/Dialogue/Ben.lua",
             ["name"] = "Benjamin"
           }
         }

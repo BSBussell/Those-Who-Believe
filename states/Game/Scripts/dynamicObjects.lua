@@ -1,6 +1,7 @@
 
 objects = {}
 
+
 function addObject(type,x,y)
 	newObject = {}
 	newObject["name"] = type.." "..#objects
@@ -33,6 +34,14 @@ function updateObject()
 						fooh = fooh+1
 					end
 				end
+				if objects[k].type == "heartCon" then
+					local fooh = 0
+					while player.hp<player.maxHp and fooh <=20 do
+						player.maxHp = player.maxHp + 1
+						player.hp = player.hp + 1
+						fooh = fooh+1
+					end
+				end
 				table.remove(objects,k)
 			end
 		end
@@ -41,8 +50,15 @@ end
 
 function drawObject()
 	for k,v in ipairs(objects) do
-		love.graphics.setColor(255, 0, 0, 255)
-		fullHeart:draw(heartSheet, objects[k].x+4, objects[k].y+4, 0,.5,.5)
+
+    if objects[k].type == "heart" then
+			love.graphics.setColor(255, 0, 0, 255)
+			fullHeart:draw(heartSheet, objects[k].x+4, objects[k].y+4, 0,.5,.5)
+		elseif objects[k].type == "heartCon" then
+			love.graphics.setColor(255, 255, 255, 255)
+			heartCon:draw(heartSheet, objects[k].x+4, objects[k].y+4, 0,1,1)
+		end
+
 
 		love.graphics.setColor(255, 255, 255, 255)
 		--love.graphics.rectangle("line",objects[k].x,objects[k].y,16,16)

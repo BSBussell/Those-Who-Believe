@@ -41,8 +41,11 @@ function Enemyupdate(dt)
     enemy1CrntAni:update(dt)
 
     if enemy[i].hp <= 0 and result == true or enemy[i] == nil then
-      if math.random(1,5) == 1 and enemy[i].x >0 then
+      if math.random(1,5) == 1 and enemy[i].id ~= 1 then
         addObject("heart",enemy[i].x,enemy[i].y)
+      end
+      if enemy[i].id == 1 then
+        addObject("heartCon",enemy[i].x,enemy[i].y)
       end
       world:remove(enemy[i].colId)
       --world:add(enemy[i].colId,-200,-200,16,16)
@@ -54,17 +57,23 @@ function Enemyupdate(dt)
       if enemy[i].x + enemy[i].range >= player.x and enemy[i].x - enemy[i].range <= player.x and enemy[i].y + enemy[i].range >=player.y and enemy[i].y - enemy[i].range <= player.y then
         if player.x+(player.width/2) < enemy[i].x and enemy[i].xvel > -enemy[i].speed then
           enemy[i].xvel = enemy[i].xvel - enemy[i].speed *dt
-          if enemy[i].id == 1 then enemy1CrntAni = enemy1LeftAnimation end
+
         elseif enemy[i].xvel <enemy[i].speed then
           enemy[i].xvel = enemy[i].xvel + enemy[i].speed *dt
-          if enemy[i].id == 1 then enemy1CrntAni = enemy1RightAnimation end
+
         end
         if player.y+(player.height/2) < enemy[i].y and enemy[i].yvel > -enemy[i].speed then
           enemy[i].yvel = enemy[i].yvel - enemy[i].speed*dt
-          if enemy[i].id == 1 then enemy1CrntAni = enemy1UpAnimation end
+
         elseif enemy[i].yvel < enemy[i].speed then
           enemy[i].yvel = enemy[i].yvel+enemy[i].speed*dt
-          if enemy[i].id == 1 then enemy1CrntAni = enemy1DownAnimation end
+
+        end
+        if enemy[i].id == 1 then
+          if enemy[i].xvel > enemy[i].yvel then enemy1CrntAni = enemy1RightAnimation
+          elseif enemy[i].xvel*-1 > enemy[i].yvel*-1 then enemy1CrntAni = enemy1LeftAnimation
+          elseif enemy[i].xvel < enemy[i].yvel then enemy1CrntAni = enemy1DownAnimation
+          elseif enemy[i].xvel*-1 < enemy[i].yvel*-1 then enemy1CrntAni = enemy1UpAnimation end
         end
         local enemyFilter = function(item,other)
           if other=="Sword" then return 'bounce'
@@ -83,6 +92,7 @@ function Enemyupdate(dt)
       enemy[i].xvel = enemy[i].xvel * (1 - math.min(dt*enemy[i].friction, 1))
       enemy[i].yvel = enemy[i].yvel * (1 - math.min(dt*enemy[i].friction, 1))
 
+
       local actualX, actualY, cols, len = world:check(enemy[i].colId,goalX ,goalY,enemyFilter)
 
       local lefty = inventory["Hotbar"].jItem
@@ -100,20 +110,28 @@ function Enemyupdate(dt)
           end
           --print(damageAmt)
           enemy[i].hp = enemy[i].hp-inventory[damageAmt].damage
-          enemy[i].xvel,enemy[i].yvel = calKnockback(actualX,actualY,player.x,player.y,12)
+          local x,y,w,h = world:getRect("Sword")
+          enemy[i].xvel,enemy[i].yvel = calKnockback(actualX,actualY,SwordCord[1],SwordCord[2],13)
+          local colidSword = true
         end
         if object == "Boomerang" then
           enemy0Animation:pause()
           enemy[i].xvel,enemy[i].yvel = calKnockback(actualX,actualY,boomerangX,boomerangY,16.25)
+
           --enemy[i].stunned = true
           --enemy[i].stunTimer = inventory.Boomerang.stunTime
           enemy[i].hp = enemy[i].hp -inventory.Boomerang.damage
         end
-        if object == "player" then
-          local knckX,knckY = calKnockback(thX,thY, enemy[i].x,enemy[i].y,11)
+        if object == "player" and not colidSword then
+          local knckX,knckY = calKnockback(thX,thY, enemy[i].x,enemy[i].y,15)
           player.xvel = knckX
           player.yvel = knckY
-          player.hp = player.hp - enemy[i].damage
+          if (love.timer.getTime() - invFrames)> 1 then
+            player.hp = player.hp - enemy[i].damage
+            invFrames = love.timer.getTime()
+            playerTint = {255,0,0,100}
+          end
+
         end
       end
       local actualX, actualY, cols, len = world:move(enemy[i].colId,goalX ,goalY,enemyFilter)
@@ -149,7 +167,7 @@ function EnemynewEnemy(id,x,y)
     newEnemy.stunTimer = 0
     newEnemy.speed = 250
     newEnemy.damage = 5
-    newEnemy.range = 190
+    newEnemy.range = 100
     newEnemy.colId = "Enemy 0 "..enemyNum+1
     table.insert(enemy,newEnemy)
     world:add("Enemy 0 "..enemyNum+1,x,y,16,16)
@@ -157,7 +175,7 @@ function EnemynewEnemy(id,x,y)
     local newEnemy = {}
     newEnemy.id = id
     newEnemy.hp = 500
-    newEnemy.x = x
+    newEnemy.x = x+5
     newEnemy.y = y+16
     newEnemy.xvel = 0
     newEnemy.yvel = 0
@@ -165,11 +183,11 @@ function EnemynewEnemy(id,x,y)
     newEnemy.stunned = false
     newEnemy.stunTimer = 0
     newEnemy.speed = 490
-    newEnemy.range = 20
-    newEnemy.damage = 1.5
+    newEnemy.range = 150
+    newEnemy.damage = 10
     newEnemy.colId = "Enemy 1 "..enemyNum+1
     table.insert(enemy,newEnemy)
-    world:add("Enemy 1 "..enemyNum+1,x,y+16,20,40)
+    world:add("Enemy 1 "..enemyNum+1,x+5,y+16,15,25)
   end
 end
 
@@ -180,10 +198,16 @@ function Enemydraw()
     if enemy[i].x > 0 then
       if enemy[i].id == 0 then
         enemy0Animation:draw(enemy0Image, enemy[i].x,enemy[i].y)
+        love.graphics.setColor(255, 0, 0, 255)
+        if drawingMini then love.graphics.rectangle("line", enemy[i].x, enemy[i].y, 16, 16) end
       elseif enemy[i].id == 1 then
-        enemy1CrntAni:draw(enemy1Image, enemy[i].x,enemy[i].y,0,.5)
+        enemy1CrntAni:draw(enemy1Image, enemy[i].x-7,enemy[i].y-7,0,.5)
+        love.graphics.setColor(255, 0, 255, 255)
+
+        if drawingMini then love.graphics.rectangle("line", enemy[i].x, enemy[i].y, 15, 25) end
       end
     end
+    love.graphics.setColor(255,255,255,255)
   end
   love.graphics.setColor(255,255,255,255)
 end

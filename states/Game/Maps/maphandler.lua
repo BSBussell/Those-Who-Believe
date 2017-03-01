@@ -41,6 +41,7 @@ function mapHandlers(crntMap,name)
         local objectX, objectY = map:convertPixelToTile(object.x,object.y)
         fooX = objectX+object.properties.offsetX
         fooY = objectY+object.properties.offsetY
+
       end
     end
     X,Y = map:convertTileToPixel(fooX,fooY)
@@ -65,15 +66,19 @@ function mapHandlers(crntMap,name)
   end
   enemy = {}
   adder = 0
-
-  player.load(X,Y)
+  if name == "Spawn" then player.load(X,Y)
+  else player.reLoad(X,Y) end
 
   loadEnemies()
+  loadNPC()
   loadDynObjects()
   return map,world
 
 end
 
+-- In the final version, combine all of these functions in to 1
+-- To Optimize
+-- Am leaving as is for Readablity
 function loadEnemies()
   for k, object in pairs(map.objects) do
     if object.name == "0" then
@@ -87,9 +92,22 @@ end
 function loadDynObjects()
   for k, object in pairs(map.objects) do
     if object.name == "heart" then
-      addObject("heart",180,1770)
-    --elseif object.name == "1" then
-    --  EnemynewEnemy(1,object.x,object.y)
+      addObject("heart",object.x,object.y)
+    end
+  end
+end
+
+function loadNPC()
+  local loopamt = 0
+  for k, layer in pairs(map.layers) do
+    
+    if layer.name == "NPC" and loopamt < 1 then
+
+      for i, object in pairs(layer.objects) do
+
+        addNPC(object.name, i, object.x, object.y, object['properties'].IMGSRC, object['properties'].TXTSRC)
+      end
+      loopamt = loopamt+1
     end
   end
 end
