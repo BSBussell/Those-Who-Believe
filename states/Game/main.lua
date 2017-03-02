@@ -33,6 +33,9 @@ function load()
   width, height = love.graphics.getDimensions( )
   love.window.setMode(width, height,flags)
   love.window.setTitle( "Project Z v0.2.0 Beta" )
+  scale = width/555.5555556
+
+  loadSpriteSheets()
 
   min_dt = 1/MaxFps
   next_time = love.timer.getTime()
@@ -53,6 +56,9 @@ function load()
   -- Create Map
   map,world = mapHandlers("betaOverworld","Spawn")
   map:resize (width, height)
+  addObject("Rock",974,1290)
+  addObject("Rock",994,1290)
+  addObject("Rock",984,1260)
   -- Give the game true random-ish
   math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
   -- init pausing variables
@@ -63,7 +69,9 @@ function load()
   -- Load Ui
   Ui.load()
 
-  --addNPC("Benjamin",1,500,1700,'states/Game/Images/Ben.png','states/Game/Dialogue/Ben.lua')
+
+
+
 end
 
 function love.update(dt)
@@ -99,7 +107,7 @@ function love.draw()
       love.graphics.setColor(255, 255, 255, 255)
     end)
     mini:draw(function()
-        -- Drawing the map, player and enemies then resetting the color
+        -- Drawing the mini map
         drawingMini = true
         map:draw()
         --drawObject()
@@ -125,14 +133,15 @@ function love.resize()
   width, height = love.graphics.getDimensions( )
   cam:setWindow(0,0,width,height)
   map:resize (width, height)
-  cam:setScale(width/555.5555555556)
+  scale = width/555.555555556
+  cam:setScale(scale)
+
 end
 
 -- A Function which can be used to flip a Boolean
 -- From True to False or vise-versa
+
 function flipBool(bool)
   local foo4 = not bool
   return foo4
-  --if bool == true then return false
-  --else return true end
 end

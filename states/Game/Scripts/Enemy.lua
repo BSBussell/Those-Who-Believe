@@ -82,9 +82,9 @@ function Enemyupdate(dt)
           else return "slide" end
         end
       else
-        math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) +((enemy[i].id+1)*math.random(-.5,.5)) )
-        enemy[i].xvel = enemy[i].xvel + (enemy[i].speed*math.random(-.75,.75))*dt
-        enemy[i].yvel = enemy[i].yvel + (enemy[i].speed*math.random(-.75,.75)) *dt
+        --math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) +((enemy[i].id+1)*math.random(-.5,.5)) )
+        enemy[i].xvel = enemy[i].xvel + (enemy[i].speed*math.random(-5,5))*dt
+        enemy[i].yvel = enemy[i].yvel + (enemy[i].speed*math.random(-5,5)) *dt
       end
       local goalX = enemy[i].x + enemy[i].xvel*dt
       local goalY = enemy[i].y + enemy[i].yvel*dt
@@ -189,6 +189,7 @@ function EnemynewEnemy(id,x,y)
     table.insert(enemy,newEnemy)
     world:add("Enemy 1 "..enemyNum+1,x+5,y+16,15,25)
   end
+  math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)))
 end
 
 function Enemydraw()

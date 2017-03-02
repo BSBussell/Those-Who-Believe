@@ -8,7 +8,11 @@ function mapHandlers(crntMap,name)
   sti:flush()
   for k,v in ipairs(objects) do
     world:remove(objects[k].id)
+    objects = {}
+    NPC = {}
+
   end
+
   print(crntMap)
   if crntMap == "betaOverworld" then
     map = sti("states/Game/Maps/Protyping.lua", {"bump"})
@@ -93,23 +97,18 @@ function loadDynObjects()
   for k, object in pairs(map.objects) do
     if object.name == "heart" then
       addObject("heart",object.x,object.y)
+    elseif object.name == "Rock" then
+      addObject("Rock",object.x,object.y)
     end
   end
 end
 
 function loadNPC()
-  local loopamt = 0
-  for k, layer in pairs(map.layers) do
-    
-    if layer.name == "NPC" and loopamt < 1 then
-
-      for i, object in pairs(layer.objects) do
-
-        addNPC(object.name, i, object.x, object.y, object['properties'].IMGSRC, object['properties'].TXTSRC)
+      for i, object in pairs(map.objects) do
+        if object.name == "NPC" then
+          addNPC(object['properties'].name, i, object.x, object.y, object['properties'].IMGSRC, object['properties'].TXTSRC)
+        end
       end
-      loopamt = loopamt+1
-    end
-  end
 end
 
 function loadChestSpace()

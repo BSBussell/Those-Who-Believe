@@ -8,15 +8,16 @@ function addNPC(name,id,x,y,image,textSRC)
   newNpc.colId = "NPC "..name.." "..id
   newNpc.x = x
   newNpc.y = y
+  newNpc.dir = 1
   newNpc.image = love.graphics.newImage(image)
   newNpc.dialogueSRC = textSRC
   newNpc.crntTxt = 1
 
   local g1 = anim8.newGrid(64,64,newNpc.image:getWidth(),newNpc.image:getHeight())
-  newNpc.UpAnimation = anim8.newAnimation(g1(1,11), 12)
-  newNpc.DownAnimation = anim8.newAnimation(g1(1,9), 12)
+  newNpc.UpAnimation = anim8.newAnimation(g1(1,9), 12)
+  newNpc.DownAnimation = anim8.newAnimation(g1(1,11), 12)
   newNpc.LeftAnimation = anim8.newAnimation(g1(1,10), 12)
-  newNpc.RightAnimation = anim8.newAnimation(g1(1,12), 16)
+  newNpc.RightAnimation = anim8.newAnimation(g1(1,12), 12)
 
   newNpc.crntAnimation = newNpc.UpAnimation
 
@@ -40,15 +41,27 @@ end
 
 function updateNpc()
   for k,v in ipairs(NPC) do
-    local rng = math.random(1,8)
-    --print(rng)
-    if rng <= 2 then
-      NPC[k].crntAnimation = NPC[k].UpAnimation
-    elseif rng <= 4 then
-      NPC[k].crntAnimation = NPC[k].DownAnimation
-    elseif rng <= 6 then
-      NPC[k].crntAnimation = NPC[k].LeftAnimation
+    math.randomseed(love.timer.getTime())
+    if math.random(1,6) == 1 then
+      add = math.random(-1,1)
     else
+      add = 0
+    end
+
+    if NPC[k].dir+add <= 0 then
+      NPC[k].dir = 4
+    elseif NPC[k].dir+add >=5 then
+      NPC[k].dir = 1
+    else  NPC[k].dir = NPC[k].dir + add end
+    --print("RNG: "..add)
+    --print(NPC[k].dir)
+    if NPC[k].dir == 1 then
+      NPC[k].crntAnimation = NPC[k].UpAnimation
+    elseif NPC[k].dir == 3 then
+      NPC[k].crntAnimation = NPC[k].DownAnimation
+    elseif NPC[k].dir == 2 then
+      NPC[k].crntAnimation = NPC[k].LeftAnimation
+    elseif NPC[k].dir == 4 then
       NPC[k].crntAnimation = NPC[k].RightAnimation
     end
   end

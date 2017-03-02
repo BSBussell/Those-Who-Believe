@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="649" height="390" tilewidth="16" tileheight="16" nextobjectid="2582">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="649" height="390" tilewidth="16" tileheight="16" nextobjectid="2688">
  <tileset firstgid="1" name="SpriteSheet(WIP)" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="42" columns="6">
   <image source="SpriteSheet(WIP) .png" trans="ff00ff" width="108" height="126"/>
   <terraintypes>
@@ -222,6 +222,11 @@
    </properties>
   </tile>
   <tile id="36">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="38">
    <properties>
     <property name="collidable" type="bool" value="true"/>
    </properties>
@@ -1021,6 +1026,42 @@
   </properties>
  </objectgroup>
  <objectgroup name="Message" visible="0"/>
+ <objectgroup name="Rocks">
+  <object id="2582" name="Rock" x="848" y="1248" width="16" height="16"/>
+  <object id="2621" name="Rock" x="832" y="1312" width="16" height="16"/>
+  <object id="2656" name="Rock" x="1248" y="2768" width="16" height="16"/>
+  <object id="2657" name="Rock" x="1264" y="2768" width="16" height="16"/>
+  <object id="2658" name="Rock" x="1280" y="2784" width="16" height="16"/>
+  <object id="2659" name="Rock" x="1232" y="2752" width="16" height="16"/>
+  <object id="2660" name="Rock" x="1232" y="2672" width="16" height="16"/>
+  <object id="2661" name="Rock" x="1232" y="2576" width="16" height="16"/>
+  <object id="2662" name="Rock" x="1264" y="2608" width="16" height="16"/>
+  <object id="2663" name="Rock" x="1280" y="2656" width="16" height="16"/>
+  <object id="2664" name="Rock" x="1280" y="2720" width="16" height="16"/>
+  <object id="2665" name="Rock" x="1488" y="2688" width="16" height="16"/>
+  <object id="2666" name="Rock" x="1392" y="2752" width="16" height="16"/>
+  <object id="2667" name="Rock" x="1456" y="2752" width="16" height="16"/>
+  <object id="2668" name="Rock" x="1568" y="2752" width="16" height="16"/>
+  <object id="2669" name="Rock" x="1664" y="2752" width="16" height="16"/>
+  <object id="2670" name="Rock" x="1744" y="2752" width="16" height="16"/>
+  <object id="2671" name="Rock" x="1216" y="2864" width="16" height="16"/>
+  <object id="2672" name="Rock" x="1296" y="2864" width="16" height="16"/>
+  <object id="2673" name="Rock" x="1440" y="2864" width="16" height="16"/>
+  <object id="2674" name="Rock" x="1584" y="2896" width="16" height="16"/>
+  <object id="2675" name="Rock" x="1360" y="2976" width="16" height="16"/>
+  <object id="2676" name="Rock" x="1232" y="2912" width="16" height="16"/>
+  <object id="2677" name="Rock" x="1440" y="2912" width="16" height="16"/>
+  <object id="2678" name="Rock" x="1552" y="2992" width="16" height="16"/>
+  <object id="2679" name="Rock" x="1824" y="2704" width="16" height="16"/>
+  <object id="2680" name="Rock" x="1392" y="2560" width="16" height="16"/>
+  <object id="2681" name="Rock" x="1344" y="2640" width="16" height="16"/>
+  <object id="2682" name="Rock" x="1344" y="2768" width="16" height="16"/>
+  <object id="2683" name="Rock" x="1376" y="2816" width="16" height="16"/>
+  <object id="2684" name="Rock" x="1232" y="2784" width="16" height="16"/>
+  <object id="2685" name="Rock" x="1088" y="2784" width="16" height="16"/>
+  <object id="2686" name="Rock" x="1104" y="2944" width="16" height="16"/>
+  <object id="2687" name="Rock" x="1136" y="3008" width="16" height="16"/>
+ </objectgroup>
  <objectgroup name="Enemys" visible="0">
   <object id="69" name="0" x="795" y="1279"/>
   <object id="83" name="0" x="4608" y="1944"/>
@@ -1368,11 +1409,11 @@
   </object>
  </objectgroup>
  <objectgroup name="NPC" visible="0">
-  <object id="2566" name="Ben" x="864" y="1344">
+  <object id="2566" name="NPC" x="864" y="1344">
    <properties>
     <property name="IMGSRC" value="states/Game/Images/Ben.png"/>
     <property name="TXTSRC" value="states/Game/Dialogue/Ben.lua"/>
-    <property name="name" value="Benjamin"/>
+    <property name="name" value="Ben"/>
    </properties>
   </object>
  </objectgroup>

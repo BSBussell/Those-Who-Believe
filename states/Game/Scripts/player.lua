@@ -107,7 +107,7 @@ function player.draw()
   end
   love.graphics.setColor(playerTint)
   player.animation:draw(char,drawx,drawy-12,0,.45)
-  if drawingMini then love.graphics.rectangle("line", drawx, drawy, 30, 22) end 
+  if drawingMini then love.graphics.rectangle("line", drawx, drawy, 30, 22) end
   love.graphics.setColor(255, 255, 255, 255)
   if (love.timer.getTime() - invFrames)> 1 then
     playerTint = {255,255,255,255}
@@ -131,7 +131,7 @@ function player.draw()
     end
     --love.graphics.rectangle("line", boomerangX, boomerangY, 10.4, 10.4)
   end
-  if timer == 0 or player.hp<=0 then
+  if timer == 0 then
     multiplier = 0
     still = 0
     swordActive = false
@@ -163,8 +163,6 @@ function player.physics(dt)
     end]]
     if other == "Sword" then
       return nil
-    elseif other == "heart 0" then
-      return "cross"
     else return "slide" end
 
   end
@@ -187,11 +185,10 @@ function player.physics(dt)
             print(filePath)
             chunk = love.filesystem.load(filePath)
             local textDB = chunk()
-            local say = textDB[NPC[k].crntTxt]
 
-            alert(say)
-              --NPC[k].crntTxt = NPC[k].crntTxt+1
-            if NPC[k].crntTxt < #textDB then NPC[k].crntTxt = NPC[k].crntTxt+1 end
+            --print(j)
+            local say = textDB[NPC[k].crntTxt]
+            dialogue(textDB,#textDB,NPC[k].crntTxt)
           end
         end
       end
@@ -265,6 +262,13 @@ if love.keyboard.isDown("i") then
     player.friction = 0
   end
 end
+if love.keyboard.isDown("q") then
+  mini:setWindow(100,150,900,400)
+  mini:setScale(.15)
+else
+  mini:setWindow(675,11,200,75)
+  mini:setScale(.07)
+end
 
 player.animation:update(dt)
 if swordActive == true then
@@ -278,7 +282,8 @@ for k, object in pairs(map.objects) do
       inventory[item.name] = item
       table.insert(inventory.Space,item.name)
       object.properties.opened = true
-      alert("You Found a "..item.name.."!!\nOpen up your inventory with E to equip it")
+      dialogue({"You Found a "..item.name.."!!","Open up your inventory with E to equip it"},2,1)
+      --alert("You Found a "..item.name.."!!\nOpen up your inventory with E to equip it")
     end
   elseif object.properties.LoadZones == true and object.name == string.upper(object.name) then
     if player.x >= object.x-10 and player.x <= object.x+object.width and player.y >= object.y-object.height and player.y <= object.y+object.height then
@@ -332,6 +337,7 @@ if inventoryOpen == false and gamePause == false and player.hp >=0  then
   if key == "d" or key == "right" then
     player.animation = charani.NulRight
   end
+
 end
 if key == "e" then
   inventoryOpen = flipBool(inventoryOpen)

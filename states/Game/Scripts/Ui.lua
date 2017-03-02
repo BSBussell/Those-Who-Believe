@@ -19,7 +19,9 @@ function Ui.load()
   aFont = love.graphics.newFont( "states/Game/Fonts/Courier.dfont",25)
   --clickFont = love.graphics.newFont( "states/Game/Fonts/Courier.dfont",15)
   aSmallFont = love.graphics.newFont( "states/Game/Fonts/Courier.dfont",15)
+
   newText = false
+  newDia = false
 
   mouseDown = nil
   start = true
@@ -105,7 +107,7 @@ function Ui.draw()
     x = x+1
   end
 
-  -- Message Handler(Need's Update)
+  -- Message Handler(WIP)
   if newText == true then
     love.graphics.setLineWidth(4)
     love.graphics.rectangle("line", 190, 490, 620, 110)
@@ -114,14 +116,31 @@ function Ui.draw()
     love.graphics.rectangle("fill", 191, 491, 619, 109)
     love.graphics.setColor(0,0,0,255)
     love.graphics.setFont(aSmallFont)
-    love.graphics.print("Click to close. . .",630,580)
+    love.graphics.print("Click Anywhere. . .",630,580)
     love.graphics.setFont(aFont)
     love.graphics.printf(message,200,500,600)
     gamePause = true
-    if mouseDown or inventoryOpen then
+    if mouseDown then
       newText = false
       gamePause = false
     end
+  end
+
+  if newDia == true then
+
+
+      alert(messageData[startPoint])
+      gamePause = true
+      if relDown == 1 then
+        relDown = nil
+        if startPoint < msgLen then
+          startPoint = startPoint+1
+        else
+          newDia = false
+          newText = false
+          gamePause = false
+        end
+      end
   end
 
   if player.hp <= 0 then
@@ -153,7 +172,11 @@ function Ui.draw()
 end
 
 function inventoryUIDraw()
+  mini:setWindow(675,11,200,75)
+  mini:setScale(.07)
+
   love.mouse.setVisible(true)
+
   love.graphics.setColor(255,255,255,155)
   love.graphics.rectangle("fill",20,120,960,400)
   love.graphics.setColor(255,255,255,195)
@@ -210,4 +233,19 @@ function alert(text)
   newText = true
   message = text
   gamePause = true
+end
+
+function dialogue(textTable,length,crntMsg)
+  newDia = true
+  startPoint = crntMsg or 1
+  messageData = textTable
+  msgLen = length or #textTable
+  gamePause = true
+end
+
+function love.mousereleased( x, y, button, istouch )
+  relX = x
+  relY = y
+  relDown = button
+  relTouch = istouch
 end
