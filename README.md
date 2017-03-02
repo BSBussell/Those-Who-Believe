@@ -8,7 +8,7 @@ Well right now the game isn't even in beta. But if that doesn't scare you then h
 Check out the ~~[Release](https://github.com/BSBussell/Those-Who-Believe/releases) page to find downloads for your respective OS~~ Download [here](https://github.com/BSBussell/Those-Who-Believe/releases/download/v0.2.0/Those.Who.Believe.app.zip)
 <h4>Newest Version</h4>
 If you want to try out the most up-to-date(buggy) version then you will need to compile the project using the framework [Löve2D](https://love2d.org) and then clone my project
-<h2> Why is it so Glitchy?</h2>
-Well the game is still very early in development. In fact if your actually reading this then It's probably because your either a close friend or know me.
+<h2> Why did you make this Game? </h2>
+Well it orignally started as a small little Hello World project to learm how to use Löve2D and eventually I wanted a box which could move. Then I wanted a map, then I wanted a sword, then I wanted enemies and so on til it eventually became what it is now
 <h3>Will it get better?</h3>
 Yes! I will continue to develop this until I feel that the project is done. This could mean I either run the project into the ground and end up abandoning it or I continue developing it and eventually publicly release it.
