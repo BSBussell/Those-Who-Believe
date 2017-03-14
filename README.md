@@ -12,5 +12,5 @@ If you want to try out the most up-to-date(buggy) version then you will need to 
 Well it orignally started as a small little Hello World project to learm how to use Löve2D and eventually I wanted a box which could move. Then I wanted a map, then I wanted a sword, then I wanted enemies and so on til it eventually became what it is now
 <h3>Will it get better?</h3>
 Yes! I will continue to develop this until I feel that the project is done. This could mean I either run the project into the ground and end up abandoning it or I continue developing it and eventually publicly release it.
-<h2>Am I Dead</h2>
+<h2>Are You Dead?</h2>
 No, I am currently 'studying' Zelda: Breath of the Wild to learn more about game design and will return to this project with renewed eyes once I feel like I understand why that game was so fun and successful
